@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.openswitchboard.ai/v0/match.signal.json",
+  "title": "Stage 1 - match.signal",
+  "description": "The first thing either side learns: a match exists. Deliberately thin - match id, score and category only. NO attributes, NO prices, NO free text. Anything richer requires escalation through the consent gates.",
+  "type": "object",
+  "properties": {
+    "schema_version": { "$ref": "common.json#/$defs/schemaVersion" },
+    "kind": { "const": "match.signal" },
+    "match_id": { "$ref": "common.json#/$defs/matchId" },
+    "score": {
+      "description": "Match confidence, 0-1.",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "category": { "$ref": "common.json#/$defs/category" },
+    "counterparty_type": {
+      "description": "Whether the matched card is a WANT or a HAVE.",
+      "type": "string",
+      "enum": ["WANT", "HAVE"]
+    }
+  },
+  "required": ["schema_version", "kind", "match_id", "score", "category"],
+  "additionalProperties": false
+}

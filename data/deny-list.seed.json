@@ -1,0 +1,53 @@
+{
+  "schema_version": "0.1.0",
+  "entries": [
+    {
+      "jurisdiction": "*",
+      "denied": ["goods.weapons.**", "goods.weapons"],
+      "reason_code": "weapons",
+      "status": "denied"
+    },
+    {
+      "jurisdiction": "*",
+      "denied": ["goods.medication.**", "goods.medication"],
+      "reason_code": "prescription-medication",
+      "status": "denied"
+    },
+    {
+      "jurisdiction": "*",
+      "denied": ["goods.**"],
+      "reason_code": "stolen-goods-markers",
+      "status": "denied"
+    },
+    {
+      "jurisdiction": "*",
+      "denied": ["goods.animals.**", "goods.animals"],
+      "reason_code": "live-animals",
+      "status": "denied"
+    },
+    {
+      "jurisdiction": "*",
+      "denied": ["goods.**"],
+      "reason_code": "recalled-goods",
+      "status": "denied"
+    },
+    {
+      "jurisdiction": "*",
+      "denied": ["goods.alcohol.**", "goods.alcohol"],
+      "reason_code": "alcohol",
+      "status": "vertical-policy-pending"
+    },
+    {
+      "jurisdiction": "*",
+      "denied": ["goods.tickets.**", "goods.tickets"],
+      "reason_code": "event-tickets",
+      "status": "vertical-policy-pending"
+    },
+    {
+      "jurisdiction": "*",
+      "denied": ["goods.wildlife.**", "goods.wildlife"],
+      "reason_code": "wildlife-products",
+      "status": "vertical-policy-pending"
+    }
+  ]
+}

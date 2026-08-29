@@ -1,0 +1,17 @@
+{
+  "description": "MUST FAIL: sensitive personal attribute ('health') - forbidden in cards, client-side only",
+  "schema": "intent-card",
+  "valid": false,
+  "error_contains": "\"propertyName\":\"health\"",
+  "data": {
+    "schema_version": "0.1.0",
+    "type": "WANT",
+    "category": "goods.sports.fitness",
+    "geo": {
+      "bucket": "r3gx"
+    },
+    "attributes": {
+      "health": "recovering from knee surgery"
+    }
+  }
+}

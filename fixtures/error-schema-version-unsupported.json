@@ -1,0 +1,11 @@
+{
+  "description": "Valid SCHEMA_VERSION_UNSUPPORTED error",
+  "schema": "error",
+  "valid": true,
+  "data": {
+    "schema_version": "0.1.0",
+    "code": "SCHEMA_VERSION_UNSUPPORTED",
+    "human_action": "Update your agent's OpenSwitchboard SDK to a supported major version.",
+    "docs_url": "https://openswitchboard.ai/docs/versioning"
+  }
+}

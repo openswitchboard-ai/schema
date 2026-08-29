@@ -1,0 +1,15 @@
+{
+  "description": "Valid declined offer - note: no reason field exists (anti-probing)",
+  "schema": "offer",
+  "valid": true,
+  "data": {
+    "schema_version": "0.1.0",
+    "kind": "offer",
+    "offer_id": "3f1c9a4e-0b2d-4e6f-8a1b-9c8d7e6f5a4b",
+    "match_id": "0d9f2c1e-7b4a-4f7e-9c2d-1a2b3c4d5e6f",
+    "amount": 600,
+    "ccy": "AUD",
+    "expiry": "2026-09-05T00:00:00Z",
+    "state": "declined"
+  }
+}

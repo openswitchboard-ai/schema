@@ -1,0 +1,11 @@
+{
+  "description": "Valid CONSENT_REQUIRED error with a human_action lesson",
+  "schema": "error",
+  "valid": true,
+  "data": {
+    "schema_version": "0.1.0",
+    "code": "CONSENT_REQUIRED",
+    "human_action": "Your human must approve stage-3 disclosure in their app before you can proceed.",
+    "docs_url": "https://openswitchboard.ai/docs/errors#consent_required"
+  }
+}

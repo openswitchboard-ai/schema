@@ -1,0 +1,13 @@
+{
+  "description": "Valid HAVE with only required fields",
+  "schema": "intent-card",
+  "valid": true,
+  "data": {
+    "schema_version": "0.1.0",
+    "type": "HAVE",
+    "category": "goods.baby.stroller",
+    "geo": {
+      "bucket": "r1r0"
+    }
+  }
+}

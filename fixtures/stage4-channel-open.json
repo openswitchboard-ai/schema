@@ -1,0 +1,15 @@
+{
+  "description": "Valid stage-4 channel.open",
+  "schema": "channel.open",
+  "valid": true,
+  "data": {
+    "schema_version": "0.1.0",
+    "kind": "channel.open",
+    "match_id": "0d9f2c1e-7b4a-4f7e-9c2d-1a2b3c4d5e6f",
+    "channel": {
+      "medium": "in-app",
+      "channel_id": "chan_8f14e45f"
+    },
+    "opened_at": "2026-08-29T05:00:00Z"
+  }
+}

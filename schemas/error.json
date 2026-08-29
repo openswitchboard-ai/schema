@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.openswitchboard.ai/v0/error.json",
+  "title": "Switchboard error",
+  "description": "Machine-readable lessons. Every error tells the agent what happened (code), what its human can do about it (human_action), when to retry (retry_after), and where to read more (docs_url). No free-form error prose is needed to act correctly.",
+  "type": "object",
+  "properties": {
+    "schema_version": { "$ref": "common.json#/$defs/schemaVersion" },
+    "code": {
+      "type": "string",
+      "enum": [
+        "CONSENT_REQUIRED",
+        "SCHEMA_VERSION_UNSUPPORTED",
+        "QUOTA_EXCEEDED",
+        "CATEGORY_PROHIBITED",
+        "STAGE_LOCKED",
+        "INTENT_EXPIRED",
+        "SCREENING_REJECTED",
+        "RATE_LIMITED_OFFERS"
+      ]
+    },
+    "human_action": {
+      "description": "What the human (not the agent) must do to unblock this, if anything.",
+      "type": "string",
+      "maxLength": 300
+    },
+    "retry_after": {
+      "description": "Seconds after which a retry may succeed.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "docs_url": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    }
+  },
+  "required": ["code", "docs_url"],
+  "additionalProperties": false
+}

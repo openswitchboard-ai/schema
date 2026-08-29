@@ -1,0 +1,18 @@
+{
+  "description": "MUST FAIL: identity key ('email') smuggled into attributes",
+  "schema": "intent-card",
+  "valid": false,
+  "error_contains": "\"propertyName\":\"email\"",
+  "data": {
+    "schema_version": "0.1.0",
+    "type": "WANT",
+    "category": "goods.electronics.phone",
+    "geo": {
+      "bucket": "r3gx"
+    },
+    "attributes": {
+      "email": "sam@example.com",
+      "condition": "good"
+    }
+  }
+}

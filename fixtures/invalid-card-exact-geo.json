@@ -1,0 +1,16 @@
+{
+  "description": "MUST FAIL: exact coordinates on geo - location is bucketed, never exact",
+  "schema": "intent-card",
+  "valid": false,
+  "error_contains": "\"additionalProperty\":\"lat\"",
+  "data": {
+    "schema_version": "0.1.0",
+    "type": "WANT",
+    "category": "goods.furniture.bed",
+    "geo": {
+      "bucket": "r3gx",
+      "lat": -33.8688,
+      "lng": 151.2093
+    }
+  }
+}

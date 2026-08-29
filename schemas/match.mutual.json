@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.openswitchboard.ai/v0/match.mutual.json",
+  "title": "Stage 3 - match.mutual",
+  "description": "Mutual disclosure: first name and coarse locality only, and only after BOTH humans' opt-in has been recorded by the switchboard. The 'optin' block is required and must attest that both consents are on record - a payload without it is invalid.",
+  "type": "object",
+  "properties": {
+    "schema_version": { "$ref": "common.json#/$defs/schemaVersion" },
+    "kind": { "const": "match.mutual" },
+    "match_id": { "$ref": "common.json#/$defs/matchId" },
+    "counterparty": {
+      "type": "object",
+      "properties": {
+        "first_name": {
+          "description": "First name only - never a full name.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60
+        },
+        "locality": {
+          "description": "Coarse locality (suburb/town level), never an address.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        }
+      },
+      "required": ["first_name", "locality"],
+      "additionalProperties": false
+    },
+    "optin": {
+      "description": "Attestation that both humans' opt-in to mutual disclosure is recorded.",
+      "type": "object",
+      "properties": {
+        "both_recorded": { "const": true },
+        "recorded_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["both_recorded", "recorded_at"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["schema_version", "kind", "match_id", "counterparty", "optin"],
+  "additionalProperties": false
+}

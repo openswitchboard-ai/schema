@@ -1,0 +1,15 @@
+{
+  "description": "MUST FAIL: stage-3 mutual disclosure without the recorded double opt-in",
+  "schema": "match.mutual",
+  "valid": false,
+  "error_contains": "'optin'",
+  "data": {
+    "schema_version": "0.1.0",
+    "kind": "match.mutual",
+    "match_id": "0d9f2c1e-7b4a-4f7e-9c2d-1a2b3c4d5e6f",
+    "counterparty": {
+      "first_name": "Alex",
+      "locality": "Newtown"
+    }
+  }
+}

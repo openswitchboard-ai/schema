@@ -1,0 +1,29 @@
+{
+  "description": "Valid stage-2 match.attributes: attributes, ask, provenance-labelled notes",
+  "schema": "match.attributes",
+  "valid": true,
+  "data": {
+    "schema_version": "0.1.0",
+    "kind": "match.attributes",
+    "match_id": "0d9f2c1e-7b4a-4f7e-9c2d-1a2b3c4d5e6f",
+    "attributes": {
+      "condition": "good",
+      "brand": "Trek",
+      "frame_size": "M"
+    },
+    "ask": {
+      "amount": 750,
+      "ccy": "AUD"
+    },
+    "notes": [
+      {
+        "text": "Attributes verified against category vocabulary.",
+        "provenance": "switchboard-system"
+      },
+      {
+        "text": "Serviced last month, new brake pads.",
+        "provenance": "counterparty-untrusted"
+      }
+    ]
+  }
+}
