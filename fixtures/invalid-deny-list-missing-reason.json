@@ -1,0 +1,17 @@
+{
+  "description": "MUST FAIL: every deny-list entry needs a machine-readable reason_code",
+  "schema": "deny-list",
+  "valid": false,
+  "error_contains": "'reason_code'",
+  "data": {
+    "schema_version": "0.1.0",
+    "entries": [
+      {
+        "jurisdiction": "US",
+        "denied": [
+          "goods.weapons.**"
+        ]
+      }
+    ]
+  }
+}

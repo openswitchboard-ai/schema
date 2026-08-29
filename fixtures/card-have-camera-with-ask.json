@@ -1,0 +1,32 @@
+{
+  "description": "Valid HAVE: camera with reserve floor and asking price",
+  "schema": "intent-card",
+  "valid": true,
+  "data": {
+    "schema_version": "0.1.0",
+    "type": "HAVE",
+    "category": "goods.electronics.camera",
+    "geo": {
+      "bucket": "9q8y",
+      "radius_km": 40
+    },
+    "price": {
+      "band": {
+        "min": 500
+      },
+      "ccy": "USD"
+    },
+    "ask": {
+      "amount": 700,
+      "ccy": "USD"
+    },
+    "attributes": {
+      "condition": "good",
+      "brand": "Fujifilm",
+      "model": "X-T4",
+      "shutter_count": 12000
+    },
+    "urgency": "days",
+    "status": "active"
+  }
+}

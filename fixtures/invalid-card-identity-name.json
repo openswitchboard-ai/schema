@@ -1,0 +1,15 @@
+{
+  "description": "MUST FAIL: identity field ('name') on a card - cards carry no identity, ever",
+  "schema": "intent-card",
+  "valid": false,
+  "error_contains": "\"additionalProperty\":\"name\"",
+  "data": {
+    "schema_version": "0.1.0",
+    "type": "HAVE",
+    "category": "goods.furniture.table",
+    "geo": {
+      "bucket": "r3gx"
+    },
+    "name": "Sam Barker"
+  }
+}

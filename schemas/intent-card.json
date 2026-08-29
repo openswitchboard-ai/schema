@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.openswitchboard.ai/v0/intent-card.json",
+  "title": "Intent card",
+  "description": "The only two objects that matter on the switchboard: a WANT or a HAVE. A card is a thin projection of intent - it deliberately excludes names, photos, addresses and free-form life detail. There are NO identity fields anywhere in a card ('additionalProperties: false' plus the forbidden attribute-key list make this structural, not advisory). Sensitive personal attributes (health, sexuality, beliefs, ...) are forbidden in cards; they live client-side only.",
+  "type": "object",
+  "properties": {
+    "schema_version": { "$ref": "common.json#/$defs/schemaVersion" },
+    "type": {
+      "description": "WANT: my human is looking for this. HAVE: my human has this.",
+      "type": "string",
+      "enum": ["WANT", "HAVE"]
+    },
+    "category": { "$ref": "common.json#/$defs/category" },
+    "geo": { "$ref": "common.json#/$defs/geoBucket" },
+    "price": {
+      "$ref": "common.json#/$defs/priceBand",
+      "description": "MATCHING INPUT ONLY. On a WANT: the budget ceiling. On a HAVE: the reserve floor. Never disclosed to a counterparty at any stage; only deliberate terms (the 'ask' on a HAVE, or an offer message) are disclosable."
+    },
+    "ask": {
+      "$ref": "common.json#/$defs/ask",
+      "description": "HAVE only: a deliberate, disclosable asking price. Structurally forbidden on a WANT."
+    },
+    "attributes": { "$ref": "common.json#/$defs/attributes" },
+    "urgency": {
+      "description": "Routing hint only.",
+      "type": "string",
+      "enum": ["none", "days", "today"],
+      "default": "none"
+    },
+    "visibility": {
+      "description": "v1 has exactly one visibility mode: cards are anonymous until a match is made and disclosure is escalated by consent.",
+      "type": "string",
+      "enum": ["anonymous-until-match"],
+      "default": "anonymous-until-match"
+    },
+    "status": {
+      "description": "'active' cards are matched normally. 'latent' cards are 'back pocket' intent: held by the switchboard and only surfaced when a real match appears.",
+      "type": "string",
+      "enum": ["active", "latent"],
+      "default": "active"
+    },
+    "ttl_days": {
+      "description": "Days until the card expires (INTENT_EXPIRED thereafter).",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 90,
+      "default": 60
+    }
+  },
+  "required": ["schema_version", "type", "category", "geo"],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": { "type": { "const": "WANT" } },
+        "required": ["type"]
+      },
+      "then": {
+        "properties": { "ask": false }
+      }
+    }
+  ]
+}

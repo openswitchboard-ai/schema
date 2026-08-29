@@ -1,0 +1,36 @@
+{
+  "name": "@openswitchboard/schema",
+  "version": "0.1.0",
+  "description": "JSON Schemas, fixtures and conformance suite for the OpenSwitchboard protocol - the open protocol for AI intent.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openswitchboard-ai/schema.git"
+  },
+  "homepage": "https://openswitchboard.ai",
+  "files": [
+    "schemas",
+    "data",
+    "fixtures",
+    "src",
+    "SPEC.md"
+  ],
+  "scripts": {
+    "lint": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "vitest": "^3.0.0",
+    "@types/node": "^22.0.0"
+  }
+}

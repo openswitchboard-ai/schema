@@ -1,0 +1,14 @@
+{
+  "description": "MUST FAIL: only WANT and HAVE exist",
+  "schema": "intent-card",
+  "valid": false,
+  "error_contains": "/type enum",
+  "data": {
+    "schema_version": "0.1.0",
+    "type": "SELL",
+    "category": "goods.books-media",
+    "geo": {
+      "bucket": "r3gx"
+    }
+  }
+}

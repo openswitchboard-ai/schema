@@ -1,0 +1,11 @@
+{
+  "description": "Valid RATE_LIMITED_OFFERS error with retry_after",
+  "schema": "error",
+  "valid": true,
+  "data": {
+    "schema_version": "0.1.0",
+    "code": "RATE_LIMITED_OFFERS",
+    "retry_after": 3600,
+    "docs_url": "https://openswitchboard.ai/docs/errors#rate_limited_offers"
+  }
+}

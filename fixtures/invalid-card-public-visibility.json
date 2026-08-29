@@ -1,0 +1,15 @@
+{
+  "description": "MUST FAIL: v1 has exactly one visibility, 'anonymous-until-match'",
+  "schema": "intent-card",
+  "valid": false,
+  "error_contains": "/visibility enum",
+  "data": {
+    "schema_version": "0.1.0",
+    "type": "HAVE",
+    "category": "goods.toys-games",
+    "geo": {
+      "bucket": "r3gx"
+    },
+    "visibility": "public"
+  }
+}

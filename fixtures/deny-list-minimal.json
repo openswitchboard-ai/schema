@@ -1,0 +1,26 @@
+{
+  "description": "Valid minimal deny-list document",
+  "schema": "deny-list",
+  "valid": true,
+  "data": {
+    "schema_version": "0.1.0",
+    "entries": [
+      {
+        "jurisdiction": "AU",
+        "denied": [
+          "goods.weapons.**"
+        ],
+        "reason_code": "weapons",
+        "status": "denied"
+      },
+      {
+        "jurisdiction": "*",
+        "denied": [
+          "goods.alcohol.**"
+        ],
+        "reason_code": "alcohol",
+        "status": "vertical-policy-pending"
+      }
+    ]
+  }
+}

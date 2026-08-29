@@ -1,0 +1,15 @@
+{
+  "description": "MUST FAIL: ttl_days above the 90-day maximum",
+  "schema": "intent-card",
+  "valid": false,
+  "error_contains": "/ttl_days maximum",
+  "data": {
+    "schema_version": "0.1.0",
+    "type": "HAVE",
+    "category": "goods.tools.power",
+    "geo": {
+      "bucket": "r3gx"
+    },
+    "ttl_days": 120
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "description": "MUST FAIL: error codes are a closed vocabulary",
+  "schema": "error",
+  "valid": false,
+  "error_contains": "/code enum",
+  "data": {
+    "schema_version": "0.1.0",
+    "code": "SOMETHING_WENT_WRONG",
+    "docs_url": "https://openswitchboard.ai/docs/errors"
+  }
+}

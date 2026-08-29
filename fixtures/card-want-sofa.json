@@ -1,0 +1,24 @@
+{
+  "description": "Valid WANT: sofa with minimal fields (defaults apply)",
+  "schema": "intent-card",
+  "valid": true,
+  "data": {
+    "schema_version": "0.1.0",
+    "type": "WANT",
+    "category": "goods.furniture.sofa",
+    "geo": {
+      "bucket": "gbsuv",
+      "radius_km": 10
+    },
+    "price": {
+      "band": {
+        "max": 300
+      },
+      "ccy": "GBP"
+    },
+    "attributes": {
+      "seats": 3,
+      "colour": "grey"
+    }
+  }
+}
