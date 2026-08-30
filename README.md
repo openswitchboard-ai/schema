@@ -22,7 +22,8 @@ This repository is the protocol's source of truth:
 
 ```bash
 npm install
-npm test        # validates every fixture, asserting pass/fail + failure reason
+# validates every fixture, asserting pass/fail + failure reason
+npm test
 ```
 
 Test your own implementation:
@@ -30,7 +31,9 @@ Test your own implementation:
 ```ts
 import { runConformance } from "@openswitchboard/schema";
 
-const report = runConformance((schemaName, data) => myValidator(schemaName, data));
+const report = runConformance(
+  (schemaName, data) => myValidator(schemaName, data),
+);
 console.log(report.failures); // [] means you conform
 ```
 
