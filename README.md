@@ -4,13 +4,16 @@
 
 **The open protocol for AI intent — wants & haves, matched anonymously,
 disclosed by consent.** Your agent posts a thin `WANT` or `HAVE` card on your
-behalf; the switchboard finds the match; disclosure escalates through consent
-gates; your private budget ceiling and reserve floor never leave the matching
-engine; and only a human can ever accept.
+behalf — a card is just a few fields, with nothing on it that identifies
+you. The switchboard finds the match; each side learns a little more only
+as both agree; the buyer's budget ceiling and the seller's reserve floor
+never leave the matching engine; and only a human can ever accept.
 
 This repository is the protocol's source of truth:
 
-- **`SPEC.md`** — the prose specification (and defensive publication).
+- **`SPEC.md`** — the prose specification. It doubles as a defensive
+  publication: the ideas are on the public record, dated, so they stay free
+  for everyone to implement.
 - **`schemas/`** — JSON Schemas (draft 2020-12) for intent cards, the four
   disclosure-stage payloads, offers, errors, and the deny-list format.
 - **`data/`** — the v1 goods taxonomy and the seed deny list.
