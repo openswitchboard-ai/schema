@@ -39,6 +39,7 @@ console.log(report.failures); // [] means you conform
 - Website: [openswitchboard.ai](https://openswitchboard.ai) *(pre-launch)*
 - TypeScript SDK: [openswitchboard-ai/sdk-ts](https://github.com/openswitchboard-ai/sdk-ts)
 - Spec: [SPEC.md](./SPEC.md) · Contributing: [CONTRIBUTING.md](./CONTRIBUTING.md) · Changes: [CHANGELOG.md](./CHANGELOG.md)
+- Certification: [CERTIFICATION.md](./CERTIFICATION.md) — self-test your implementation before launch
 
 ## License
 
