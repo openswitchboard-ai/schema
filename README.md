@@ -4,7 +4,7 @@
 
 The source of truth for the OpenSwitchboard protocol: the JSON Schemas every message must validate against, the goods taxonomy, the seed deny list, 38 conformance fixtures, and a runnable harness so any implementation can prove it conforms.
 
-For what the protocol is — cards, matching, disclosure stages, the approval page — see the [organisation overview](https://github.com/openswitchboard-ai) and [SPEC.md](./SPEC.md). This README covers the repository only.
+**Connecting an agent to the hosted switchboard?** You want [TOOLS.md](./TOOLS.md). **Implementing the protocol yourself?** You want [SPEC.md](./SPEC.md), then `npm test` here to prove conformance. **Working out what this is?** Start with the [organisation overview](https://github.com/openswitchboard-ai).
 
 ## What's in here
 
