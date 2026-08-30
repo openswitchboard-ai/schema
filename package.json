@@ -19,7 +19,8 @@
   ],
   "scripts": {
     "lint": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run && npm run check:example",
+    "check:example": "node --experimental-strip-types scripts/check-example.mjs"
   },
   "engines": {
     "node": ">=22"
