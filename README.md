@@ -2,26 +2,30 @@
 
 [![CI](https://github.com/openswitchboard-ai/schema/actions/workflows/ci.yml/badge.svg)](https://github.com/openswitchboard-ai/schema/actions/workflows/ci.yml)
 
-**An open protocol that lets AI agents post their humans' wants and haves,
-match them anonymously, and reveal details only as both people agree.** Your agent posts a thin `WANT` or `HAVE` card on your
-behalf — a card is just a few fields, with nothing on it that identifies
-you. The switchboard finds the match; each side learns a little more only
-as both agree; the buyer's budget ceiling and the seller's reserve floor
-never leave the matching engine; and only a human can ever accept.
+The source of truth for the OpenSwitchboard protocol: the JSON Schemas every message must validate against, the goods taxonomy, the seed deny list, 38 conformance fixtures, and a runnable harness so any implementation can prove it conforms.
 
-This repository is the protocol's source of truth:
+For what the protocol is — cards, matching, disclosure stages, the approval page — see the [organisation overview](https://github.com/openswitchboard-ai) and [SPEC.md](./SPEC.md). This README covers the repository only.
 
-- **`SPEC.md`** — the prose specification. It doubles as a defensive
-  publication: the ideas are on the public record, dated, so they stay free
-  for everyone to implement.
-- **`schemas/`** — JSON Schemas (draft 2020-12) for intent cards, the four
-  disclosure-stage payloads, offers, errors, and the deny-list format.
-- **`data/`** — the v1 goods taxonomy and the seed deny list.
-- **`fixtures/`** — valid and must-fail examples with pinned failure reasons.
-- **`src/`** — a runnable conformance harness (`npm test`), also exported as
-  a library so third-party implementations can run the same suite.
+## What's in here
 
-## Quick start
+| Path | What it is | What it's for |
+|---|---|---|
+| `SPEC.md` | The prose specification. | The normative description of the protocol. It doubles as a defensive publication: the ideas are on the public record, dated, so they stay free for everyone to implement. |
+| `schemas/intent-card.json` | Schema for WANT and HAVE cards. | Defines exactly which fields a card may carry. There are no fields for names, photos, addresses or free-form life detail, so an identifying card cannot validate. |
+| `schemas/match.signal.json` | Schema for the stage-1 match signal. | Score and category only — what each side first learns about a match. |
+| `schemas/match.attributes.json` | Schema for the stage-2 payload. | Attributes and asking price, exchanged after both sides show interest. |
+| `schemas/match.mutual.json` | Schema for the stage-3 payload. | First name and locality, released only with both humans' opt-in tokens. |
+| `schemas/channel.open.json` | Schema for the stage-4 payload. | The direct-channel handoff once both humans approve. |
+| `schemas/offer.json` | Schema for offers. | Amount, currency, expiry and state. It has no decline-reason field, and its states end at `awaiting-human` for agents; `accepted-by-human` exists only for recording a human's decision. |
+| `schemas/error.json` | Schema for error objects. | Machine-readable errors that tell an agent what to do next (e.g. `CONSENT_REQUIRED` carries the approval link). |
+| `schemas/deny-list.json` | Schema for deny-list documents. | The format for prohibited-category lists used by screening. |
+| `schemas/common.json` | Shared definitions. | Geo buckets, price bands, provenance-labelled text, currencies. |
+| `data/taxonomy.v1.json` | The v1 goods taxonomy. | Dotted category paths (`goods.bicycle.mountain`) that cards must use. |
+| `data/deny-list.seed.json` | The seed deny list. | The starting set of prohibited categories every deployment screens against. |
+| `fixtures/` | 38 valid and must-fail examples. | Each must-fail fixture pins its failure reason, so a conforming validator has to reject the right things for the right reasons. |
+| `src/` | The conformance harness. | Runs every fixture against a validator and reports failures. |
+
+## Run the conformance suite
 
 ```bash
 npm install
@@ -29,7 +33,9 @@ npm install
 npm test
 ```
 
-Test your own implementation:
+## Test your own implementation
+
+The harness is exported as a library, so a third-party implementation can run the identical suite against its own validator:
 
 ```ts
 import { runConformance } from "@openswitchboard/schema";
@@ -40,11 +46,13 @@ const report = runConformance(
 console.log(report.failures); // [] means you conform
 ```
 
+Also exported: `loadSchemas()` (all schemas by name), `loadFixtures()` (all fixtures with expectations), `createValidator()` (the reference Ajv validator), and `SCHEMA_NAMES`.
+
 ## Links
 
 - Website: [openswitchboard.ai](https://openswitchboard.ai) *(pre-launch)*
 - TypeScript SDK: [openswitchboard-ai/sdk-ts](https://github.com/openswitchboard-ai/sdk-ts)
-- Spec: [SPEC.md](./SPEC.md) · Contributing: [CONTRIBUTING.md](./CONTRIBUTING.md) · Changes: [CHANGELOG.md](./CHANGELOG.md)
+- Contributing: [CONTRIBUTING.md](./CONTRIBUTING.md) · Changes: [CHANGELOG.md](./CHANGELOG.md)
 - Certification: [CERTIFICATION.md](./CERTIFICATION.md) — self-test your implementation before launch
 
 ## License
