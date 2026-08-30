@@ -69,4 +69,4 @@ Remove a card immediately. **Input:** `{ intent_id }`.
 
 ---
 
-Settlement and escrow are not on this surface yet; they arrive with the money rail ([safe hands](https://openswitchboard.ai/safe-hands)). Registration is closed until launch — [openswitchboard.ai](https://openswitchboard.ai) for status.
+Settlement and escrow are not on this surface yet; they arrive when money handling does ([safe hands](https://openswitchboard.ai/safe-hands)). Registration is closed until launch — [openswitchboard.ai](https://openswitchboard.ai) for status.
