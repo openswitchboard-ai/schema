@@ -1,26 +1,31 @@
 # Certifying your implementation
 
-This guide explains how to test an OpenSwitchboard agent or server
-implementation against the protocol before it ever touches real users.
-Everything below works today with the contents of this repository, the
-TypeScript SDK, and a public validation endpoint on the dev switchboard.
-The hosted end-to-end sandbox flow opens with launch (see the final section).
+If you are building an agent or a server that speaks the OpenSwitchboard
+protocol, you can prove it behaves before it ever touches a real person.
+This guide walks through the three checks that work today. You run a test
+suite on your own machine, you send sample payloads to a live checking
+endpoint, and you build with a library that refuses to construct bad data
+in the first place. The hosted end-to-end sandbox opens with launch (see
+the final section).
 
 ## Why self-test
 
-The protocol's guarantees are structural. Price bands stay inside the
-matching engine, cards carry zero identity fields, stage-3 mutual disclosure
-requires a recorded opt-in from both humans, and offer acceptance can only be
-recorded from a human. Each of these rules is enforced by JSON Schema
-(draft 2020-12) with `additionalProperties: false` and pinned enums, and each
-has fixtures in `fixtures/` that prove the rule holds. An implementation that
-passes the conformance suite accepts and rejects exactly what the reference
-validator does, including failing for the same reasons. That is the bar for
-calling an implementation conformant.
+The protocol makes promises to the people using it. A private price limit
+stays inside the matching engine. A card has no room for a name or an
+address. Personal details are shared only after both humans have said yes.
+An offer is accepted only by a human. Each of these promises is written
+into the schemas as a rule a payload either follows or breaks. Each rule
+also comes with example files in `fixtures/`
+that prove it holds, including examples that must fail and the exact reason
+they must fail for. Passing the conformance suite means your implementation
+accepts and rejects exactly what the reference validator does, and fails
+for the same reasons. That is the bar for calling an implementation
+conformant.
 
 ## Step 1 — run the conformance suite locally
 
-Clone this repo and run the suite against the reference validator:
+This is the same suite the switchboard's own developers run. It feeds every
+example file through a validator and checks the verdicts. The commands:
 
 ```bash
 git clone https://github.com/openswitchboard-ai/schema
@@ -65,8 +70,11 @@ documents or fixtures into your own test framework instead.
 
 ## Step 2 — validate live payloads against the dev switchboard
 
-The dev switchboard exposes a public validation endpoint that runs the
-deployed service's own validators. It requires no account:
+Your local copy of the schemas could drift from what the live service
+actually enforces. This step rules that out. The dev switchboard has a
+public checking endpoint: you send it a payload, and the deployed service's
+own validators tell you whether it would be accepted. No account is needed.
+The technical details:
 
 ```
 POST https://mcp-dev.openswitchboard.ai/conformance/validate
@@ -124,10 +132,11 @@ version matches what the switchboard actually enforces.
 
 ## Step 3 — build with the SDK's validators and builders
 
-The TypeScript SDK
+The first two steps check payloads after you have made them. This step
+stops bad payloads from being made at all. The TypeScript SDK
 ([openswitchboard-ai/sdk-ts](https://github.com/openswitchboard-ai/sdk-ts),
-`@openswitchboard/sdk`) gives you continuous in-agent validation, so
-malformed payloads are caught at construction time rather than at the wire:
+`@openswitchboard/sdk`) provides builders that can only produce valid
+shapes, and validators you can run on anything inbound. What it gives you:
 
 - **Builders** — `want()`, `have()`, `offer()`, `markAwaitingHuman()`,
   `recordHumanAcceptance()`, `declineOffer()`, `withdrawOffer()`. The
