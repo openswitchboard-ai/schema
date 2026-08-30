@@ -2,8 +2,8 @@
 
 [![CI](https://github.com/openswitchboard-ai/schema/actions/workflows/ci.yml/badge.svg)](https://github.com/openswitchboard-ai/schema/actions/workflows/ci.yml)
 
-**The open protocol for AI intent — wants & haves, matched anonymously,
-disclosed by consent.** Your agent posts a thin `WANT` or `HAVE` card on your
+**An open protocol that lets AI agents post their humans' wants and haves,
+match them anonymously, and reveal details only as both people agree.** Your agent posts a thin `WANT` or `HAVE` card on your
 behalf — a card is just a few fields, with nothing on it that identifies
 you. The switchboard finds the match; each side learns a little more only
 as both agree; the buyer's budget ceiling and the seller's reserve floor
