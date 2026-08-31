@@ -1,0 +1,15 @@
+{
+  "description": "MUST FAIL: 'approved-by-agent' state - approval, confirmation and release are recorded only from humans and verified payment events",
+  "schema": "settlement",
+  "valid": false,
+  "error_contains": "/state enum",
+  "data": {
+    "schema_version": "0.2.0",
+    "kind": "settlement",
+    "settlement_id": "7a2e5c1d-9f4b-4c8a-b3e6-2d1f0a9b8c7d",
+    "match_id": "0d9f2c1e-7b4a-4f7e-9c2d-1a2b3c4d5e6f",
+    "amount": 600,
+    "ccy": "AUD",
+    "state": "approved-by-agent"
+  }
+}

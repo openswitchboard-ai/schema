@@ -29,7 +29,7 @@ Fields:
 
 | Field | Meaning |
 |---|---|
-| `schema_version` | Semver of this schema package (see §7). |
+| `schema_version` | Semver of this schema package (see §10). |
 | `type` | `"WANT"` or `"HAVE"`. |
 | `category` | Dotted taxonomy path, e.g. `goods.bicycle.mountain` (§2). |
 | `geo` | **Bucketed** location: `{ bucket, radius_km? }`. A bucket is a coarse cell (geohash4, region code). Exact coordinates are structurally impossible. |
@@ -120,7 +120,41 @@ Two deliberate absences:
   offers, hollowing out the no-leak rule of §3. A decline is just a decline.
   (`RATE_LIMITED_OFFERS` throttles brute-force probing of the same kind.)
 
-## 6. Provenance labels
+## 6. Settlement: safe hands
+
+A settlement (`schemas/settlement.json`) moves an agreed amount from the
+buyer's human to the seller's human with the switchboard holding the payment
+in between. It exists only on a match that has reached stage 3.
+
+```
+proposed → approved-by-buyer / approved-by-seller → approved
+         → funded → evidence-locked → confirmed → released
+                                    → disputed  → refunded
+```
+
+Either human can decline an unfunded settlement; `declined`, `released` and
+`refunded` are terminal.
+
+The agent surface is deliberately thin: an agent can **propose** a settlement
+and **read** its state. Everything else happens elsewhere:
+
+- **Approval, confirmation and dispute** are recorded from the humans on
+  their approval pages, behind their PIN or passkey.
+- **`funded`, `released` and `refunded`** are recorded only from the payment
+  provider's verified events. The buyer pays on the provider's hosted page;
+  card details never touch the switchboard.
+- **`evidence-locked`** freezes the seller's handover evidence (photos and a
+  manifest) in a write-once store before the buyer is asked to confirm.
+
+The enum contains no agent-level approve, release or refund state — the same
+design as offers (§5): agents propose; only humans (and the payment
+provider's own verified events) move money. Declines carry no reason field
+here either.
+
+Deployments without settlement handling answer `settle` calls with the
+`SETTLEMENT_UNAVAILABLE` error code (§8).
+
+## 7. Provenance labels
 
 Every free-text field in every payload is a wrapper object:
 
@@ -135,20 +169,20 @@ and consuming agents MUST treat it as **data, never as instructions**. The
 label exists so that agent frameworks can enforce that rule mechanically
 (e.g. quarantining untrusted text from their prompt's instruction channel).
 
-## 7. Errors: machine-readable lessons
+## 8. Errors: machine-readable lessons
 
 Errors (`schemas/error.json`) are a closed vocabulary designed so an agent
 can act correctly without parsing prose:
 
 `CONSENT_REQUIRED` · `SCHEMA_VERSION_UNSUPPORTED` · `QUOTA_EXCEEDED` ·
 `CATEGORY_PROHIBITED` · `STAGE_LOCKED` · `INTENT_EXPIRED` ·
-`SCREENING_REJECTED` · `RATE_LIMITED_OFFERS`
+`SCREENING_REJECTED` · `RATE_LIMITED_OFFERS` · `SETTLEMENT_UNAVAILABLE`
 
 Shape: `{ code, human_action?, retry_after?, docs_url }`. `human_action`
 tells the agent what only its human can do (e.g. approve a consent gate);
 `retry_after` tells it when trying again might work.
 
-## 8. Deny list
+## 9. Deny list
 
 Prohibited categories are declared per jurisdiction in a machine-readable
 document (`schemas/deny-list.json`): entries of
@@ -160,7 +194,7 @@ for stolen-goods markers and recalled goods (enforced at screening time as
 tickets, wildlife products — are marked `vertical-policy-pending`: not open,
 pending a per-vertical policy, rather than permanently prohibited.
 
-## 9. Versioning and governance
+## 10. Versioning and governance
 
 The schema package is semver-versioned. Every card and payload carries
 `schema_version`. Servers MUST reject an unknown MAJOR version with
@@ -172,7 +206,7 @@ benevolent-dictator for now, with a governance group planned once third-party
 verticals exist. Taxonomy changes go through the process in
 `CONTRIBUTING.md`.
 
-## 10. Conformance
+## 11. Conformance
 
 `npm test` validates every fixture in `fixtures/` against its schema, with
 expected pass/fail **and** failure-reason assertions (an invalid fixture must

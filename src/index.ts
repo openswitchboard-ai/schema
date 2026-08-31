@@ -22,6 +22,7 @@ export const SCHEMA_NAMES = [
   "match.mutual",
   "channel.open",
   "offer",
+  "settlement",
   "error",
   "deny-list",
 ] as const;

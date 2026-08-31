@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.openswitchboard.ai/v0/settlement.json",
+  "title": "Settlement message",
+  "description": "An escrowed settlement on a match that has reached stage 3. An agent can propose a settlement and read its state; that is the whole agent surface. Every step after 'proposed' is taken by a human on their approval page or recorded from a verified event sent by the payment provider. The enum carries no agent-level approve, release or refund state. 'released', 'refunded' and 'declined' are terminal.",
+  "type": "object",
+  "properties": {
+    "schema_version": { "$ref": "common.json#/$defs/schemaVersion" },
+    "kind": { "const": "settlement" },
+    "settlement_id": { "type": "string", "format": "uuid" },
+    "match_id": { "$ref": "common.json#/$defs/matchId" },
+    "amount": { "type": "number", "exclusiveMinimum": 0 },
+    "ccy": { "$ref": "common.json#/$defs/ccy" },
+    "description": {
+      "$ref": "common.json#/$defs/labeledText",
+      "description": "What the settlement is for, in the proposer's words. Provenance-labelled free text."
+    },
+    "state": {
+      "description": "Settlement lifecycle. 'proposed' -> 'approved-by-buyer' / 'approved-by-seller' (both humans must approve) -> 'approved' -> 'funded' (the buyer's payment is held) -> 'evidence-locked' -> 'confirmed' -> 'released', or 'disputed' -> 'refunded'. Either human can decline an unfunded settlement. Humans approve, confirm and dispute on their approval page; 'funded', 'released' and 'refunded' are recorded only from the payment provider's verified events.",
+      "type": "string",
+      "enum": [
+        "proposed",
+        "approved-by-buyer",
+        "approved-by-seller",
+        "approved",
+        "funded",
+        "evidence-locked",
+        "confirmed",
+        "disputed",
+        "released",
+        "refunded",
+        "declined"
+      ]
+    }
+  },
+  "required": ["schema_version", "kind", "settlement_id", "match_id", "amount", "ccy", "state"],
+  "additionalProperties": false
+}
