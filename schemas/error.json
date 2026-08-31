@@ -16,7 +16,8 @@
         "STAGE_LOCKED",
         "INTENT_EXPIRED",
         "SCREENING_REJECTED",
-        "RATE_LIMITED_OFFERS"
+        "RATE_LIMITED_OFFERS",
+        "SETTLEMENT_UNAVAILABLE"
       ]
     },
     "human_action": {

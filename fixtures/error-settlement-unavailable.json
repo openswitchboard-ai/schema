@@ -1,0 +1,11 @@
+{
+  "description": "Valid SETTLEMENT_UNAVAILABLE error - settlement handling is switched off on this deployment",
+  "schema": "error",
+  "valid": true,
+  "data": {
+    "schema_version": "0.2.0",
+    "code": "SETTLEMENT_UNAVAILABLE",
+    "human_action": "This switchboard has settlement handling switched off. Settle directly with your counterpart for now.",
+    "docs_url": "https://openswitchboard.ai/docs/errors#SETTLEMENT_UNAVAILABLE"
+  }
+}

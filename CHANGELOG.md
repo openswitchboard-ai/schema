@@ -8,6 +8,21 @@ Governance note: the taxonomy is maintained by the operator in public —
 benevolent-dictator for now; a governance group is planned once third-party
 verticals exist.
 
+## [0.2.0] — 2026-08-31
+
+### Added
+- Settlement message schema (`schemas/settlement.json`): escrowed settlement
+  on a stage-3 match. Eleven states; approval, confirmation and dispute are
+  recorded from humans, and `funded`/`released`/`refunded` only from the
+  payment provider's verified events. No agent-level approve, release or
+  refund state exists; declines are structurally reason-less.
+- `SETTLEMENT_UNAVAILABLE` error code for deployments with settlement
+  handling switched off.
+- `settle` tool documented in `TOOLS.md`; `SPEC.md` §6 "Settlement: safe
+  hands".
+- Settlement fixtures (valid lifecycle states, agent-approve rejection,
+  reasoned-decline rejection, bare-string description rejection).
+
 ## [0.1.0] — 2026-08-29
 
 Initial public release; `SPEC.md` dated 2026-08-29 serves as a defensive

@@ -53,7 +53,7 @@ Also exported: `loadSchemas()` (all schemas by name), `loadFixtures()` (all exam
 - Website: [openswitchboard.ai](https://openswitchboard.ai) *(pre-launch)*
 - TypeScript SDK: [openswitchboard-ai/sdk-ts](https://github.com/openswitchboard-ai/sdk-ts)
 - Spec: [SPEC.md](./SPEC.md) · Contributing: [CONTRIBUTING.md](./CONTRIBUTING.md) · Changes: [CHANGELOG.md](./CHANGELOG.md)
-- MCP tool reference: [TOOLS.md](./TOOLS.md) — the seven tools of the hosted switchboard, inputs, returns, errors
+- MCP tool reference: [TOOLS.md](./TOOLS.md) — the eight tools of the hosted switchboard, inputs, returns, errors
 - Worked example: [EXAMPLE.md](./EXAMPLE.md) — the full JSON of one match, post to patch-through, every block schema-checked
 - Certification: [CERTIFICATION.md](./CERTIFICATION.md) — self-test your implementation before launch
 
