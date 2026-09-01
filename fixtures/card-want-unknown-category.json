@@ -1,0 +1,15 @@
+{
+  "description": "Well-formed card the taxonomy still refuses: the category is not a taxonomy node",
+  "schema": "intent-card",
+  "valid": true,
+  "taxonomy": { "status": "unknown", "reason_contains": "is not in the taxonomy" },
+  "data": {
+    "schema_version": "0.4.0",
+    "type": "WANT",
+    "category": "goods.laptop.macbook-air",
+    "geo": {
+      "place": "Canberra",
+      "radius_km": 25
+    }
+  }
+}

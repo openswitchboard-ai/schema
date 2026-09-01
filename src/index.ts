@@ -39,6 +39,17 @@ export interface Fixture {
   /** Whether the payload must validate. */
   valid: boolean;
   /**
+   * For intent-card fixtures that also exercise the taxonomy gate: the status
+   * the card's category must resolve to. A card can be perfectly well-formed
+   * and still be refused because its category is reserved or unknown, so this
+   * assertion is separate from schema validity.
+   */
+  taxonomy?: {
+    status: CategoryStatus["status"];
+    /** Substring that must appear in the status reason. */
+    reason_contains?: string;
+  };
+  /**
    * For invalid fixtures: a substring that must appear in the validator's
    * reason output, pinning the failure to the *right* rule (e.g. the identity
    * field, not some incidental typo).
@@ -55,6 +66,90 @@ export interface ValidationResult {
 }
 
 export type ValidateFn = (schema: SchemaName, data: unknown) => ValidationResult;
+
+// ---------------------------------------------------------------------------
+// Taxonomy
+// ---------------------------------------------------------------------------
+
+export interface TaxonomyNode {
+  label: string;
+  /** Absent means open. 'reserved' closes this node and everything under it. */
+  status?: "reserved";
+  /** Why the node is reserved: 'licensed-trade' or 'regulated-vertical'. */
+  reserved_reason?: string;
+  attributes?: Record<string, unknown>;
+}
+
+export interface Taxonomy {
+  schema_version: string;
+  notes: string;
+  common_attributes: Record<string, unknown>;
+  top_levels: Record<string, { status: "open" | "reserved"; reason?: string }>;
+  nodes: Record<string, TaxonomyNode>;
+}
+
+export interface CategoryStatus {
+  /** 'open' may be posted; 'reserved' and 'unknown' are refused. */
+  status: "open" | "reserved" | "unknown";
+  /** Plain reason, present whenever the status is not 'open'. */
+  reason?: string;
+}
+
+let taxonomyCache: Taxonomy | undefined;
+
+/** The taxonomy shipped with this package (data/taxonomy.v2.json). */
+export function loadTaxonomy(): Taxonomy {
+  if (!taxonomyCache) {
+    taxonomyCache = JSON.parse(
+      readFileSync(join(root, "data", "taxonomy.v2.json"), "utf8"),
+    ) as Taxonomy;
+  }
+  return taxonomyCache;
+}
+
+/** Every category a card may be posted under, in taxonomy order. */
+export function openCategories(taxonomy: Taxonomy = loadTaxonomy()): string[] {
+  return Object.keys(taxonomy.nodes).filter(
+    (c) => categoryStatus(c, taxonomy).status === "open",
+  );
+}
+
+/**
+ * Resolve a category against the taxonomy. A category may be posted when its
+ * top level is open, the node exists, and no node on its path — itself
+ * included — is reserved. This is the whole rule; every deployment applies it
+ * the same way.
+ */
+export function categoryStatus(
+  category: string,
+  taxonomy: Taxonomy = loadTaxonomy(),
+): CategoryStatus {
+  const parts = category.split(".");
+  const top = parts[0];
+  const topLevel = taxonomy.top_levels[top];
+  if (!topLevel) {
+    return { status: "unknown", reason: `top level '${top}' is not in the taxonomy` };
+  }
+  if (topLevel.status !== "open") {
+    return { status: "reserved", reason: `top level '${top}' is reserved` };
+  }
+  if (!taxonomy.nodes[category]) {
+    return { status: "unknown", reason: `category '${category}' is not in the taxonomy` };
+  }
+  for (let i = 1; i <= parts.length; i++) {
+    const path = parts.slice(0, i).join(".");
+    const node = taxonomy.nodes[path];
+    if (node?.status === "reserved") {
+      return {
+        status: "reserved",
+        reason: `'${path}' is reserved (${node.reserved_reason ?? "reserved"})`,
+      };
+    }
+  }
+  return { status: "open" };
+}
+
+export type CheckCategoryFn = (category: string) => CategoryStatus;
 
 /** Load all schema documents keyed by short name. */
 export function loadSchemas(): Record<SchemaName, object> {
@@ -114,10 +209,37 @@ export interface ConformanceReport {
  * Run the full conformance suite. Pass your own `validate` to test a
  * third-party implementation; defaults to the reference Ajv validator.
  */
-export function runConformance(validate: ValidateFn = createValidator()): ConformanceReport {
+export function runConformance(
+  validate: ValidateFn = createValidator(),
+  checkCategory: CheckCategoryFn = (c) => categoryStatus(c),
+): ConformanceReport {
   const fixtures = loadFixtures();
   const failures: ConformanceFailure[] = [];
   for (const f of fixtures) {
+    if (f.taxonomy) {
+      const category = (f.data as { category?: string }).category ?? "";
+      const got = checkCategory(category);
+      if (got.status !== f.taxonomy.status) {
+        failures.push({
+          fixture: f.file,
+          description: f.description,
+          problem: `category ${JSON.stringify(category)}: expected taxonomy status ${
+            f.taxonomy.status
+          } but got ${got.status}`,
+        });
+        continue;
+      }
+      if (f.taxonomy.reason_contains && !(got.reason ?? "").includes(f.taxonomy.reason_contains)) {
+        failures.push({
+          fixture: f.file,
+          description: f.description,
+          problem: `category ${JSON.stringify(category)}: reason ${JSON.stringify(
+            got.reason ?? "",
+          )} does not contain ${JSON.stringify(f.taxonomy.reason_contains)}`,
+        });
+        continue;
+      }
+    }
     const result = validate(f.schema, f.data);
     if (result.valid !== f.valid) {
       failures.push({

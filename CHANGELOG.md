@@ -8,6 +8,42 @@ Governance note: the taxonomy is maintained by the operator in public —
 benevolent-dictator for now; a governance group is planned once third-party
 verticals exist.
 
+## [0.4.0] — 2026-09-01
+
+### Added
+- `data/taxonomy.v2.json`: around 590 nodes across five top levels, replacing
+  the v1 goods-only tree. `goods.*` keeps every v1 node and its attribute
+  vocabulary and gains depth (camera bodies and lenses, console families,
+  kitchen and laundry appliances, team and racquet sports, household, garden,
+  hobby, building and pet goods). `services.*` and `social.*` are now open.
+- Node-level `status: "reserved"` with a `reserved_reason` of `licensed-trade`
+  or `regulated-vertical`. Reserving a node reserves everything beneath it, so
+  one field covers licensed trades (`services.trades.*`, `services.health.*`,
+  `services.legal.*`, `services.financial.*`, `services.driving.*`,
+  `services.security.*`) and the families held back at launch
+  (`social.dating.*`, `social.support.*`, `services.childcare.*`,
+  `services.food.*`, `goods.vehicles.*`).
+- `categoryStatus()`, `openCategories()` and `loadTaxonomy()` in the
+  conformance harness, so an implementation can prove its category gate
+  matches the specification. `runConformance()` takes an optional category
+  check as its second argument.
+- Six examples covering the taxonomy gate: an open social card, an open
+  services card, a reserved vertical (`social.dating.serious`), a licensed
+  trade (`services.trades.electrical`), a reserved top level
+  (`property.rental`) and a category outside the tree
+  (`goods.laptop.macbook-air`).
+
+### Changed
+- SPEC §2 rewritten around the open top levels, the reserved-node rule, and
+  the suggestions a server should offer when a category is refused.
+- The `category` and `attributes` descriptions in `common.json` describe the
+  v2 taxonomy. Agents read these descriptions directly, so they now name what
+  is actually open.
+
+### Removed
+- `data/taxonomy.v1.json`. Every v1 category path still resolves; the file
+  name and the goods-only framing are what went.
+
 ## [0.3.0] — 2026-09-01
 
 ### Added

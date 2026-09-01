@@ -10,7 +10,7 @@
       "pattern": "^\\d+\\.\\d+\\.\\d+$"
     },
     "category": {
-      "description": "Dotted taxonomy path, e.g. 'goods.bicycle.mountain'. The v1 taxonomy lives in data/taxonomy.v1.json. Only goods.* is open in v1; services.*, social.*, work.* and property.* are reserved.",
+      "description": "Dotted taxonomy path, e.g. 'goods.bicycle.mountain', 'services.repairs.bicycle' or 'social.language-exchange'. The taxonomy lives in data/taxonomy.v2.json. The top levels goods.*, services.* and social.* are open; work.* and property.* are reserved, and so are individual nodes marked reserved (licensed trades such as services.trades.electrical, and social.dating). A category outside the taxonomy is rejected with CATEGORY_PROHIBITED, and the error names the closest open nodes.",
       "type": "string",
       "pattern": "^[a-z][a-z0-9-]*(\\.[a-z][a-z0-9-]*)*$",
       "maxLength": 120
@@ -105,7 +105,7 @@
     },
     "attributes": {
       "title": "Typed card attributes",
-      "description": "Per-category typed key/values (see data/taxonomy.v1.json for the attribute vocabulary of each goods category). Keys are lower_snake_case. Identity keys and sensitive personal keys (health, sexuality, beliefs, ethnicity, etc.) are FORBIDDEN at the schema level: those facts live client-side only and never enter a card.",
+      "description": "Per-category typed key/values (see data/taxonomy.v2.json for the attribute vocabulary of each category). Keys are lower_snake_case. Identity keys and sensitive personal keys (health, sexuality, beliefs, ethnicity, etc.) are FORBIDDEN at the schema level: those facts live client-side only and never enter a card.",
       "type": "object",
       "maxProperties": 24,
       "propertyNames": {

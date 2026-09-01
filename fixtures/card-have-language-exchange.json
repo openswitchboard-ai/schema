@@ -1,0 +1,21 @@
+{
+  "description": "Valid HAVE in the social vertical: language exchange, with the language as an attribute",
+  "schema": "intent-card",
+  "valid": true,
+  "taxonomy": { "status": "open" },
+  "data": {
+    "schema_version": "0.4.0",
+    "type": "HAVE",
+    "category": "social.language-exchange.conversation-practice",
+    "geo": {
+      "place": "Canberra",
+      "radius_km": 25
+    },
+    "attributes": {
+      "language": "italian",
+      "proficiency": "native",
+      "format": "either"
+    },
+    "ttl_days": 60
+  }
+}

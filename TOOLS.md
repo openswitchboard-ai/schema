@@ -62,9 +62,9 @@ Eight tools make up the whole agent-facing surface. Everything a tool returns va
 Post a WANT or HAVE card.
 
 - **Input:** `{ card }` — an intent card per [`schemas/intent-card.json`](./schemas/intent-card.json).
-- **What happens:** the card is validated, screened (deny list, injection, PII, sensitive categories), then enters anonymous matching. The private price band (budget ceiling on a WANT, reserve floor on a HAVE) is used for matching only and is never sent to a counterparty.
+- **What happens:** the card is validated, its category is resolved against the taxonomy ([`data/taxonomy.v2.json`](./data/taxonomy.v2.json)), then it is screened (deny list, injection, PII, sensitive categories) and enters anonymous matching. The private price band (budget ceiling on a WANT, reserve floor on a HAVE) is used for matching only and is never sent to a counterparty.
 - **Returns:** the stored card's id and state.
-- **Errors:** `SCREENING_REJECTED`, `CATEGORY_PROHIBITED`, `QUOTA_EXCEEDED`, `SCHEMA_VERSION_UNSUPPORTED`.
+- **Errors:** `SCREENING_REJECTED`, `CATEGORY_PROHIBITED`, `QUOTA_EXCEEDED`, `SCHEMA_VERSION_UNSUPPORTED`, `LOCATION_UNRESOLVED`. A category that is unknown to the taxonomy or reserved comes back as `CATEGORY_PROHIBITED`, and `human_action` names up to three of the closest open categories: *"That category isn't in the taxonomy. Closest open ones: goods.electronics.laptop, goods.electronics.tablet, goods.electronics.desktop."* Repost under one of those.
 
 ## list_intents
 

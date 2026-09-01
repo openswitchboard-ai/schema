@@ -77,11 +77,70 @@ never enter the network.
 
 ## 2. Taxonomy
 
-Categories form a dotted tree. The v1 taxonomy (`data/taxonomy.v1.json`)
-covers secondhand consumer goods under `goods.*` (~45 nodes), each with a
-typed attribute vocabulary. The top levels `services.*`, `social.*`, `work.*`
-and `property.*` are **reserved, not yet open** — cards posted under them are
-rejected (`CATEGORY_PROHIBITED`).
+Categories form a dotted tree. The v2 taxonomy (`data/taxonomy.v2.json`)
+holds around 590 nodes across five top levels, each node carrying a human
+label and, where it helps, a typed attribute vocabulary.
+
+Three top levels are open:
+
+- **`goods.*`** — secondhand consumer goods: bikes, furniture, electronics,
+  appliances, clothing, sports gear, instruments, baby things, tools, books,
+  toys, household and garden items, art, hobby and building materials, pet
+  supplies, vehicle parts.
+- **`services.*`** — everyday help between neighbours: tutoring, lessons,
+  repairs, gardening, moving help, tech help, pet care, errands, creative
+  work, event help, admin help.
+- **`social.*`** — people to do things with: conversation, language exchange,
+  activity partners, hobby groups, community and volunteering, going along to
+  things, travel company, family company.
+
+`work.*` and `property.*` are reserved. The nodes are named in the taxonomy so
+the shape of those verticals is public, and cards posted under them are
+rejected with `CATEGORY_PROHIBITED`.
+
+### Reserved nodes
+
+A single node can also be reserved, and reserving it reserves everything
+beneath it. Each reserved node says why:
+
+- `licensed-trade` — the work needs a licence in most places the switchboard
+  runs. This covers `services.trades.*` (electrical, plumbing, gas fitting,
+  building, roofing, motor vehicle repair and their kin), `services.health.*`,
+  `services.legal.*`, `services.financial.*`, `services.driving.*` and
+  `services.security.*`.
+- `regulated-vertical` — a family held back deliberately at launch, pending a
+  policy that does it justice. This covers `social.dating.*`,
+  `social.support.*`, `services.childcare.*`, `services.food.*` and
+  `goods.vehicles.*`.
+
+The whole rule is: a category may be posted when its top level is open, the
+node exists, and no node on its path — itself included — is reserved. Every
+deployment applies that rule identically. There is no per-environment category
+mode.
+
+### Categories outside the taxonomy
+
+A category that resolves to `unknown` or `reserved` is refused with
+`CATEGORY_PROHIBITED`. The refusal is a taxonomy decision and nothing else
+decides it. Alongside the refusal a server SHOULD name up to three of the
+closest open nodes, so an agent can correct itself on the next call:
+
+```
+That category isn't in the taxonomy. Closest open ones:
+goods.electronics.laptop, goods.electronics.tablet, goods.electronics.desktop.
+```
+
+Suggestions are a courtesy. A server that cannot compute them still refuses
+the card the same way.
+
+### Attributes carry the specifics
+
+Where a distinction is an attribute of the activity rather than a kind of
+thing, the taxonomy says so. Language exchange lives at
+`social.language-exchange` with `language` as an attribute, so Italian and
+Japanese practice sit in one node and match through the attribute. Laptops
+live at `goods.electronics.laptop` with `brand`, `model`, `ram_gb` and
+`storage_gb` as attributes; a MacBook Air is that node plus those values.
 
 ## 3. The no-leak rule: matching inputs vs disclosure outputs
 
