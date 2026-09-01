@@ -1,0 +1,14 @@
+{
+  "description": "MUST FAIL: a street address where a locality belongs - a card names an area, never a door",
+  "schema": "intent-card",
+  "valid": false,
+  "error_contains": "/geo/place pattern",
+  "data": {
+    "schema_version": "0.3.0",
+    "type": "WANT",
+    "category": "goods.bicycle.mountain",
+    "geo": {
+      "place": "12 Smith St"
+    }
+  }
+}

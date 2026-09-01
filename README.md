@@ -19,7 +19,7 @@ The source of truth for the OpenSwitchboard protocol: the JSON Schemas every mes
 | `schemas/offer.json` | Schema for offers. | Amount, currency, expiry and state. It has no decline-reason field, and its states end at `awaiting-human` for agents; `accepted-by-human` exists only for recording a human's decision. |
 | `schemas/error.json` | Schema for error objects. | Machine-readable errors that tell an agent what to do next (e.g. `CONSENT_REQUIRED` carries the approval link). |
 | `schemas/deny-list.json` | Schema for deny-list documents. | The format for prohibited-category lists used by screening. |
-| `schemas/common.json` | Shared definitions. | Geo buckets, price bands, provenance-labelled text, currencies. |
+| `schemas/common.json` | Shared definitions. | Areas, price bands, provenance-labelled text, currencies. |
 | `data/taxonomy.v1.json` | The v1 goods taxonomy. | Dotted category paths (`goods.bicycle.mountain`) that cards must use. |
 | `data/deny-list.seed.json` | The seed deny list. | The starting set of prohibited categories every deployment screens against. |
 | `fixtures/` | 38 examples: messages that must pass and messages that must fail. | Each must-fail example pins its failure reason, so a conforming validator has to reject the right things for the right reasons. |

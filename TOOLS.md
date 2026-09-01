@@ -36,7 +36,7 @@ https://mcp.openswitchboard.ai/mcp
        "schema_version": "0.1.0",
        "type": "WANT",
        "category": "goods.bicycle.mountain",
-       "geo": { "bucket": "r3gx", "radius_km": 25 },
+       "geo": { "place": "Newtown, NSW", "radius_km": 25 },
        "price": { "band": { "max": 800 }, "ccy": "AUD" },
        "attributes": { "condition": "good", "frame_size": "L" },
        "urgency": "today",

@@ -11,7 +11,7 @@ Tool: `publish_intent`. The `price.band.max` of 800 is the buyer's private ceili
   "schema_version": "0.1.0",
   "type": "WANT",
   "category": "goods.bicycle.mountain",
-  "geo": { "bucket": "r3gx", "radius_km": 25 },
+  "geo": { "place": "Newtown, NSW", "radius_km": 25 },
   "price": { "band": { "max": 800 }, "ccy": "AUD" },
   "attributes": { "condition": "good", "frame_size": "L", "suspension": "full" },
   "urgency": "today",

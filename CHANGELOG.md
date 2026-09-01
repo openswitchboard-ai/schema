@@ -8,6 +8,30 @@ Governance note: the taxonomy is maintained by the operator in public —
 benevolent-dictator for now; a governance group is planned once third-party
 verticals exist.
 
+## [0.3.0] — 2026-09-01
+
+### Added
+- `geo.place` on the intent card (`common.json#/$defs/geoBucket`): the name of
+  a suburb, city or region, up to 80 characters. The switchboard resolves it
+  against its own gazetteer into a centre point, a canonical geohash4 cell and
+  a reach in kilometres, then matches by distance between centres. Agents that
+  used to invent their own bucket strings — `canberra`, `AU-ACT`, `AU` — now
+  describe one area in one way and meet each other.
+- `LOCATION_UNRESOLVED` error code: the place text reads like a street address,
+  or names somewhere the gazetteer cannot place. `human_action` carries the
+  advice to try the nearest city or the region around it.
+- `SPEC.md` §1.1 "Location: name the area".
+- Conformance examples: a card located by name alone, a card carrying both the
+  name and the resolved cell, a refused street address, a geo with a radius and
+  nothing to centre it on, and a LOCATION_UNRESOLVED error.
+
+### Changed
+- `geo` now requires at least one of `place` and `bucket` rather than `bucket`
+  alone. Every 0.1.0 and 0.2.0 card stays valid; `radius_km` is unchanged, with
+  the same 500 km ceiling.
+- `bucket` is documented as the canonical cell, which the switchboard fills in
+  from `place` when an agent gives only a name.
+
 ## [0.2.0] — 2026-08-31
 
 ### Added

@@ -32,7 +32,7 @@ Fields:
 | `schema_version` | Semver of this schema package (see §10). |
 | `type` | `"WANT"` or `"HAVE"`. |
 | `category` | Dotted taxonomy path, e.g. `goods.bicycle.mountain` (§2). |
-| `geo` | **Bucketed** location: `{ bucket, radius_km? }`. A bucket is a coarse cell (geohash4, region code). Exact coordinates are structurally impossible. |
+| `geo` | An **area**: `{ place?, bucket?, radius_km? }`. Name the locality in `place` and the switchboard resolves it (§1.1). Exact coordinates are structurally impossible. |
 | `price` | Matching input only — see §3. |
 | `ask` | HAVE only: a deliberate, disclosable asking price (§3). |
 | `attributes` | Typed key/values from the category's vocabulary (condition, model, colour, …). |
@@ -40,6 +40,29 @@ Fields:
 | `visibility` | `"anonymous-until-match"` — the only value in v1. |
 | `status` | `"active"` or `"latent"`. A latent card is "back pocket" intent: held by the switchboard and surfaced only when a real match appears. |
 | `ttl_days` | 1–90, default 60. Expired cards produce `INTENT_EXPIRED`. |
+
+### 1.1 Location: name the area
+
+A card's `geo` describes an area. An agent gives `place` — the name of a
+suburb, city or region, such as `Canberra`, `Newtown, NSW` or `AU-ACT` — and
+the switchboard resolves that name against its own gazetteer into a centre
+point, a coarse cell (`bucket`, a geohash4) and a reach in kilometres.
+`radius_km` says how far the human will travel; left out, the width of the
+named area stands in. Resolution happens inside the switchboard, so nobody
+outside it learns what an agent looked up.
+
+Matching then compares centre points: two cards meet when the distance
+between their centres falls within the sum of their radii. An agent that
+writes `Canberra` and an agent that writes `AU-ACT` therefore find each
+other, which two unequal bucket strings never could.
+
+An agent already holding a canonical cell may send `bucket` on its own. A
+card carries at least one of the two.
+
+Two kinds of text are refused with `LOCATION_UNRESOLVED` (§8): a street
+address, which a card has no business carrying, and a name the gazetteer
+cannot place. The error's `human_action` says what to send instead — the
+nearest city, or the region around it.
 
 ### No identity, no sensitive attributes
 
@@ -176,7 +199,8 @@ can act correctly without parsing prose:
 
 `CONSENT_REQUIRED` · `SCHEMA_VERSION_UNSUPPORTED` · `QUOTA_EXCEEDED` ·
 `CATEGORY_PROHIBITED` · `STAGE_LOCKED` · `INTENT_EXPIRED` ·
-`SCREENING_REJECTED` · `RATE_LIMITED_OFFERS` · `SETTLEMENT_UNAVAILABLE`
+`SCREENING_REJECTED` · `RATE_LIMITED_OFFERS` · `SETTLEMENT_UNAVAILABLE` ·
+`LOCATION_UNRESOLVED`
 
 Shape: `{ code, human_action?, retry_after?, docs_url }`. `human_action`
 tells the agent what only its human can do (e.g. approve a consent gate);

@@ -1,0 +1,19 @@
+{
+  "description": "Valid HAVE: a place name alongside the canonical cell the switchboard resolved it to",
+  "schema": "intent-card",
+  "valid": true,
+  "data": {
+    "schema_version": "0.3.0",
+    "type": "HAVE",
+    "category": "goods.furniture.sofa",
+    "geo": {
+      "place": "Newtown, NSW",
+      "bucket": "r3gx",
+      "radius_km": 15
+    },
+    "ask": {
+      "amount": 120,
+      "ccy": "AUD"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "description": "MUST FAIL: a radius with nothing to centre it on - a card carries a place or a bucket",
+  "schema": "intent-card",
+  "valid": false,
+  "error_contains": "/geo anyOf",
+  "data": {
+    "schema_version": "0.3.0",
+    "type": "WANT",
+    "category": "goods.bicycle.mountain",
+    "geo": {
+      "radius_km": 25
+    }
+  }
+}
