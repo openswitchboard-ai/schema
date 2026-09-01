@@ -1,0 +1,15 @@
+{
+  "description": "MUST FAIL: a message body as bare text, with no provenance label on it",
+  "schema": "channel.message",
+  "valid": false,
+  "error_contains": "/body",
+  "data": {
+    "schema_version": "0.5.0",
+    "kind": "channel.message",
+    "channel_id": "ch_8f14e45f-9a1c-4f0e-8f3a-2b7c9d4e1a06",
+    "message_id": "3f7c1a92-5d84-4b0e-9c31-6a2f8e5d0b47",
+    "seq": 1,
+    "sent_at": "2026-09-01T02:14:00Z",
+    "body": "Saturday morning suits me."
+  }
+}
