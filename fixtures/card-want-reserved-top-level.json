@@ -1,0 +1,15 @@
+{
+  "description": "Well-formed card the taxonomy still refuses: property.* is a reserved top level",
+  "schema": "intent-card",
+  "valid": true,
+  "taxonomy": { "status": "reserved", "reason_contains": "top level 'property' is reserved" },
+  "data": {
+    "schema_version": "0.4.0",
+    "type": "WANT",
+    "category": "property.rental",
+    "geo": {
+      "place": "Newtown, NSW",
+      "radius_km": 15
+    }
+  }
+}

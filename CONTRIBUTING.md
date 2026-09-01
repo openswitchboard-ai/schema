@@ -26,7 +26,7 @@ PRs with unsigned commits will not be merged.
 
 ## Taxonomy-change process
 
-The taxonomy (`data/taxonomy.v1.json`) is maintained by the operator in
+The taxonomy (`data/taxonomy.v2.json`) is maintained by the operator in
 public — benevolent-dictator model for now; a governance group is planned
 once third-party verticals exist.
 
@@ -37,8 +37,10 @@ once third-party verticals exist.
    renames/removals (which are breaking and ride the next MAJOR).
 3. **PR** adding the node plus fixtures using it. Additive nodes land in a
    MINOR release.
-4. Reserved top-levels (`services.*`, `social.*`, `work.*`, `property.*`)
-   are opened by the operator only, alongside a vertical policy.
+4. Reserved top levels (`work.*`, `property.*`) and reserved nodes (licensed
+   trades, dating and their kin — see SPEC §2) are opened by the operator
+   only, alongside a vertical policy. A PR that flips a `status` field on its
+   own will be closed with a pointer back to this step.
 
 ## Versioning
 
