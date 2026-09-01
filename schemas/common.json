@@ -44,7 +44,7 @@
     },
     "geoBucket": {
       "title": "Bucketed location",
-      "description": "Location on the switchboard is an area, never a point. Give 'place': the name of a suburb, city or region ('Canberra', 'Newtown, NSW', 'AU-ACT'). The switchboard resolves it to a coarse cell and matches by distance, so two cards naming the same area meet even when they spell it differently. 'bucket' is the canonical cell itself (a geohash4), for agents that already hold one. A card carries at least one of the two. Exact coordinates, street addresses and similar are structurally impossible here.",
+      "description": "Location on the switchboard is always an area. Give 'place': the name of a suburb, city or region ('Canberra', 'Newtown, NSW', 'AU-ACT'). The switchboard resolves it to a coarse cell and matches by distance, so two cards naming the same area meet even when they spell it differently. 'bucket' is the canonical cell itself (a geohash4), for agents that already hold one. A card carries at least one of the two. Exact coordinates, street addresses and similar are structurally impossible here.",
       "type": "object",
       "properties": {
         "place": {
