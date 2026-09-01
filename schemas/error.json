@@ -31,6 +31,12 @@
       "type": "integer",
       "minimum": 0
     },
+    "suggestions": {
+      "description": "Up to three open taxonomy categories closest to the one that was refused, nearest first. Present on CATEGORY_PROHIBITED when the server can work them out; a server that cannot still refuses the card the same way, so an agent must handle the field being absent.",
+      "type": "array",
+      "maxItems": 3,
+      "items": { "$ref": "common.json#/$defs/category" }
+    },
     "docs_url": {
       "type": "string",
       "format": "uri",

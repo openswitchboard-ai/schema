@@ -23,11 +23,15 @@ verticals exist.
   `services.security.*`) and the families held back at launch
   (`social.dating.*`, `social.support.*`, `services.childcare.*`,
   `services.food.*`, `goods.vehicles.*`).
+- `suggestions` on the error object: up to three open categories closest to
+  the one that was refused, nearest first. It rides alongside a plain
+  `human_action` sentence on `CATEGORY_PROHIBITED`. Working the suggestions
+  out is a courtesy, so the field is optional and a refusal never waits on it.
 - `categoryStatus()`, `openCategories()` and `loadTaxonomy()` in the
   conformance harness, so an implementation can prove its category gate
   matches the specification. `runConformance()` takes an optional category
   check as its second argument.
-- Six examples covering the taxonomy gate: an open social card, an open
+- Eight examples covering the taxonomy gate and the suggestions field: an open social card, an open
   services card, a reserved vertical (`social.dating.serious`), a licensed
   trade (`services.trades.electrical`), a reserved top level
   (`property.rental`) and a category outside the tree

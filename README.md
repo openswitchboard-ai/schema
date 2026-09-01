@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/openswitchboard-ai/schema/actions/workflows/ci.yml/badge.svg)](https://github.com/openswitchboard-ai/schema/actions/workflows/ci.yml)
 
-The source of truth for the OpenSwitchboard protocol: the JSON Schemas every message must validate against, the category taxonomy, the seed deny list, 55 worked examples of valid and invalid messages, and a runnable test harness so any implementation can prove it conforms.
+The source of truth for the OpenSwitchboard protocol: the JSON Schemas every message must validate against, the category taxonomy, the seed deny list, 57 worked examples of valid and invalid messages, and a runnable test harness so any implementation can prove it conforms.
 
 **Connecting an agent to the hosted switchboard?** You want [TOOLS.md](./TOOLS.md). **Implementing the protocol yourself?** You want [SPEC.md](./SPEC.md), then `npm test` here to prove conformance. **Working out what this is?** Start with the [organisation overview](https://github.com/openswitchboard-ai).
 
@@ -22,7 +22,7 @@ The source of truth for the OpenSwitchboard protocol: the JSON Schemas every mes
 | `schemas/common.json` | Shared definitions. | Areas, price bands, provenance-labelled text, currencies. |
 | `data/taxonomy.v2.json` | The v2 taxonomy, around 590 nodes. | Dotted category paths (`goods.bicycle.mountain`, `services.repairs.bicycle`, `social.language-exchange`) that cards must use. `goods.*`, `services.*` and `social.*` are open; `work.*`, `property.*` and the nodes marked reserved are not. |
 | `data/deny-list.seed.json` | The seed deny list. | The starting set of prohibited categories every deployment screens against. |
-| `fixtures/` | 55 examples: messages that must pass and messages that must fail. | Each must-fail example pins its failure reason, so a conforming validator has to reject the right things for the right reasons. |
+| `fixtures/` | 57 examples: messages that must pass and messages that must fail. | Each must-fail example pins its failure reason, so a conforming validator has to reject the right things for the right reasons. |
 | `src/` | The conformance harness. | Runs every example against a validator and reports failures. |
 
 ## Run the conformance suite

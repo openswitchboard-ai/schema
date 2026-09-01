@@ -1,0 +1,16 @@
+{
+  "description": "CATEGORY_PROHIBITED for a category outside the taxonomy, naming the closest open ones",
+  "schema": "error",
+  "valid": true,
+  "data": {
+    "schema_version": "0.4.0",
+    "code": "CATEGORY_PROHIBITED",
+    "human_action": "That category isn't in the taxonomy. Closest open ones: goods.electronics.laptop, goods.electronics.tablet, goods.electronics.desktop.",
+    "suggestions": [
+      "goods.electronics.laptop",
+      "goods.electronics.tablet",
+      "goods.electronics.desktop"
+    ],
+    "docs_url": "https://openswitchboard.ai/docs/errors#CATEGORY_PROHIBITED"
+  }
+}
