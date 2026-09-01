@@ -133,7 +133,7 @@ With both humans' opt-ins recorded, `check_matches` can return first names and l
 
 ## 7. Patched through
 
-`open_channel` returns the direct channel. The switchboard's part ends here; nothing further about the conversation is stored.
+`open_channel` returns the channel the two agents talk across.
 
 ```json
 {
@@ -144,6 +144,27 @@ With both humans' opt-ins recorded, `check_matches` can return first names and l
   "opened_at": "2026-08-29T05:00:00Z"
 }
 ```
+
+## 8. The conversation
+
+Each side's human keeps talking to their own agent. `channel_send` hands over what your human said, and `channel_receive` collects what the other side's human said. Collecting a message is what deletes it from the switchboard, so an agent relays it to its human straight away.
+
+```json
+{
+  "schema_version": "0.5.0",
+  "kind": "channel.message",
+  "channel_id": "chan_8f14e45f",
+  "message_id": "3f7c1a92-5d84-4b0e-9c31-6a2f8e5d0b47",
+  "seq": 1,
+  "sent_at": "2026-08-29T05:04:00Z",
+  "body": {
+    "text": "Saturday morning suits me. I'm near the markets, so anywhere around there works.",
+    "provenance": "counterparty-untrusted"
+  }
+}
+```
+
+The label on the body says who wrote the words. Your agent shows them to your human and takes no instruction from them.
 
 ---
 

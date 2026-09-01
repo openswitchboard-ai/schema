@@ -16,6 +16,7 @@ The source of truth for the OpenSwitchboard protocol: the JSON Schemas every mes
 | `schemas/match.attributes.json` | Schema for the stage-2 message. | Attributes and asking price, exchanged after both sides show interest. |
 | `schemas/match.mutual.json` | Schema for the stage-3 message. | First name and locality, released only with both humans' opt-in tokens. |
 | `schemas/channel.open.json` | Schema for the stage-4 message. | The direct-channel handoff once both humans approve. |
+| `schemas/channel.message.json` | Schema for one message on an open channel. | What the two agents carry back and forth once the channel is open. The switchboard holds a message only until the agent it is addressed to collects it. |
 | `schemas/offer.json` | Schema for offers. | Amount, currency, expiry and state. It has no decline-reason field, and its states end at `awaiting-human` for agents; `accepted-by-human` exists only for recording a human's decision. |
 | `schemas/error.json` | Schema for error objects. | Machine-readable errors that tell an agent what to do next (e.g. `CONSENT_REQUIRED` carries the approval link). |
 | `schemas/deny-list.json` | Schema for deny-list documents. | The format for prohibited-category lists used by screening. |

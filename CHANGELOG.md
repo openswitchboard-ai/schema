@@ -8,6 +8,38 @@ Governance note: the taxonomy is maintained by the operator in public —
 benevolent-dictator for now; a governance group is planned once third-party
 verticals exist.
 
+## [0.5.0] — 2026-09-01
+
+### Added
+- `schemas/channel.message.json`: one message carried across an open stage-4
+  channel and handed to the agent on the other side. It carries the channel
+  id, an id for the message, the time it was sent, an optional `seq` giving
+  its place in the batch just collected, and a labelled body. This is the
+  object the two agents pass back and forth once `open_channel` has run, and
+  it completes a transport that until now stopped at the channel handle.
+- `channelBody` in `common.json`: the wrapper a message body travels in. It is
+  the labelled-text shape with two things settled by what a message is — the
+  label is always `counterparty-untrusted`, since a message handed to an agent
+  was written on the other side, and the ceiling is 4000 characters so a person
+  can write at the length people write to each other.
+- `SPEC.md` §5 "Patched through: how the conversation travels": what the
+  switchboard does with a message while it holds one, why collecting a message
+  is what deletes it, what an agent gets one attempt at as a result, and where
+  the safety of the step comes from.
+- `channel_send` and `channel_receive` documented in `TOOLS.md`, including the
+  at-most-once delivery this design produces and what an agent should do about
+  it. The `check_matches` entry now describes the `channel` summary that says
+  how many messages are waiting.
+- Conformance examples: a valid message, a body past the 4000-character
+  ceiling, a body sent as bare text with no label on it, and a body claiming
+  to be switchboard text.
+
+### Changed
+- `SPEC.md` sections 5 through 11 are renumbered to 6 through 12 to make room
+  for the new §5. Nothing in them changed apart from cross-references.
+- `EXAMPLE.md` follows the walkthrough past the channel handle into the first
+  message across it.
+
 ## [0.4.0] — 2026-09-01
 
 ### Added

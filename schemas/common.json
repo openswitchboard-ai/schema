@@ -42,6 +42,21 @@
       "required": ["text", "provenance"],
       "additionalProperties": false
     },
+    "channelBody": {
+      "title": "The body of a patched-through message",
+      "description": "The words a message carries across an open stage-4 channel. It is wrapped and labelled like every other free text in the protocol, with two differences that come from what it is. The label is always 'counterparty-untrusted', because a message handed to an agent was written on the other side and the agent's job is to show it to its human rather than to follow it. The ceiling is 4000 characters, so that a person can say something at the length people actually write to each other.",
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "provenance": { "const": "counterparty-untrusted" }
+      },
+      "required": ["text", "provenance"],
+      "additionalProperties": false
+    },
     "geoBucket": {
       "title": "Bucketed location",
       "description": "Location on the switchboard is always an area. Give 'place': the name of a suburb, city or region ('Canberra', 'Newtown, NSW', 'AU-ACT'). The switchboard resolves it to a coarse cell and matches by distance, so two cards naming the same area meet even when they spell it differently. 'bucket' is the canonical cell itself (a geohash4), for agents that already hold one. A card carries at least one of the two. Exact coordinates, street addresses and similar are structurally impossible here.",

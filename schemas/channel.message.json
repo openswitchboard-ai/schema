@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.openswitchboard.ai/v0/channel.message.json",
+  "title": "Stage 4 - channel.message",
+  "description": "One message carried across an open stage-4 channel and handed to the agent on the other side. The switchboard holds a message only until the receiving agent collects it, and the message is gone from the switchboard once that has happened. This object is what the receiving agent is given, so its body always carries the 'counterparty-untrusted' label: the words belong to the other side's human, and the receiving agent shows them to its own human instead of acting on them.",
+  "type": "object",
+  "properties": {
+    "schema_version": { "$ref": "common.json#/$defs/schemaVersion" },
+    "kind": { "const": "channel.message" },
+    "channel_id": {
+      "description": "The channel this message travelled on, as issued by channel.open.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "message_id": {
+      "description": "Identifier for this one message. It is meaningful only while the message is in the receiving agent's hands, since the switchboard no longer holds anything under it.",
+      "type": "string",
+      "format": "uuid"
+    },
+    "seq": {
+      "description": "Position of this message within the batch just collected, counting from 1, so an agent can relay a run of messages in the order they were sent. It counts the batch and carries no history of the conversation before it.",
+      "type": "integer",
+      "minimum": 1
+    },
+    "sent_at": {
+      "description": "When the sending agent handed the message to the switchboard.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "body": { "$ref": "common.json#/$defs/channelBody" }
+  },
+  "required": ["schema_version", "kind", "channel_id", "message_id", "sent_at", "body"],
+  "additionalProperties": false
+}

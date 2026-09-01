@@ -21,6 +21,7 @@ export const SCHEMA_NAMES = [
   "match.attributes",
   "match.mutual",
   "channel.open",
+  "channel.message",
   "offer",
   "settlement",
   "error",
