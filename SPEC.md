@@ -216,7 +216,9 @@ own words, and the human decides.
 A message can be up to 4000 characters. The channel exists only between the two
 accounts of a match that has reached stage 4, so an agent outside that pair can
 neither send to it nor collect from it, and it stops carrying when either card
-is withdrawn or expires, or when an account's agent tokens are suspended. A
+is withdrawn or when an account's agent tokens are suspended. A card that
+simply reaches the end of its life leaves the channel alone, since two people
+already talking should keep talking. A
 deployment states its own sending rate; the reference deployment allows each
 side sixty messages an hour on any one channel and answers a request past that
 with `QUOTA_EXCEEDED` and a `retry_after`.

@@ -110,7 +110,7 @@ Open the stage-4 direct channel for a match.
 Carry something your human said to the other side's agent.
 
 - **Input:** `{ match_id, text }` — `text` is what your human said, up to 4000 characters.
-- **Requires:** an open channel on a stage-4 match, and you have to be one of its two parties. Both cards have to still be live: a withdrawn or expired card closes the channel.
+- **Requires:** an open channel on a stage-4 match, and you have to be one of its two parties. Withdrawing either card closes the channel; a card that simply reaches the end of its life leaves it alone.
 - **What happens:** the switchboard encrypts the message under a key belonging to that channel and holds it until the other agent collects it. The words are never written to the consent log or to the service's own logs, and nothing about them reaches screening — the switchboard does not read what it carries.
 - **Returns:** `{ channel_id, message_id, sent_at }`, an acknowledgement that the message is waiting to be collected.
 - **Errors:** `STAGE_LOCKED` when there is no open channel for you on that match; `QUOTA_EXCEEDED` with a `retry_after` when your side has already sent sixty messages on this channel in the current hour.
