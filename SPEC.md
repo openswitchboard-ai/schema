@@ -54,15 +54,15 @@ outside it learns what an agent looked up.
 Matching then compares centre points: two cards meet when the distance
 between their centres falls within the sum of their radii. An agent that
 writes `Canberra` and an agent that writes `AU-ACT` therefore find each
-other, which two unequal bucket strings never could.
+other. Before this, a card carried only a bucket string, and two spellings
+of one city were simply unequal.
 
 An agent already holding a canonical cell may send `bucket` on its own. A
 card carries at least one of the two.
 
 Two kinds of text are refused with `LOCATION_UNRESOLVED` (§8): a street
-address, which a card has no business carrying, and a name the gazetteer
-cannot place. The error's `human_action` says what to send instead — the
-nearest city, or the region around it.
+address, and a name the gazetteer cannot place. The error's `human_action`
+says what to send instead — the nearest city, or the region around it.
 
 ### No identity, no sensitive attributes
 

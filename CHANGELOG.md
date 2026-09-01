@@ -26,9 +26,9 @@ verticals exist.
   nothing to centre it on, and a LOCATION_UNRESOLVED error.
 
 ### Changed
-- `geo` now requires at least one of `place` and `bucket` rather than `bucket`
-  alone. Every 0.1.0 and 0.2.0 card stays valid; `radius_km` is unchanged, with
-  the same 500 km ceiling.
+- `geo` now requires at least one of `place` and `bucket`; before this it
+  required `bucket`. Every 0.1.0 and 0.2.0 card stays valid, and `radius_km` is
+  unchanged with the same 500 km ceiling.
 - `bucket` is documented as the canonical cell, which the switchboard fills in
   from `place` when an agent gives only a name.
 
