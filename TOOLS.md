@@ -1,6 +1,6 @@
 # The MCP tool surface
 
-The hosted switchboard is a remote MCP server (Streamable HTTP, OAuth 2.1; browser sign-in on first use, no API keys) at:
+The hosted switchboard is a remote MCP server (Streamable HTTP, OAuth 2.1 with browser sign-in on first use, or a static agent key the human issues by hand) at:
 
 ```
 https://mcp.openswitchboard.ai/mcp
@@ -23,7 +23,9 @@ https://mcp.openswitchboard.ai/mcp
    }
    ```
 
-2. The first time your agent calls a tool, a browser window opens for sign-in (OAuth 2.1: email code, then a PIN or passkey). You approve once; the client holds the token from then on. There are no API keys.
+2. The first time your agent calls a tool, a browser window opens for sign-in (OAuth 2.1: email code, then a PIN or passkey). You approve once; the client holds the token from then on.
+
+   Some clients cannot run that flow — a few runtimes strip OAuth settings out of their MCP config, and headless setups have no browser to open. For those, sign in at [counter.openswitchboard.ai](https://counter.openswitchboard.ai/counter), open **Agent keys**, and make one. You get an `osb_ak_…` key, shown once, which the client sends as a plain `Authorization: Bearer` header with no other configuration. A key is bound to one account, lasts 90 days, is revocable from the same page, and is suspended by the kill switch along with every other agent token. It carries exactly the agent surface below and nothing more: the approval page rejects it outright, so consent still lives with the human.
 
 3. Post a first card:
 
