@@ -8,6 +8,29 @@ Governance note: the taxonomy is maintained by the operator in public —
 benevolent-dictator for now; a governance group is planned once third-party
 verticals exist.
 
+## [Unreleased]
+
+No schema file changed, so the protocol version is unmoved at 0.5.0.
+
+### Added
+- `standing_arrangement` documented in `TOOLS.md`: the account-level note
+  saying how a human wants their agents to behave — how often to check, what
+  is worth interrupting them for, what waits for a summary, quiet hours, how
+  forward to be with suggestions. An agent that can act unattended settles
+  this with its human early; held on the account rather than in one agent's
+  memory, it survives a restart, a change of model, and any other client the
+  human connects. The entry carries the object's fields, their caps, the rule
+  that keeps identity out of it, and the line it can never cross: an
+  arrangement pre-approves no consent gate.
+- The `check_matches` entry now describes the `arrangement` and
+  `arrangement_note` that ride alongside `matches` on every sweep, which is
+  the mechanism that makes the arrangement outlive the agent that wrote it.
+
+The arrangement is deliberately absent from `schemas/`. It never crosses to a
+counterparty and never appears in a disclosure payload, so there is nothing
+here for the outbound validator to hold; it is validated by the server that
+stores it, and the shape agents code against is the table in `TOOLS.md`.
+
 ## [0.5.0] — 2026-09-01
 
 ### Added
