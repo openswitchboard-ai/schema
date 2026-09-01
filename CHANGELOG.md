@@ -31,9 +31,9 @@ verticals exist.
   conformance harness, so an implementation can prove its category gate
   matches the specification. `runConformance()` takes an optional category
   check as its second argument.
-- Eight examples covering the taxonomy gate and the suggestions field: an open social card, an open
-  services card, a reserved vertical (`social.dating.serious`), a licensed
-  trade (`services.trades.electrical`), a reserved top level
+- Eight examples covering the taxonomy gate and the suggestions field: an
+  open social card, an open services card, a reserved vertical
+  (`social.dating.serious`), a licensed trade (`services.trades.electrical`), a reserved top level
   (`property.rental`) and a category outside the tree
   (`goods.laptop.macbook-air`).
 
