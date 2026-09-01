@@ -1,0 +1,11 @@
+{
+  "description": "Valid LOCATION_UNRESOLVED error: the place name matched nothing the switchboard knows",
+  "schema": "error",
+  "valid": true,
+  "data": {
+    "schema_version": "0.3.0",
+    "code": "LOCATION_UNRESOLVED",
+    "human_action": "The switchboard does not know 'Nowhereville'. Try the nearest city or the region it sits in.",
+    "docs_url": "https://openswitchboard.ai/docs/errors#location_unresolved"
+  }
+}
