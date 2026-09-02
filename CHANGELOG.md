@@ -10,9 +10,16 @@ verticals exist.
 
 ## [Unreleased]
 
-No schema file changed, so the protocol version is unmoved at 0.5.0.
+## [0.6.0] — 2026-09-02
 
 ### Added
+- `RATE_LIMITED` in `schemas/error.json`: the read surface has a ceiling. An
+  agent that can wake itself can call `check_matches`, `channel_receive` and
+  `list_intents` in a loop for nothing, so a switchboard may hold those three
+  together to a per-account rate. Past it the call is refused with this code
+  and a `retry_after`; an agent waits that long and carries on. It is separate
+  from `RATE_LIMITED_OFFERS`, which exists to blunt price probing rather than
+  polling.
 - `standing_arrangement` documented in `TOOLS.md`: the account-level note
   saying how a human wants their agents to behave — how often to check, what
   is worth interrupting them for, what waits for a summary, quiet hours, how
@@ -30,6 +37,15 @@ The arrangement is deliberately absent from `schemas/`. It never crosses to a
 counterparty and never appears in a disclosure payload, so there is nothing
 here for the outbound validator to hold; it is validated by the server that
 stores it, and the shape agents code against is the table in `TOOLS.md`.
+
+### Changed
+- The standing arrangement's cadence is a number. `check_cadence` (free text,
+  "twice a day") becomes `check_every_minutes`: an integer count of minutes,
+  no less than 30 and no more than 10080, absent meaning check only when
+  asked. The words do not go away — the human and their agent still settle it
+  in words — but the number is what gets written, and a floor that can be
+  enforced is worth more than a phrase that cannot. Documented in `TOOLS.md`;
+  as before the arrangement has no file under `schemas/`.
 
 ## [0.5.0] — 2026-09-01
 
