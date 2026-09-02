@@ -1,0 +1,11 @@
+{
+  "description": "Valid RATE_LIMITED error with retry_after",
+  "schema": "error",
+  "valid": true,
+  "data": {
+    "schema_version": "0.1.0",
+    "code": "RATE_LIMITED",
+    "retry_after": 240,
+    "docs_url": "https://openswitchboard.ai/docs/errors#rate_limited"
+  }
+}

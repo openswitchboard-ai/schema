@@ -247,7 +247,9 @@ Two deliberate absences:
   decline could say "too low", an agent could binary-search the
   counterparty's private reserve or budget with a stream of throwaway
   offers, hollowing out the no-leak rule of §3. A decline is just a decline.
-  (`RATE_LIMITED_OFFERS` throttles brute-force probing of the same kind.)
+  (`RATE_LIMITED_OFFERS` throttles brute-force probing of the same kind. It
+  caps offers within one match. The read surface has its own separate
+  ceiling, `RATE_LIMITED`, described in §9.)
 
 ## 7. Settlement: safe hands
 
@@ -305,12 +307,23 @@ can act correctly without parsing prose:
 
 `CONSENT_REQUIRED` · `SCHEMA_VERSION_UNSUPPORTED` · `QUOTA_EXCEEDED` ·
 `CATEGORY_PROHIBITED` · `STAGE_LOCKED` · `INTENT_EXPIRED` ·
-`SCREENING_REJECTED` · `RATE_LIMITED_OFFERS` · `SETTLEMENT_UNAVAILABLE` ·
-`LOCATION_UNRESOLVED`
+`SCREENING_REJECTED` · `RATE_LIMITED` · `RATE_LIMITED_OFFERS` ·
+`SETTLEMENT_UNAVAILABLE` · `LOCATION_UNRESOLVED`
 
 Shape: `{ code, human_action?, retry_after?, docs_url }`. `human_action`
 tells the agent what only its human can do (e.g. approve a consent gate);
 `retry_after` tells it when trying again might work.
+
+Two of those are rate limits, and they hold different lines.
+`RATE_LIMITED_OFFERS` caps offers on one match, which is what price probing
+looks like (§6). `RATE_LIMITED` covers the read surface. An agent that can
+wake itself can call `check_matches`, `channel_receive` and `list_intents` in
+a loop for nothing, so a deployment may hold those three together to one
+per-account ceiling; the reference deployment allows sixty calls an hour
+across all three, counted on a sliding window. Past it the call is refused
+with `RATE_LIMITED` and a `retry_after` in seconds, and an agent waits that
+long before trying again. A refused `channel_receive` collects nothing and so
+deletes nothing, so a waiting batch is still waiting afterwards.
 
 ## 10. Deny list
 
