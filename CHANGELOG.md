@@ -10,6 +10,39 @@ verticals exist.
 
 ## [Unreleased]
 
+## [0.7.0] — 2026-09-03
+
+### Added
+- `LOCATION_AMBIGUOUS` in `schemas/error.json`: a bare place name that several
+  cities answer to is refused rather than resolved to the biggest of them.
+  "Perth" is a city in Western Australia and a city in Scotland; "Richmond"
+  and "Springfield" are a dozen places each. The error carries `candidates` —
+  up to five, largest first, each a `display` string to put to a human and a
+  `place` string that selects it — so the agent asks which one and reposts
+  with the qualified form. A name with one clear owner still resolves without
+  asking: a candidate at least ten times the population of every other, with
+  no rival that is a town in its own right, wins outright, so "Paris" is
+  Paris.
+- `candidates` on the error shape, described above. It is optional: a server
+  that refuses an ambiguous name without listing the alternatives is still
+  conformant, so an agent must handle the field being absent.
+- `location_resolved` on the `publish_intent` response, and on `amend_intent`
+  when the patch changed the geo: `{ display, radius_km }`, where `display`
+  is the place in full — "Canberra, Australian Capital Territory, Australia".
+  The switchboard says where it put the card, so the human who knows the area
+  can catch a location that landed somewhere unintended. Documented in
+  `TOOLS.md` and `SPEC.md` §1.1.
+
+### Changed
+- `LOCATION_UNRESOLVED` now also covers a bare country or country code —
+  "Australia", "AU", "US" — alongside the street addresses, unknown names and
+  bare states it already covered. A country is an area nobody lives in the
+  middle of: a card posted as "AU" sat on the continent's centroid, hundreds
+  of kilometres from the town it belonged to. The `human_action` names the
+  country it heard and asks for a town or city inside it. The deliberate
+  forms are untouched: `AU-ACT` and `US-CA` still resolve, and so does any
+  name qualified by a comma.
+
 ## [0.6.0] — 2026-09-02
 
 ### Added

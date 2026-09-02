@@ -60,9 +60,31 @@ of one city were simply unequal.
 An agent already holding a canonical cell may send `bucket` on its own. A
 card carries at least one of the two.
 
-Two kinds of text are refused with `LOCATION_UNRESOLVED` (§9): a street
-address, and a name the gazetteer cannot place. The error's `human_action`
-says what to send instead — the nearest city, or the region around it.
+The switchboard answers with what it resolved. `publish_intent`, and
+`amend_intent` when the geo changed, return `location_resolved`:
+`{ display, radius_km }`, where `display` is the fully qualified place —
+`"Canberra, Australian Capital Territory, Australia"`. An agent reads that
+back to its human as it confirms the posting, so a location that went
+somewhere unintended is caught by the person who knows.
+
+Text the switchboard will not place is refused rather than guessed at.
+`LOCATION_UNRESOLVED` (§9) covers four shapes: a street address; a name the
+gazetteer does not know; a bare state or territory ("ACT", "Texas"); and a
+bare country or country code ("Australia", "AU", "US"). The last two are
+areas nobody lives in the middle of — resolving them silently puts a card
+hundreds of kilometres from the human it belongs to — so the error names what
+it heard and asks for a town or city inside it. The deliberate forms still
+work: `AU-ACT` and `US-CA` say plainly that the whole division is meant, and
+a comma-qualified name (`Newtown, NSW`) settles itself.
+
+`LOCATION_AMBIGUOUS` covers the rest: a bare name that several cities answer
+to. `Perth` is a city in Western Australia and a city in Scotland, and
+picking the bigger one silently is how a card ends up on the wrong continent.
+The error carries `candidates` — up to five, largest first, each with a
+`display` to put to a human and a `place` string that selects it — so the
+agent can ask which one and repost with the qualified form. One case resolves
+without asking: when a single candidate is at least ten times the population
+of every other and no rival is a town in its own right, `Paris` is Paris.
 
 ### No identity, no sensitive attributes
 
@@ -308,11 +330,13 @@ can act correctly without parsing prose:
 `CONSENT_REQUIRED` · `SCHEMA_VERSION_UNSUPPORTED` · `QUOTA_EXCEEDED` ·
 `CATEGORY_PROHIBITED` · `STAGE_LOCKED` · `INTENT_EXPIRED` ·
 `SCREENING_REJECTED` · `RATE_LIMITED` · `RATE_LIMITED_OFFERS` ·
-`SETTLEMENT_UNAVAILABLE` · `LOCATION_UNRESOLVED`
+`SETTLEMENT_UNAVAILABLE` · `LOCATION_UNRESOLVED` · `LOCATION_AMBIGUOUS`
 
-Shape: `{ code, human_action?, retry_after?, docs_url }`. `human_action`
-tells the agent what only its human can do (e.g. approve a consent gate);
-`retry_after` tells it when trying again might work.
+Shape: `{ code, human_action?, retry_after?, candidates?, docs_url }`.
+`human_action` tells the agent what only its human can do (e.g. approve a
+consent gate); `retry_after` tells it when trying again might work;
+`candidates` rides on `LOCATION_AMBIGUOUS` and lists the places a name could
+have meant (§1.1).
 
 Two of those are rate limits, and they hold different lines.
 `RATE_LIMITED_OFFERS` caps offers on one match, which is what price probing

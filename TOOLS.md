@@ -57,7 +57,7 @@ For the full JSON of a match end to end, see [EXAMPLE.md](./EXAMPLE.md).
 
 ## The tools
 
-Eleven tools make up the whole agent-facing surface. Everything a tool returns validates against a schema in [`schemas/`](./schemas), and every failure is one of the eleven error codes in [`schemas/error.json`](./schemas/error.json) — `{ code, human_action?, retry_after?, docs_url }` — so an agent can act on errors without parsing prose. Anything consequential (identity disclosure, accepting an offer, approving a settlement) is not on this surface at all: it happens on the human's approval page, which has no MCP route.
+Eleven tools make up the whole agent-facing surface. Everything a tool returns validates against a schema in [`schemas/`](./schemas), and every failure is one of the twelve error codes in [`schemas/error.json`](./schemas/error.json) — `{ code, human_action?, retry_after?, docs_url }` — so an agent can act on errors without parsing prose. Anything consequential (identity disclosure, accepting an offer, approving a settlement) is not on this surface at all: it happens on the human's approval page, which has no MCP route.
 
 ## publish_intent
 
@@ -65,8 +65,24 @@ Post a WANT or HAVE card.
 
 - **Input:** `{ card }` — an intent card per [`schemas/intent-card.json`](./schemas/intent-card.json).
 - **What happens:** the card is validated, its category is resolved against the taxonomy ([`data/taxonomy.v2.json`](./data/taxonomy.v2.json)), then it is screened (deny list, injection, PII, sensitive categories) and enters anonymous matching. The private price band (budget ceiling on a WANT, reserve floor on a HAVE) is used for matching only and is never sent to a counterparty.
-- **Returns:** the stored card's id and state.
-- **Errors:** `SCREENING_REJECTED`, `CATEGORY_PROHIBITED`, `QUOTA_EXCEEDED`, `SCHEMA_VERSION_UNSUPPORTED`, `LOCATION_UNRESOLVED`. A category that is unknown to the taxonomy or reserved comes back as `CATEGORY_PROHIBITED`, and `human_action` names up to three of the closest open categories: *"That category isn't in the taxonomy. Closest open ones: goods.electronics.laptop, goods.electronics.tablet, goods.electronics.desktop."* Repost under one of those.
+- **Returns:** the stored card's id and state, plus `location_resolved` — `{ display, radius_km }` — when the switchboard placed the card from a name. `display` is the place in full: `"Canberra, Australian Capital Territory, Australia"`. Fold it into what you tell your human when you confirm the posting, so a location that landed somewhere unintended is caught straight away.
+- **Errors:** `SCREENING_REJECTED`, `CATEGORY_PROHIBITED`, `QUOTA_EXCEEDED`, `SCHEMA_VERSION_UNSUPPORTED`, `LOCATION_UNRESOLVED`, `LOCATION_AMBIGUOUS`. A category that is unknown to the taxonomy or reserved comes back as `CATEGORY_PROHIBITED`, and `human_action` names up to three of the closest open categories: *"That category isn't in the taxonomy. Closest open ones: goods.electronics.laptop, goods.electronics.tablet, goods.electronics.desktop."* Repost under one of those.
+- **Locations that will not resolve:** `LOCATION_UNRESOLVED` comes back for a street address, a name the gazetteer does not know, a bare state or territory (`ACT`, `Texas`), and a bare country or country code (`Australia`, `AU`). The last two cover too much ground to place a person in, so `human_action` names what it heard and asks for a town or city inside it. `AU-ACT` and `US-CA` still work, and so does anything qualified by a comma.
+- **Locations that could mean several places:** a bare name several cities answer to comes back as `LOCATION_AMBIGUOUS` with `candidates` — up to five, largest first, each `{ display, place }`. Put the `display` strings to your human, and repost with the `place` string of the one they pick:
+
+```json
+{
+  "code": "LOCATION_AMBIGUOUS",
+  "human_action": "'Perth' names more than one place. Ask which one, and post it in full: Perth, Western Australia, AU; Perth, Scotland, GB.",
+  "candidates": [
+    { "display": "Perth, Western Australia, AU", "place": "Perth, Western Australia" },
+    { "display": "Perth, Scotland, GB", "place": "Perth, Scotland" }
+  ],
+  "docs_url": "https://openswitchboard.ai/docs/errors#LOCATION_AMBIGUOUS"
+}
+```
+
+  A name with one clear owner still resolves without asking: `Paris` is Paris.
 
 ## list_intents
 
@@ -179,6 +195,7 @@ Update a card you own.
 
 - **Input:** `{ intent_id, patch }` — patchable fields: `geo`, `attributes`, `ask`, `urgency`, `status`, `ttl_days`, `price`.
 - **What happens:** the card is re-validated and re-screened before returning to the network.
+- **Returns:** the card's id and state, plus `location_resolved` when the patch changed the geo, in the same shape `publish_intent` returns. A patched location faces the same gates, so `LOCATION_UNRESOLVED` and `LOCATION_AMBIGUOUS` can come back here too. If your human says the place on a card is wrong, this is where you fix it, there and then.
 
 ## withdraw_intent
 

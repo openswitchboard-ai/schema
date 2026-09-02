@@ -1,0 +1,15 @@
+{
+  "description": "Valid LOCATION_AMBIGUOUS error: a bare name several cities answer to, with the qualified forms that pick one",
+  "schema": "error",
+  "valid": true,
+  "data": {
+    "schema_version": "0.7.0",
+    "code": "LOCATION_AMBIGUOUS",
+    "human_action": "'Perth' names more than one place. Ask which one, and post it in full: Perth, Western Australia, AU; Perth, Scotland, GB.",
+    "candidates": [
+      { "display": "Perth, Western Australia, AU", "place": "Perth, Western Australia" },
+      { "display": "Perth, Scotland, GB", "place": "Perth, Scotland" }
+    ],
+    "docs_url": "https://openswitchboard.ai/docs/errors#LOCATION_AMBIGUOUS"
+  }
+}
