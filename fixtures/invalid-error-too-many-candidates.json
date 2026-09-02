@@ -1,0 +1,19 @@
+{
+  "description": "Invalid error: more than five location candidates",
+  "schema": "error",
+  "valid": false,
+  "error_contains": "maxItems",
+  "data": {
+    "schema_version": "0.7.0",
+    "code": "LOCATION_AMBIGUOUS",
+    "candidates": [
+      { "display": "Springfield, Missouri, US", "place": "Springfield, Missouri" },
+      { "display": "Springfield, Massachusetts, US", "place": "Springfield, Massachusetts" },
+      { "display": "Springfield, Illinois, US", "place": "Springfield, Illinois" },
+      { "display": "Springfield, Oregon, US", "place": "Springfield, Oregon" },
+      { "display": "Springfield, Ohio, US", "place": "Springfield, Ohio" },
+      { "display": "Springfield, Virginia, US", "place": "Springfield, Virginia" }
+    ],
+    "docs_url": "https://openswitchboard.ai/docs/errors#LOCATION_AMBIGUOUS"
+  }
+}

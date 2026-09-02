@@ -19,7 +19,8 @@
         "RATE_LIMITED",
         "RATE_LIMITED_OFFERS",
         "SETTLEMENT_UNAVAILABLE",
-        "LOCATION_UNRESOLVED"
+        "LOCATION_UNRESOLVED",
+        "LOCATION_AMBIGUOUS"
       ]
     },
     "human_action": {
@@ -37,6 +38,21 @@
       "type": "array",
       "maxItems": 3,
       "items": { "$ref": "common.json#/$defs/category" }
+    },
+    "candidates": {
+      "description": "Present on LOCATION_AMBIGUOUS: the places the name could have meant, largest first, at most five. 'display' is the fully qualified name to put to a human ('Perth, Scotland, GB'); 'place' is the exact string to send back in the card's geo.place to choose that one. A server that cannot list them still refuses the card the same way, so an agent must handle the field being absent.",
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "properties": {
+          "display": { "type": "string", "maxLength": 120 },
+          "place": { "type": "string", "maxLength": 120 }
+        },
+        "required": ["display", "place"],
+        "additionalProperties": false
+      }
     },
     "docs_url": {
       "type": "string",
