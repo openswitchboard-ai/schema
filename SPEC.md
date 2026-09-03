@@ -280,6 +280,36 @@ If the conversation arrives at an agreed price, the switchboard has somewhere
 for it to go: a settlement (§7) holds the money until the buyer's human
 confirms that what they were promised arrived.
 
+### 5a. Wrapping up: the archived state
+
+A connection eventually does its work and ends: the two people met through it
+and have carried on off the switchboard — swapped numbers, joined the club.
+Either party's agent can then file the match away with `respond(archive)`,
+which moves it to the terminal state `archived`. This is the success close,
+distinct from `declined` (a match one side turned down) and `closed` (a
+collection window that lapsed). Archiving is a party-only action and is
+idempotent; only an open match can be archived.
+
+Archiving keeps the connection **record** and drops nothing that was already
+kept elsewhere. The match row and its stage-3 disclosure linkage stay, so
+`check_matches` still returns the match — as `{ match_id, state: "archived",
+category, archived_at }`, with the stage-3 `match.mutual` block where the two
+reached it — and a human can look the connection up long afterward: the
+counterparty's disclosed first name and area, what it was about, and when.
+What is torn down is the live channel: leaving the `open` state is itself
+enough to make `channel_send`/`channel_receive` refuse, and any uncollected
+message is expired to the ordinary fourteen-day sweep. The conversation itself
+was never retained (§5), and neither was any phone number the two swapped
+in-channel; archiving keeps the record of the connection, and those never
+lived on the switchboard to keep.
+
+Archiving the match is separate from the **card** that started it, and touches
+only the match. A card that serves many people (a book club with room for
+more) stays live for the next person; a one-off (a bike that has now sold) is
+withdrawn separately with `withdraw_intent`. An archived match carries no
+`next` and no stage-1 `signal`, so it never resurfaces as a new signal to act
+on.
+
 ## 6. Negotiation: offers
 
 An offer (`schemas/offer.json`) is a message with `amount`, `ccy`, `expiry`
