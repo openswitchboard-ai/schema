@@ -32,7 +32,7 @@ Fields:
 | `schema_version` | Semver of this schema package (see §11). |
 | `type` | `"WANT"` or `"HAVE"`. |
 | `category` | Dotted taxonomy path, e.g. `goods.bicycle.mountain` (§2). |
-| `geo` | An **area**: `{ place?, bucket?, radius_km? }`. Name the locality in `place` and the switchboard resolves it (§1.1). Exact coordinates are structurally impossible. |
+| `geo` | An **area**: `{ place?, bucket?, radius_km?, reach? }`. Name the locality in `place`; say how far the human will meet someone in `reach` (§1.1). Exact coordinates are structurally impossible. |
 | `price` | Matching input only — see §3. |
 | `ask` | HAVE only: a deliberate, disclosable asking price (§3). |
 | `attributes` | Typed key/values from the category's vocabulary (condition, model, colour, …). |
@@ -41,31 +41,57 @@ Fields:
 | `status` | `"active"` or `"latent"`. A latent card is "back pocket" intent: held by the switchboard and surfaced only when a real match appears. |
 | `ttl_days` | 1–90, default 60. Expired cards produce `INTENT_EXPIRED`. |
 
-### 1.1 Location: name the area
+### 1.1 Location: name the area, then say how far
 
-A card's `geo` describes an area. An agent gives `place` — the name of a
-suburb, city or region, such as `Canberra`, `Newtown, NSW` or `AU-ACT` — and
-the switchboard resolves that name against its own gazetteer into a centre
-point, a coarse cell (`bucket`, a geohash4) and a reach in kilometres.
-`radius_km` says how far the human will travel; left out, the width of the
-named area stands in. Resolution happens inside the switchboard, so nobody
-outside it learns what an agent looked up.
+A card's `geo` holds two separate things: where the card is, and how far its
+human will meet someone. They are not the same question, and a card that
+conflates them ends up in the wrong place.
 
-Matching then compares centre points: two cards meet when the distance
-between their centres falls within the sum of their radii. An agent that
-writes `Canberra` and an agent that writes `AU-ACT` therefore find each
-other. Before this, a card carried only a bucket string, and two spellings
-of one city were simply unequal.
+**Where the card is.** An agent gives `place` — the name of a suburb, city or
+region, such as `Canberra`, `Newtown, NSW` or `AU-ACT` — and the switchboard
+resolves that name against its own gazetteer into a centre point, a coarse
+cell (`bucket`, a geohash4) and the width of the named area. Resolution
+happens inside the switchboard, so nobody outside it learns what an agent
+looked up. An agent already holding a canonical cell may send `bucket` on its
+own; a card carries at least one of the two.
 
-An agent already holding a canonical cell may send `bucket` on its own. A
-card carries at least one of the two.
+**How far the human will meet someone.** `reach` takes one of three values:
+
+| `reach` | What it means |
+|---|---|
+| `"radius"` (default) | Within `radius_km` of the place. Left out, the width of the named area stands in. A pickup, a lesson in person, a hand with the moving. |
+| `"country"` | Anywhere in the place's own country. Something the human would post. |
+| `"anywhere"` | No geographic limit at all. Something done online. |
+
+The place is a real town whatever the reach. An agent whose human says "I'll
+post it anywhere in Australia" writes their town in `place` and `"country"`
+in `reach` — it does not write `"Australia"` in `place`, which is refused.
+
+**How two cards meet.** Each side's reach has to cover where the other side
+is. Two cards on `radius` meet when the distance between their centres falls
+within the sum of their radii, so an agent that writes `Canberra` and an
+agent that writes `AU-ACT` find each other; before this, a card carried only
+a bucket string and two spellings of one city were simply unequal. A card on
+`"country"` covers any card whose place resolved to the same country; a card
+on `"anywhere"` covers every card. Because the test runs both ways, a
+nationwide HAVE in Canberra and a WANT in Perth meet only when the WANT
+reaches nationwide too — the person collecting has to be as willing to cross
+the distance as the person sending.
+
+Reach also shapes the score. Distance still ranks two cards that meet by
+radius, so a neighbouring suburb ranks above the far edge of the radius. A
+pair that meets because one side reaches a whole country instead gets a flat,
+moderate geographic contribution: nationwide is a real match, and it is not
+the match an adjacent suburb would be.
 
 The switchboard answers with what it resolved. `publish_intent`, and
 `amend_intent` when the geo changed, return `location_resolved`:
-`{ display, radius_km }`, where `display` is the fully qualified place —
-`"Canberra, Australian Capital Territory, Australia"`. An agent reads that
-back to its human as it confirms the posting, so a location that went
-somewhere unintended is caught by the person who knows.
+`{ display, radius_km }`, where `display` is the fully qualified place and
+what it reaches — `"Canberra, Australian Capital Territory, Australia —
+reaching all of Australia"`, or `"— reaching anywhere"`, or `"— matching
+within 25 km"`. An agent reads that back to its human as it confirms the
+posting, so a location that went somewhere unintended is caught by the person
+who knows.
 
 Text the switchboard will not place is refused rather than guessed at.
 `LOCATION_UNRESOLVED` (§9) covers four shapes: a street address; a name the
@@ -73,7 +99,8 @@ gazetteer does not know; a bare state or territory ("ACT", "Texas"); and a
 bare country or country code ("Australia", "AU", "US"). The last two are
 areas nobody lives in the middle of — resolving them silently puts a card
 hundreds of kilometres from the human it belongs to — so the error names what
-it heard and asks for a town or city inside it. The deliberate forms still
+it heard, asks for a town or city inside it, and says that nationwide is what
+`reach` is for: `place: "Canberra"`, `reach: "country"`. The deliberate forms still
 work: `AU-ACT` and `US-CA` say plainly that the whole division is meant, and
 a comma-qualified name (`Newtown, NSW`) settles itself.
 

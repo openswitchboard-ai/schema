@@ -1,0 +1,15 @@
+{
+  "description": "MUST FAIL: 'reach' takes one of three values - 'nationwide' is not one of them",
+  "schema": "intent-card",
+  "valid": false,
+  "error_contains": "/geo/reach",
+  "data": {
+    "schema_version": "0.8.0",
+    "type": "WANT",
+    "category": "goods.electronics.laptop",
+    "geo": {
+      "place": "Canberra",
+      "reach": "nationwide"
+    }
+  }
+}
