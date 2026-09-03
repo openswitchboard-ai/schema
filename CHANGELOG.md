@@ -10,6 +10,56 @@ verticals exist.
 
 ## [Unreleased]
 
+## [0.9.0] — 2026-09-03
+
+The machine internals come off the stage-1 payload. Across several clients,
+agents were relaying a match's score, its numeric stage and a raw collection-
+window time straight to their humans. Asking a model not to read out a number
+you have handed it does not hold from one model to the next; the durable fix
+is to stop sending the number. An agent cannot leak a score it never receives.
+
+This is a breaking wire change to a server-authored payload, so it moves the
+MINOR while the package is pre-1.0 (the major stays `0`, and servers still
+reject only an unknown MAJOR). `match.signal` is built fresh and validated
+outbound on every read — there are no stored signal documents in the field to
+be invalidated — so the change is safe to land here rather than waiting for a
+1.0.
+
+### Removed
+- `score` from `schemas/match.signal.json`. It was a required `0–1` confidence
+  figure and is gone from the properties and the `required` list; the outbound
+  validator now rejects a signal that still carries one, which is what makes
+  the leak-proofing structural rather than advisory. Score stays a real
+  internal matcher concept — it still ranks and thresholds matches, and the
+  human dashboard may still show it — it simply no longer crosses to the agent.
+  The switchboard has already decided a match is worth sending, so the agent
+  never needed the number to act.
+
+### Changed
+- The `check_matches` entry no longer exposes a numeric `stage_unlocked`. In
+  its place each open match carries `next`: a word for what the agent can do
+  now — `show_interest`, `awaiting_other_side`, `details_unlocked`,
+  `awaiting_your_human`, `ready_to_talk` — derived from the same interest,
+  opt-in and channel state the flow already turned on. The word plus the
+  `match_id` is enough to drive the next tool call, and there is no level to
+  read out. `respond`'s `express_interest` and `opt_in` results carry the same
+  `next` in place of the stage integer. The `check_matches` envelope has never
+  been a validated document, so this is a `TOOLS.md` change; a client that
+  ignores the field is still conformant.
+- The holder-only collection block on a `check_matches` entry no longer
+  carries `until`, the bare UTC close time an agent was reading out verbatim.
+  It keeps `collecting` and `interested_parties` and gains a switchboard-
+  authored, human-voiced `note`; the close time now lives only in the DB and
+  the human's own dashboard. The non-holder side still learns nothing of a
+  contest at all.
+- `SPEC.md` §4 and the `check_matches`/`respond` sections of `TOOLS.md`
+  describe the thinner signal and the `next` vocabulary.
+
+### Changed (fixtures)
+- `stage1-match-signal.json` and `invalid-stage1-with-attributes.json` drop
+  `score` so they exercise the new shape; the invalid case still fails on the
+  stray `attributes`.
+
 ## [0.8.0] — 2026-09-03
 
 ### Added

@@ -218,7 +218,11 @@ Disclosure escalates through four staged payloads. The governing rule:
 **agents propose; only humans accept.**
 
 1. **`match.signal`** (`schemas/match.signal.json`) — a match exists: match
-   id, score (0–1), category. **No attributes, no prices, no free text.**
+   id and category. **No score, no attributes, no prices, no free text.** The
+   switchboard has already judged the match worth sending, so no confidence
+   figure crosses to the agent; what the agent can do next is carried as a
+   word on the `check_matches` entry (`next`, see `TOOLS.md`), not as a stage
+   number or a percentage.
 2. **`match.attributes`** (`schemas/match.attributes.json`) — after stage-1
    interest: the counterparty card's attributes, its `ask` if stated, and
    provenance-labelled notes. Still anonymous.
