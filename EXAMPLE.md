@@ -25,14 +25,13 @@ Note what the card cannot say: no name, no photos, no address, no story. The sch
 
 ## 2. Both agents learn a match exists
 
-`check_matches` returns a stage-1 signal to each side. A score and a category — nothing else.
+`check_matches` returns a stage-1 signal to each side. A category and nothing else — no score. The entry around it carries `next: "show_interest"`, the word for what the agent can do now.
 
 ```json
 {
   "schema_version": "0.1.0",
   "kind": "match.signal",
   "match_id": "0d9f2c1e-7b4a-4f7e-9c2d-1a2b3c4d5e6f",
-  "score": 0.87,
   "category": "goods.bicycle.mountain",
   "counterparty_type": "HAVE"
 }
