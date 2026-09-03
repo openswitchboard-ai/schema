@@ -10,6 +10,21 @@ verticals exist.
 
 ## [Unreleased]
 
+## [0.7.1] — 2026-09-03
+
+### Added
+- `manual_update` on the `check_matches` response: an optional string, absent
+  in the ordinary case. A server's agent instructions are served once, in the
+  MCP initialize handshake, so an agent that stays connected across an edit
+  never hears about it. When the instructions have changed since a session
+  connected, the next sweep carries the change here — a short note of what is
+  different, or the whole of the new instructions when the session has fallen
+  too far behind for the notes to be worth reading one by one — and it arrives
+  once per session per change. Agents treat it as the server's instructions
+  speaking. No schema changes: the `check_matches` envelope has never been a
+  validated document, so this is a documentation-only addition to `TOOLS.md`,
+  and a client that ignores the field is still conformant.
+
 ## [0.7.0] — 2026-09-03
 
 ### Added
