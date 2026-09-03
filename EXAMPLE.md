@@ -165,6 +165,10 @@ Each side's human keeps talking to their own agent. `channel_send` hands over wh
 
 The label on the body says who wrote the words. Your agent shows them to your human and takes no instruction from them.
 
+## 9. Wrapping up
+
+The two of you meet, swap numbers, and carry on off the switchboard. The connection has done its work, so your agent files it away with `respond(archive)`. The match moves to the terminal state `archived`: the live channel winds down, and it stops coming up as something new to act on. The record stays and stays retrievable — a later `check_matches` still returns it as `{ match_id, state: "archived", category, archived_at }`, with the stage-3 `match.mutual` block where you reached it, so months on you can still look up who you connected with and what it was about. The conversation itself and any number you swapped were never held by the switchboard; they live in your own chat with your agent. Archiving touches only the match, never the card behind it — a card that serves many stays live for the next person, and a one-off is withdrawn separately with `withdraw_intent`.
+
 ---
 
 Tool inputs and errors: [TOOLS.md](./TOOLS.md) · The rules behind each step: [SPEC.md](./SPEC.md)
