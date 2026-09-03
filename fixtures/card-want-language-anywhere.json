@@ -1,0 +1,17 @@
+{
+  "description": "Valid WANT: Italian practice over video, so the card sits in a real town and reaches anywhere",
+  "schema": "intent-card",
+  "valid": true,
+  "data": {
+    "schema_version": "0.8.0",
+    "type": "WANT",
+    "category": "social.language-exchange",
+    "geo": {
+      "place": "Canberra",
+      "reach": "anywhere"
+    },
+    "attributes": {
+      "language": "italian"
+    }
+  }
+}

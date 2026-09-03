@@ -10,6 +10,47 @@ verticals exist.
 
 ## [Unreleased]
 
+## [0.8.0] — 2026-09-03
+
+### Added
+- `geo.reach` on the intent card: how far the human will meet the other side,
+  which until now had no way of being said apart from where they are. A card
+  has always named a real town in `place`, and `radius_km` was the only answer
+  to "how far" — so a laptop someone would post to any address in the country
+  had to choose between a town it could be collected from and a radius that
+  was a lie. `reach` takes `"radius"` (the default, and exactly today's
+  behaviour: within `radius_km` of the place), `"country"` (anywhere in the
+  place's own country), or `"anywhere"` (no geographic limit, for something
+  done online). Additive and defaulted, so every card written before this one
+  means what it always meant.
+- Matching rule for reach, in `SPEC.md` §1.1: each side's reach has to cover
+  where the other side is. Two `"radius"` cards meet exactly as before, on the
+  sum of their radii. A `"country"` card covers any card whose place resolved
+  to the same country; an `"anywhere"` card covers every card. The test runs
+  both ways, so a nationwide HAVE in Canberra meets a WANT in Perth only when
+  that WANT reaches nationwide too.
+- Scoring rule for reach, also §1.1: a pair that meets by radius is still
+  ranked by distance, and a pair that meets because one side reaches a whole
+  country gets a flat, moderate geographic contribution instead. Nationwide is
+  a real match; it is not the match an adjacent suburb would be.
+- Fixtures: `card-have-laptop-nationwide.json`, `card-want-language-anywhere.json`,
+  and `invalid-card-unknown-reach.json`.
+
+### Changed
+- `location_resolved.display` now says the reach alongside the place —
+  `"Canberra, Australian Capital Territory, Australia — reaching all of
+  Australia"`, `"… — reaching anywhere"`, `"… — matching within 25 km"`. The
+  shape is unchanged; a client that only reads the string reads a longer one.
+- `LOCATION_UNRESOLVED` for a bare country now also names the field that does
+  mean nationwide: name the town and set `reach` to `"country"`. The refusal
+  itself is unchanged — a country is still not a place a person lives in the
+  middle of.
+- `TOOLS.md`: the `open_channel`, `channel_send` and `channel_receive`
+  sections say plainly that there is no app, no chat window and no inbox. The
+  conversation happens through the agent, both ways. Agents were reading the
+  channel as a place their human could be sent to, and telling them to go
+  there.
+
 ## [0.7.1] — 2026-09-03
 
 ### Added
