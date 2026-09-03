@@ -10,6 +10,46 @@ verticals exist.
 
 ## [Unreleased]
 
+## [0.10.0] — 2026-09-03
+
+A human can archive a finished connection, and it stays retrievable afterward.
+Two people match, opt in, talk through the relay, and then take it
+off-platform — swap numbers, join the book club. The switchboard's job for that
+match is done, so the human's agent can file it away and hand the record back
+later.
+
+Adding a terminal match state and a new `respond` action is additive to the
+wire, so it moves the MINOR while the package is pre-1.0 (the major stays `0`).
+
+### Added
+- **Match state `archived`** — a fourth, terminal, success close, alongside
+  `open`, `declined` and `closed`. It is documented in `SPEC.md` §5a and in
+  `TOOLS.md`. No JSON-Schema enum changes, because match state is a
+  prose-defined field of the `check_matches` result rather than a validated
+  payload object; the disclosed block an archived match still returns is an
+  ordinary `match.mutual` (see the new `fixtures/archived-connection-mutual.json`).
+- **`respond` action `archive`** — files an open match away as `archived`.
+  Party-only and idempotent; it tears down the live channel (`channel_send` /
+  `channel_receive` then refuse) and keeps the match row and its stage-3
+  disclosure linkage, so the connection record survives. It answers
+  `{ match_id, state: "archived", already_archived }`. It does not touch the
+  card behind the match — a card that serves many stays live for the next
+  person; a one-off is withdrawn separately with `withdraw_intent`.
+- **`check_matches` returns an archived match as a retrievable record** —
+  `{ match_id, state: "archived", category, archived_at }`, plus the stage-3
+  `match.mutual` under `mutual` where the two reached it, so a human can look
+  the connection up long afterward. An archived match carries no `next` and no
+  stage-1 `signal`, so it never resurfaces as a new signal to act on. Declined
+  and closed matches still come back as `{ match_id, state }` alone.
+
+### Boundary
+- What is retained is the **connection record** — the counterparty's disclosed
+  first name and area, the category, and the dates. The conversation itself
+  (channel messages delete on delivery, §5) and any phone number swapped
+  in-channel are never retained by the switchboard; they live in the human's
+  own agent memory. "Retrievable" means the record, and it means the record
+  only.
+
 ## [0.9.0] — 2026-09-03
 
 The machine internals come off the stage-1 payload. Across several clients,
