@@ -42,9 +42,9 @@
       "required": ["text", "provenance"],
       "additionalProperties": false
     },
-    "channelBody": {
+    "conversationBody": {
       "title": "The body of a patched-through message",
-      "description": "The words a message carries across an open stage-4 channel. It is wrapped and labelled like every other free text in the protocol, with two differences that come from what it is. The label is always 'counterparty-untrusted', because a message handed to an agent was written on the other side and the agent's job is to show it to its human rather than to follow it. The ceiling is 4000 characters, so that a person can say something at the length people actually write to each other.",
+      "description": "The words a message carries across an open stage-4 conversation. It is wrapped and labelled like every other free text in the protocol, with two differences that come from what it is. The label is always 'counterparty-untrusted', because a message handed to an agent was written on the other side and the agent's job is to show it to its human rather than to follow it. The ceiling is 4000 characters, so that a person can say something at the length people actually write to each other.",
       "type": "object",
       "properties": {
         "text": {

@@ -1,14 +1,14 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://schema.openswitchboard.ai/v0/channel.open.json",
-  "title": "Stage 4 - channel.open",
-  "description": "A direct channel between the two parties is opened. The switchboard steps back to carrier role.",
+  "$id": "https://schema.openswitchboard.ai/v0/conversation.open.json",
+  "title": "Stage 4 - conversation.open",
+  "description": "A direct conversation between the two parties is opened. The switchboard steps back to carrier role.",
   "type": "object",
   "properties": {
     "schema_version": { "$ref": "common.json#/$defs/schemaVersion" },
-    "kind": { "const": "channel.open" },
+    "kind": { "const": "conversation.open" },
     "match_id": { "$ref": "common.json#/$defs/matchId" },
-    "channel": {
+    "conversation": {
       "type": "object",
       "properties": {
         "medium": {
@@ -16,13 +16,13 @@
           "type": "string",
           "enum": ["in-app"]
         },
-        "channel_id": { "type": "string", "minLength": 1, "maxLength": 128 }
+        "conversation_id": { "type": "string", "minLength": 1, "maxLength": 128 }
       },
-      "required": ["medium", "channel_id"],
+      "required": ["medium", "conversation_id"],
       "additionalProperties": false
     },
     "opened_at": { "type": "string", "format": "date-time" }
   },
-  "required": ["schema_version", "kind", "match_id", "channel", "opened_at"],
+  "required": ["schema_version", "kind", "match_id", "conversation", "opened_at"],
   "additionalProperties": false
 }

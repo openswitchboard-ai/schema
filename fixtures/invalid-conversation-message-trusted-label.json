@@ -1,12 +1,12 @@
 {
-  "description": "MUST FAIL: a message body claiming to be switchboard text; a message carried across a channel is always the other side's words",
-  "schema": "channel.message",
+  "description": "MUST FAIL: a message body claiming to be switchboard text; a message carried across a conversation is always the other side's words",
+  "schema": "conversation.message",
   "valid": false,
   "error_contains": "/body/provenance",
   "data": {
     "schema_version": "0.5.0",
-    "kind": "channel.message",
-    "channel_id": "ch_8f14e45f-9a1c-4f0e-8f3a-2b7c9d4e1a06",
+    "kind": "conversation.message",
+    "conversation_id": "conv_8f14e45f-9a1c-4f0e-8f3a-2b7c9d4e1a06",
     "message_id": "3f7c1a92-5d84-4b0e-9c31-6a2f8e5d0b47",
     "seq": 1,
     "sent_at": "2026-09-01T02:14:00Z",

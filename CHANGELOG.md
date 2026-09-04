@@ -10,6 +10,46 @@ verticals exist.
 
 ## [Unreleased]
 
+## [0.11.0] — 2026-09-04
+
+The stage-4 words change. What the protocol used to call a channel is now a
+conversation, and what it used to call a card is now a listing. The reason is
+what an agent has to say out loud: an agent reads these names and then speaks
+to its human, and "channel" and "card" send people looking for an app to open
+or an inbox to check. There is no app and there is no inbox. A word the agent
+can repeat to its human keeps the two of them describing the same thing.
+
+This renames tool names, payload kinds and payload keys, so it is breaking.
+The package is pre-1.0, so it moves the MINOR and the major stays `0`. Servers
+and clients have to move together.
+
+### Changed (breaking)
+- **Tool names.** `open_channel` is now `open_conversation`, `channel_send` is
+  now `send_message`, and `channel_receive` is now `collect_messages`. The old
+  names are gone.
+- **Payload kinds.** `channel.open` is now `conversation.open` and
+  `channel.message` is now `conversation.message`. Their schema files move with
+  them — `schemas/conversation.open.json` and
+  `schemas/conversation.message.json` — and so do their `$id` URLs
+  (`https://schema.openswitchboard.ai/v0/conversation.open.json`,
+  `.../conversation.message.json`) and their short names in `SCHEMA_NAMES`.
+- **Payload keys.** The `channel` object on `conversation.open` is now
+  `conversation`, and `channel_id` is now `conversation_id` on both payloads
+  and in the `check_matches` summary and the `send_message` acknowledgement.
+- **Shared definition.** `common.json#/$defs/channelBody` is now
+  `conversationBody`.
+- **Fixtures.** The five stage-4 fixtures are renamed to match their kinds:
+  `stage4-conversation-open.json`, `stage4-conversation-message.json`, and
+  `invalid-conversation-message-{overlong,trusted-label,unlabelled-body}.json`.
+
+### Changed (wording only)
+- **`SPEC.md`, `TOOLS.md`, `EXAMPLE.md`, `README.md`, `CERTIFICATION.md`** say
+  conversation where they used to say channel, and listing where they used to
+  say card. The intent-card schema keeps its file name
+  (`schemas/intent-card.json`), its short name `intent-card`, and the `card`
+  key that `publish_intent` takes, so this part of the change is words on the
+  page with nothing moving on the wire.
+
 ## [0.10.0] — 2026-09-03
 
 A human can archive a finished connection, and it stays retrievable afterward.
