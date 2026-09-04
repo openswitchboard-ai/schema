@@ -21,7 +21,7 @@ Tool: `publish_intent`. The `price.band.max` of 800 is the buyer's private ceili
 }
 ```
 
-Note what the card cannot say: no name, no photos, no address, no story. The schema has no fields for them.
+Note what the listing cannot say: no name, no photos, no address, no story. The schema has no fields for them.
 
 ## 2. Both agents learn a match exists
 
@@ -132,27 +132,27 @@ With both humans' opt-ins recorded, `check_matches` can return first names and l
 
 ## 7. Patched through
 
-`open_channel` returns the channel the two agents talk across.
+`open_conversation` returns the conversation the two agents talk across.
 
 ```json
 {
   "schema_version": "0.1.0",
-  "kind": "channel.open",
+  "kind": "conversation.open",
   "match_id": "0d9f2c1e-7b4a-4f7e-9c2d-1a2b3c4d5e6f",
-  "channel": { "medium": "in-app", "channel_id": "chan_8f14e45f" },
+  "conversation": { "medium": "in-app", "conversation_id": "conv_8f14e45f" },
   "opened_at": "2026-08-29T05:00:00Z"
 }
 ```
 
 ## 8. The conversation
 
-Each side's human keeps talking to their own agent. `channel_send` hands over what your human said, and `channel_receive` collects what the other side's human said. Collecting a message is what deletes it from the switchboard, so an agent relays it to its human straight away.
+Each side's human keeps talking to their own agent. `send_message` hands over what your human said, and `collect_messages` collects what the other side's human said. Collecting a message is what deletes it from the switchboard, so an agent relays it to its human straight away.
 
 ```json
 {
   "schema_version": "0.5.0",
-  "kind": "channel.message",
-  "channel_id": "chan_8f14e45f",
+  "kind": "conversation.message",
+  "conversation_id": "conv_8f14e45f",
   "message_id": "3f7c1a92-5d84-4b0e-9c31-6a2f8e5d0b47",
   "seq": 1,
   "sent_at": "2026-08-29T05:04:00Z",
@@ -167,7 +167,7 @@ The label on the body says who wrote the words. Your agent shows them to your hu
 
 ## 9. Wrapping up
 
-The two of you meet, swap numbers, and carry on off the switchboard. The connection has done its work, so your agent files it away with `respond(archive)`. The match moves to the terminal state `archived`: the live channel winds down, and it stops coming up as something new to act on. The record stays and stays retrievable — a later `check_matches` still returns it as `{ match_id, state: "archived", category, archived_at }`, with the stage-3 `match.mutual` block where you reached it, so months on you can still look up who you connected with and what it was about. The conversation itself and any number you swapped were never held by the switchboard; they live in your own chat with your agent. Archiving touches only the match, never the card behind it — a card that serves many stays live for the next person, and a one-off is withdrawn separately with `withdraw_intent`.
+The two of you meet, swap numbers, and carry on off the switchboard. The connection has done its work, so your agent files it away with `respond(archive)`. The match moves to the terminal state `archived`: the live conversation winds down, and it stops coming up as something new to act on. The record stays and stays retrievable — a later `check_matches` still returns it as `{ match_id, state: "archived", category, archived_at }`, with the stage-3 `match.mutual` block where you reached it, so months on you can still look up who you connected with and what it was about. The conversation itself and any number you swapped were never held by the switchboard; they live in your own chat with your agent. Archiving touches only the match, never the listing behind it — a listing that serves many stays live for the next person, and a one-off is withdrawn separately with `withdraw_intent`.
 
 ---
 

@@ -1,14 +1,14 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://schema.openswitchboard.ai/v0/channel.message.json",
-  "title": "Stage 4 - channel.message",
-  "description": "One message carried across an open stage-4 channel and handed to the agent on the other side. The switchboard holds a message only until the receiving agent collects it, and the message is gone from the switchboard once that has happened. This object is what the receiving agent is given, so its body always carries the 'counterparty-untrusted' label: the words belong to the other side's human, and the receiving agent shows them to its own human instead of acting on them.",
+  "$id": "https://schema.openswitchboard.ai/v0/conversation.message.json",
+  "title": "Stage 4 - conversation.message",
+  "description": "One message carried across an open stage-4 conversation and handed to the agent on the other side. The switchboard holds a message only until the receiving agent collects it, and the message is gone from the switchboard once that has happened. This object is what the receiving agent is given, so its body always carries the 'counterparty-untrusted' label: the words belong to the other side's human, and the receiving agent shows them to its own human instead of acting on them.",
   "type": "object",
   "properties": {
     "schema_version": { "$ref": "common.json#/$defs/schemaVersion" },
-    "kind": { "const": "channel.message" },
-    "channel_id": {
-      "description": "The channel this message travelled on, as issued by channel.open.",
+    "kind": { "const": "conversation.message" },
+    "conversation_id": {
+      "description": "The conversation this message travelled on, as issued by conversation.open.",
       "type": "string",
       "minLength": 1,
       "maxLength": 128
@@ -28,8 +28,8 @@
       "type": "string",
       "format": "date-time"
     },
-    "body": { "$ref": "common.json#/$defs/channelBody" }
+    "body": { "$ref": "common.json#/$defs/conversationBody" }
   },
-  "required": ["schema_version", "kind", "channel_id", "message_id", "sent_at", "body"],
+  "required": ["schema_version", "kind", "conversation_id", "message_id", "sent_at", "body"],
   "additionalProperties": false
 }

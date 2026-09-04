@@ -20,8 +20,8 @@ export const SCHEMA_NAMES = [
   "match.signal",
   "match.attributes",
   "match.mutual",
-  "channel.open",
-  "channel.message",
+  "conversation.open",
+  "conversation.message",
   "offer",
   "settlement",
   "error",
@@ -41,7 +41,7 @@ export interface Fixture {
   valid: boolean;
   /**
    * For intent-card fixtures that also exercise the taxonomy gate: the status
-   * the card's category must resolve to. A card can be perfectly well-formed
+   * the listing's category must resolve to. A listing can be perfectly well-formed
    * and still be refused because its category is reserved or unknown, so this
    * assertion is separate from schema validity.
    */
@@ -108,7 +108,7 @@ export function loadTaxonomy(): Taxonomy {
   return taxonomyCache;
 }
 
-/** Every category a card may be posted under, in taxonomy order. */
+/** Every category a listing may be posted under, in taxonomy order. */
 export function openCategories(taxonomy: Taxonomy = loadTaxonomy()): string[] {
   return Object.keys(taxonomy.nodes).filter(
     (c) => categoryStatus(c, taxonomy).status === "open",

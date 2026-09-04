@@ -12,8 +12,8 @@ const schemaFor = (d) =>
   : d.kind === "match.signal" ? "match.signal"
   : d.kind === "match.attributes" ? "match.attributes"
   : d.kind === "match.mutual" ? "match.mutual"
-  : d.kind === "channel.open" ? "channel.open"
-  : d.kind === "channel.message" ? "channel.message"
+  : d.kind === "conversation.open" ? "conversation.open"
+  : d.kind === "conversation.message" ? "conversation.message"
   : null;
 
 const validate = createValidator();

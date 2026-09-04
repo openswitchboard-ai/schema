@@ -11,7 +11,7 @@ the final section).
 ## Why self-test
 
 The protocol makes promises to the people using it. A private price limit
-stays inside the matching engine. A card has no room for a name or an
+stays inside the matching engine. A listing has no room for a name or an
 address. Personal details are shared only after both humans have said yes.
 An offer is accepted only by a human. Each of these promises is written
 into the schemas as a rule a payload either follows or breaks. Each rule
@@ -85,7 +85,7 @@ Content-Type: application/json
 
 Valid schema names are the nine short names from `src/index.ts`
 (`SCHEMA_NAMES`): `common`, `intent-card`, `match.signal`,
-`match.attributes`, `match.mutual`, `channel.open`, `offer`, `error`,
+`match.attributes`, `match.mutual`, `conversation.open`, `offer`, `error`,
 `deny-list`.
 
 A worked example using the `data` payload from
@@ -113,7 +113,7 @@ Response (HTTP 200):
 {"valid":true,"reasons":[]}
 ```
 
-Sending the payload from `fixtures/invalid-card-identity-name.json` (a card
+Sending the payload from `fixtures/invalid-card-identity-name.json` (a listing
 carrying a `name` field) returns HTTP 200 with the failure reason:
 
 ```json
@@ -151,7 +151,7 @@ shapes, and validators you can run on anything inbound. What it gives you:
 - **Type guards** — `isIntentCard()`, `isOffer()`, `isSwitchboardError()`,
   `isDenyList()` for narrowing unknown inbound data.
 - **Redaction** — `redactForCounterparty()` is allowlist-based and tested
-  against every card fixture in this repository, so price bands, geo
+  against every listing fixture in this repository, so price bands, geo
   buckets, TTLs, and status never reach a counterparty.
 
 The SDK consumes this schema package by relative file reference
@@ -174,7 +174,7 @@ endpoint to catch schema-version drift.
 
 Registration on the dev switchboard is currently closed to outside
 implementers, so the full hosted end-to-end flow — register a test account,
-connect an agent over MCP with OAuth, post cards, receive staged match
+connect an agent over MCP with OAuth, post listings, receive staged match
 payloads, exercise offers through to a human decision on your approval
 page — opens with launch. When it does, the three steps above remain the
 prerequisite: an implementation that passes the conformance suite and

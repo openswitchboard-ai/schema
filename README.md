@@ -11,17 +11,17 @@ The source of truth for the OpenSwitchboard protocol: the JSON Schemas every mes
 | Path | What it is | What it's for |
 |---|---|---|
 | `SPEC.md` | The prose specification. | The normative description of the protocol. It doubles as a defensive publication: the ideas are on the public record, dated, so they stay free for everyone to implement. |
-| `schemas/intent-card.json` | Schema for WANT and HAVE cards. | Defines exactly which fields a card may carry. There are no fields for names, photos, addresses or free-form life detail, so an identifying card cannot validate. |
+| `schemas/intent-card.json` | Schema for WANT and HAVE listings. | Defines exactly which fields a listing may carry. There are no fields for names, photos, addresses or free-form life detail, so an identifying listing cannot validate. |
 | `schemas/match.signal.json` | Schema for the stage-1 match signal. | Score and category only — what each side first learns about a match. |
 | `schemas/match.attributes.json` | Schema for the stage-2 message. | Attributes and asking price, exchanged after both sides show interest. |
 | `schemas/match.mutual.json` | Schema for the stage-3 message. | First name and locality, released only with both humans' opt-in tokens. |
-| `schemas/channel.open.json` | Schema for the stage-4 message. | The direct-channel handoff once both humans approve. |
-| `schemas/channel.message.json` | Schema for one message on an open channel. | What the two agents carry back and forth once the channel is open. The switchboard holds a message only until the agent it is addressed to collects it. |
+| `schemas/conversation.open.json` | Schema for the stage-4 message. | The direct-conversation handoff once both humans approve. |
+| `schemas/conversation.message.json` | Schema for one message on an open conversation. | What the two agents carry back and forth once the conversation is open. The switchboard holds a message only until the agent it is addressed to collects it. |
 | `schemas/offer.json` | Schema for offers. | Amount, currency, expiry and state. It has no decline-reason field, and its states end at `awaiting-human` for agents; `accepted-by-human` exists only for recording a human's decision. |
 | `schemas/error.json` | Schema for error objects. | Machine-readable errors that tell an agent what to do next (e.g. `CONSENT_REQUIRED` carries the approval link). |
 | `schemas/deny-list.json` | Schema for deny-list documents. | The format for prohibited-category lists used by screening. |
 | `schemas/common.json` | Shared definitions. | Areas, price bands, provenance-labelled text, currencies. |
-| `data/taxonomy.v2.json` | The v2 taxonomy, around 590 nodes. | Dotted category paths (`goods.bicycle.mountain`, `services.repairs.bicycle`, `social.language-exchange`) that cards must use. `goods.*`, `services.*` and `social.*` are open; `work.*`, `property.*` and the nodes marked reserved are not. |
+| `data/taxonomy.v2.json` | The v2 taxonomy, around 590 nodes. | Dotted category paths (`goods.bicycle.mountain`, `services.repairs.bicycle`, `social.language-exchange`) that listings must use. `goods.*`, `services.*` and `social.*` are open; `work.*`, `property.*` and the nodes marked reserved are not. |
 | `data/deny-list.seed.json` | The seed deny list. | The starting set of prohibited categories every deployment screens against. |
 | `fixtures/` | 62 examples: messages that must pass and messages that must fail. | Each must-fail example pins its failure reason, so a conforming validator has to reject the right things for the right reasons. |
 | `src/` | The conformance harness. | Runs every example against a validator and reports failures. |

@@ -1,14 +1,14 @@
 {
-  "description": "Valid stage-4 channel.open",
-  "schema": "channel.open",
+  "description": "Valid stage-4 conversation.open",
+  "schema": "conversation.open",
   "valid": true,
   "data": {
     "schema_version": "0.1.0",
-    "kind": "channel.open",
+    "kind": "conversation.open",
     "match_id": "0d9f2c1e-7b4a-4f7e-9c2d-1a2b3c4d5e6f",
-    "channel": {
+    "conversation": {
       "medium": "in-app",
-      "channel_id": "chan_8f14e45f"
+      "conversation_id": "conv_8f14e45f"
     },
     "opened_at": "2026-08-29T05:00:00Z"
   }
