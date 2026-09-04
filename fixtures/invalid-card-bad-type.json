@@ -1,5 +1,5 @@
 {
-  "description": "MUST FAIL: only WANT and HAVE exist",
+  "description": "MUST FAIL: only 'looking_for' and 'offering' exist",
   "schema": "intent-card",
   "valid": false,
   "error_contains": "/type enum",

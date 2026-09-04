@@ -17,9 +17,9 @@ const root = join(here, "..");
 export const SCHEMA_NAMES = [
   "common",
   "intent-card",
-  "match.signal",
-  "match.attributes",
-  "match.mutual",
+  "intro.signal",
+  "intro.attributes",
+  "intro.mutual",
   "conversation.open",
   "conversation.message",
   "offer",

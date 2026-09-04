@@ -1,0 +1,15 @@
+{
+  "description": "MUST FAIL: attributes on a signal - the signal step discloses nothing but the introduction",
+  "schema": "intro.signal",
+  "valid": false,
+  "error_contains": "\"additionalProperty\":\"attributes\"",
+  "data": {
+    "schema_version": "0.1.0",
+    "kind": "intro.signal",
+    "intro_id": "0d9f2c1e-7b4a-4f7e-9c2d-1a2b3c4d5e6f",
+    "category": "goods.electronics.tv",
+    "attributes": {
+      "screen_in": 55
+    }
+  }
+}

@@ -10,6 +10,73 @@ verticals exist.
 
 ## [Unreleased]
 
+## [0.12.0] — 2026-09-04
+
+The words for what the switchboard does. A match becomes an introduction, a
+WANT becomes a looking-for listing, a HAVE becomes an offering listing, and the
+numbered disclosure stages become three words an agent can say: signal,
+details, names. The reason is the same one behind 0.11.0. An agent reads these
+names and then speaks to its human, and "you have a match" sends a person
+looking for a dating app, while "stage 2" and "a HAVE" are jargon nobody says
+out loud. "The switchboard made an introduction" is what actually happened, and
+it is a sentence a person can repeat.
+
+The verb survives where it belongs. The switchboard still matches listings by
+meaning, and a private price band is still a matching input. What changes is
+the noun an agent hands to its human.
+
+This renames a tool, payload kinds, payload keys, an error code and an enum, so
+it is breaking. The package is pre-1.0, so it moves the MINOR and the major
+stays `0`. Servers and clients have to move together.
+
+### Changed (breaking)
+- **Tool name.** `check_matches` is now `check_in`. The old name is gone.
+- **Payload kinds.** `match.signal`, `match.attributes` and `match.mutual` are
+  now `intro.signal`, `intro.attributes` and `intro.mutual`. Their schema files
+  move with them — `schemas/intro.signal.json`, `schemas/intro.attributes.json`,
+  `schemas/intro.mutual.json` — and so do their `$id` URLs
+  (`https://schema.openswitchboard.ai/v0/intro.signal.json`, and the same for
+  the other two) and their short names in `SCHEMA_NAMES`.
+- **Payload key.** `match_id` is now `intro_id`, on every payload and in every
+  tool input and return that carried it: `intro.signal`, `intro.attributes`,
+  `intro.mutual`, `conversation.open`, `offer`, `settlement`, and the inputs to
+  `check_in`, `respond`, `open_conversation`, `send_message`,
+  `collect_messages` and `settle`.
+- **Shared definition.** `common.json#/$defs/matchId` is now `introId`.
+- **`check_in`'s step input.** The integer `stage` (1–3) is now the string
+  `step`, taking `"signal"`, `"details"` or `"names"`. The words are the ones
+  the spec now uses for the three disclosure steps, so an agent asking for one
+  reads the same as an agent describing it.
+- **`check_in`'s return key.** The array of open introductions comes back as
+  `introductions`; it used to be `matches`.
+- **Error code.** `STAGE_LOCKED` is now `NOT_UNLOCKED_YET`. It is still the
+  code for asking for a step before the consent it requires is on record.
+- **Listing side.** `type` on a listing takes `"looking_for"` and `"offering"`;
+  it used to take `"WANT"` and `"HAVE"`. `counterparty_type` on `intro.signal`
+  moves with it. A server accepts the old two values as deprecated input
+  aliases and normalises them on the way in, so an older client keeps posting
+  while it catches up; nothing on the wire comes back in the old spelling.
+- **Visibility.** The one value `visibility` takes is now
+  `"anonymous-until-introduced"`; it used to be `"anonymous-until-match"`.
+- **Fixtures.** The introduction and conversation fixtures are renamed to match
+  their kinds and the stage prefixes are gone: `intro-signal.json`,
+  `intro-attributes{,-no-ask}.json`, `intro-mutual.json`,
+  `conversation-{open,message}.json`, and
+  `invalid-intro-{signal-with-attributes,attributes-unlabeled-text,attributes-with-price-band,mutual-optin-false,mutual-without-optin}.json`.
+  The listing fixtures follow the side they carry: `card-want-*` is now
+  `card-looking-for-*`, `card-have-*` is now `card-offering-*`, and
+  `invalid-card-ask-on-want.json` is `invalid-card-ask-on-looking-for.json`.
+
+### Changed (wording only)
+- **`SPEC.md`, `TOOLS.md`, `EXAMPLE.md`, `README.md`, `CERTIFICATION.md`** say
+  introduction where they used to say match, a looking-for listing and an
+  offering listing where they used to say a WANT and a HAVE, and the signal,
+  details and names steps where they used to say stage 1, 2 and 3. Stage 4 is
+  named for what it is: the conversation. `SPEC.md` §4 is now "Disclosure steps
+  and consent gates" and each step is titled with its word. The intent-card
+  schema keeps its file name (`schemas/intent-card.json`), its short name
+  `intent-card`, and the `card` key that `publish_intent` takes.
+
 ## [0.11.0] — 2026-09-04
 
 The stage-4 words change. What the protocol used to call a channel is now a

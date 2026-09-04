@@ -5,7 +5,7 @@
   "error_contains": "/geo/reach",
   "data": {
     "schema_version": "0.8.0",
-    "type": "WANT",
+    "type": "looking_for",
     "category": "goods.electronics.laptop",
     "geo": {
       "place": "Canberra",

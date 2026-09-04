@@ -5,7 +5,7 @@
   "error_contains": "\"additionalProperty\":\"name\"",
   "data": {
     "schema_version": "0.1.0",
-    "type": "HAVE",
+    "type": "offering",
     "category": "goods.furniture.table",
     "geo": {
       "bucket": "r3gx"

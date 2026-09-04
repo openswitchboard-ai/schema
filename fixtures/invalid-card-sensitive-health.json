@@ -5,7 +5,7 @@
   "error_contains": "\"propertyName\":\"health\"",
   "data": {
     "schema_version": "0.1.0",
-    "type": "WANT",
+    "type": "looking_for",
     "category": "goods.sports.fitness",
     "geo": {
       "bucket": "r3gx"

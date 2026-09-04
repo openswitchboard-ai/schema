@@ -1,0 +1,28 @@
+{
+  "description": "Valid looking-for listing: laptop, urgency 'days', boolean/number attribute types",
+  "schema": "intent-card",
+  "valid": true,
+  "data": {
+    "schema_version": "0.1.0",
+    "type": "looking_for",
+    "category": "goods.electronics.laptop",
+    "geo": {
+      "bucket": "dr5r",
+      "radius_km": 15
+    },
+    "price": {
+      "band": {
+        "min": 200,
+        "max": 900
+      },
+      "ccy": "USD"
+    },
+    "attributes": {
+      "ram_gb": 16,
+      "storage_gb": 512,
+      "condition": "like-new"
+    },
+    "urgency": "days",
+    "ttl_days": 30
+  }
+}

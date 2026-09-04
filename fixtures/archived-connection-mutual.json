@@ -1,11 +1,11 @@
 {
-  "description": "The retained record returned for an archived connection reuses match.mutual unchanged: check_matches keeps disclosing the counterparty's first name + locality after the match is filed away, so the connection stays retrievable",
-  "schema": "match.mutual",
+  "description": "The retained record returned for an archived connection reuses intro.mutual unchanged: check_in keeps disclosing the counterparty's first name + locality after the introduction is filed away, so the connection stays retrievable",
+  "schema": "intro.mutual",
   "valid": true,
   "data": {
     "schema_version": "0.1.0",
-    "kind": "match.mutual",
-    "match_id": "0d9f2c1e-7b4a-4f7e-9c2d-1a2b3c4d5e6f",
+    "kind": "intro.mutual",
+    "intro_id": "0d9f2c1e-7b4a-4f7e-9c2d-1a2b3c4d5e6f",
     "counterparty": {
       "first_name": "Alex",
       "locality": "Franklin"

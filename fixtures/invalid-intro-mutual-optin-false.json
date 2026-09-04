@@ -1,0 +1,19 @@
+{
+  "description": "MUST FAIL: the names step with both_recorded explicitly false - consent must be on record",
+  "schema": "intro.mutual",
+  "valid": false,
+  "error_contains": "/optin/both_recorded",
+  "data": {
+    "schema_version": "0.1.0",
+    "kind": "intro.mutual",
+    "intro_id": "0d9f2c1e-7b4a-4f7e-9c2d-1a2b3c4d5e6f",
+    "counterparty": {
+      "first_name": "Alex",
+      "locality": "Newtown"
+    },
+    "optin": {
+      "both_recorded": false,
+      "recorded_at": "2026-08-29T04:12:00Z"
+    }
+  }
+}

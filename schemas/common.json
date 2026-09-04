@@ -20,8 +20,8 @@
       "type": "string",
       "pattern": "^[A-Z]{3}$"
     },
-    "matchId": {
-      "description": "Opaque switchboard-issued match identifier (UUID).",
+    "introId": {
+      "description": "Opaque switchboard-issued introduction identifier (UUID).",
       "type": "string",
       "format": "uuid"
     },
@@ -36,15 +36,21 @@
         },
         "provenance": {
           "type": "string",
-          "enum": ["switchboard-system", "counterparty-untrusted"]
+          "enum": [
+            "switchboard-system",
+            "counterparty-untrusted"
+          ]
         }
       },
-      "required": ["text", "provenance"],
+      "required": [
+        "text",
+        "provenance"
+      ],
       "additionalProperties": false
     },
     "conversationBody": {
       "title": "The body of a patched-through message",
-      "description": "The words a message carries across an open stage-4 conversation. It is wrapped and labelled like every other free text in the protocol, with two differences that come from what it is. The label is always 'counterparty-untrusted', because a message handed to an agent was written on the other side and the agent's job is to show it to its human rather than to follow it. The ceiling is 4000 characters, so that a person can say something at the length people actually write to each other.",
+      "description": "The words a message carries across an open conversation. It is wrapped and labelled like every other free text in the protocol, with two differences that come from what it is. The label is always 'counterparty-untrusted', because a message handed to an agent was written on the other side and the agent's job is to show it to its human rather than to follow it. The ceiling is 4000 characters, so that a person can say something at the length people actually write to each other.",
       "type": "object",
       "properties": {
         "text": {
@@ -52,14 +58,19 @@
           "minLength": 1,
           "maxLength": 4000
         },
-        "provenance": { "const": "counterparty-untrusted" }
+        "provenance": {
+          "const": "counterparty-untrusted"
+        }
       },
-      "required": ["text", "provenance"],
+      "required": [
+        "text",
+        "provenance"
+      ],
       "additionalProperties": false
     },
     "geoBucket": {
       "title": "Bucketed location",
-      "description": "Location on the switchboard is always an area, and it holds two separate things. WHERE THE CARD IS: give 'place', the name of a suburb, city or region ('Canberra', 'Newtown, NSW', 'AU-ACT'). The switchboard resolves it to a coarse cell, so two cards naming the same area meet even when they spell it differently. 'bucket' is the canonical cell itself (a geohash4), for agents that already hold one; a card carries at least one of the two. HOW FAR THE HUMAN WILL MEET SOMEONE: 'reach', with 'radius_km' behind it. Exact coordinates, street addresses and similar are structurally impossible here.",
+      "description": "Location on the switchboard is always an area, and it holds two separate things. WHERE THE LISTING IS: give 'place', the name of a suburb, city or region ('Canberra', 'Newtown, NSW', 'AU-ACT'). The switchboard resolves it to a coarse cell, so two listings naming the same area meet even when they spell it differently. 'bucket' is the canonical cell itself (a geohash4), for agents that already hold one; a listing carries at least one of the two. HOW FAR THE HUMAN WILL MEET SOMEONE: 'reach', with 'radius_km' behind it. Exact coordinates, street addresses and similar are structurally impossible here.",
       "type": "object",
       "properties": {
         "place": {
@@ -83,73 +94,146 @@
           "maximum": 500
         },
         "reach": {
-          "description": "How far the human will meet the other side, which is a different question from where they are. 'radius' (the default) means within radius_km of the place - a pickup, a lesson in person. 'country' means anywhere in the place's own country, for something they would post. 'anywhere' means no geographic limit at all, for something done online. A card still names a real town in 'place' whatever its reach: reach is not a way to post a card to a whole country.",
+          "description": "How far the human will meet the other side, which is a different question from where they are. 'radius' (the default) means within radius_km of the place - a pickup, a lesson in person. 'country' means anywhere in the place's own country, for something they would post. 'anywhere' means no geographic limit at all, for something done online. A listing still names a real town in 'place' whatever its reach: reach is not a way to post a listing to a whole country.",
           "type": "string",
-          "enum": ["radius", "country", "anywhere"],
+          "enum": [
+            "radius",
+            "country",
+            "anywhere"
+          ],
           "default": "radius"
         }
       },
       "anyOf": [
-        { "properties": { "place": true }, "required": ["place"] },
-        { "properties": { "bucket": true }, "required": ["bucket"] }
+        {
+          "properties": {
+            "place": true
+          },
+          "required": [
+            "place"
+          ]
+        },
+        {
+          "properties": {
+            "bucket": true
+          },
+          "required": [
+            "bucket"
+          ]
+        }
       ],
       "additionalProperties": false
     },
     "priceBand": {
       "title": "Price band (MATCHING INPUT ONLY - never disclosed)",
-      "description": "On a WANT this is the budget ceiling; on a HAVE it is the reserve floor. Price bands are MATCHING INPUTS ONLY: the switchboard uses them to decide whether two cards can meet, and they are NEVER disclosed to a counterparty at any stage. Only deliberate terms are disclosed: an asking price ('ask' on a HAVE) or an offer (a negotiation message). No disclosure payload schema in this package permits a price band, and conforming implementations MUST NOT leak one.",
+      "description": "On a looking-for listing this is the budget ceiling; on an offering listing it is the reserve floor. Price bands are MATCHING INPUTS ONLY: the switchboard uses them to decide whether two listings can meet, and they are NEVER disclosed to a counterparty at any point. Only deliberate terms are disclosed: an asking price ('ask' on an offering listing) or an offer (a negotiation message). No disclosure payload schema in this package permits a price band, and conforming implementations MUST NOT leak one.",
       "type": "object",
       "properties": {
         "band": {
           "type": "object",
           "properties": {
-            "min": { "type": "number", "minimum": 0 },
-            "max": { "type": "number", "minimum": 0 }
+            "min": {
+              "type": "number",
+              "minimum": 0
+            },
+            "max": {
+              "type": "number",
+              "minimum": 0
+            }
           },
           "additionalProperties": false
         },
-        "ccy": { "$ref": "#/$defs/ccy" }
+        "ccy": {
+          "$ref": "#/$defs/ccy"
+        }
       },
-      "required": ["band", "ccy"],
+      "required": [
+        "band",
+        "ccy"
+      ],
       "additionalProperties": false
     },
     "ask": {
       "title": "Asking price (disclosable)",
-      "description": "A deliberate, disclosable asking price on a HAVE. Unlike the price band (a private matching input), the ask is a term the human has chosen to state, and it may be shown to a counterparty from stage 2 onward.",
+      "description": "A deliberate, disclosable asking price on an offering listing. Unlike the price band (a private matching input), the ask is a term the human has chosen to state, and it may be shown to a counterparty from the details step onward.",
       "type": "object",
       "properties": {
-        "amount": { "type": "number", "exclusiveMinimum": 0 },
-        "ccy": { "$ref": "#/$defs/ccy" }
+        "amount": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "ccy": {
+          "$ref": "#/$defs/ccy"
+        }
       },
-      "required": ["amount", "ccy"],
+      "required": [
+        "amount",
+        "ccy"
+      ],
       "additionalProperties": false
     },
     "attributes": {
       "title": "Typed card attributes",
-      "description": "Per-category typed key/values (see data/taxonomy.v2.json for the attribute vocabulary of each category). Keys are lower_snake_case. Identity keys and sensitive personal keys (health, sexuality, beliefs, ethnicity, etc.) are FORBIDDEN at the schema level: those facts live client-side only and never enter a card.",
+      "description": "Per-category typed key/values (see data/taxonomy.v2.json for the attribute vocabulary of each category). Keys are lower_snake_case. Identity keys and sensitive personal keys (health, sexuality, beliefs, ethnicity, etc.) are FORBIDDEN at the schema level: those facts live client-side only and never enter a listing.",
       "type": "object",
       "maxProperties": 24,
       "propertyNames": {
         "allOf": [
-          { "pattern": "^[a-z][a-z0-9_]*$" },
+          {
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
           {
             "not": {
               "enum": [
-                "name", "first_name", "last_name", "surname", "full_name",
-                "email", "phone", "phone_number", "address", "street",
-                "postcode", "zip", "photo", "photo_url", "image", "image_url",
-                "dob", "date_of_birth", "age", "gender", "ssn", "national_id",
-                "passport", "health", "medical", "medical_condition",
-                "disability", "sexuality", "sexual_orientation", "religion",
-                "beliefs", "political_affiliation", "politics", "ethnicity",
-                "race", "union_membership", "criminal_record", "biometric"
+                "name",
+                "first_name",
+                "last_name",
+                "surname",
+                "full_name",
+                "email",
+                "phone",
+                "phone_number",
+                "address",
+                "street",
+                "postcode",
+                "zip",
+                "photo",
+                "photo_url",
+                "image",
+                "image_url",
+                "dob",
+                "date_of_birth",
+                "age",
+                "gender",
+                "ssn",
+                "national_id",
+                "passport",
+                "health",
+                "medical",
+                "medical_condition",
+                "disability",
+                "sexuality",
+                "sexual_orientation",
+                "religion",
+                "beliefs",
+                "political_affiliation",
+                "politics",
+                "ethnicity",
+                "race",
+                "union_membership",
+                "criminal_record",
+                "biometric"
               ]
             }
           }
         ]
       },
       "additionalProperties": {
-        "type": ["string", "number", "boolean"],
+        "type": [
+          "string",
+          "number",
+          "boolean"
+        ],
         "maxLength": 200
       }
     }

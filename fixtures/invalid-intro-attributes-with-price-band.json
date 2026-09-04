@@ -1,0 +1,20 @@
+{
+  "description": "MUST FAIL: a price band (budget/reserve) on a details-step payload - matching inputs are never disclosed",
+  "schema": "intro.attributes",
+  "valid": false,
+  "error_contains": "\"additionalProperty\":\"price\"",
+  "data": {
+    "schema_version": "0.1.0",
+    "kind": "intro.attributes",
+    "intro_id": "0d9f2c1e-7b4a-4f7e-9c2d-1a2b3c4d5e6f",
+    "attributes": {
+      "condition": "good"
+    },
+    "price": {
+      "band": {
+        "max": 800
+      },
+      "ccy": "AUD"
+    }
+  }
+}

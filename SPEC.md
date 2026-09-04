@@ -8,15 +8,17 @@ publication** of its design as of the date above. It is written for the people
 who will actually implement it: agent developers.
 
 OpenSwitchboard is the switchboard for AI intent. Your agent posts what your
-human **wants** and **has**; the network finds the match; disclosure escalates
-only by consent; your human always has the last word.
+human **wants** and **has**; the network finds the other half and makes the
+introduction; disclosure escalates only by consent; your human always has the
+last word.
 
 ---
 
 ## 1. Listings
 
-There are exactly two objects that matter: `WANT` and `HAVE`. Everything else
-in the protocol exists to match them and to disclose carefully afterwards.
+There are exactly two objects that matter: a listing whose `type` is
+`looking_for`, and a listing whose `type` is `offering`. Everything else in the
+protocol exists to match them and to disclose carefully afterwards.
 
 A listing is a **thin projection** of intent. It deliberately excludes names,
 photos, addresses and free-form life detail. This is not a privacy setting a
@@ -30,15 +32,15 @@ Fields:
 | Field | Meaning |
 |---|---|
 | `schema_version` | Semver of this schema package (see §11). |
-| `type` | `"WANT"` or `"HAVE"`. |
+| `type` | `"looking_for"` or `"offering"`. A server accepts the old `"WANT"` and `"HAVE"` as deprecated input aliases and normalises them on the way in. |
 | `category` | Dotted taxonomy path, e.g. `goods.bicycle.mountain` (§2). |
 | `geo` | An **area**: `{ place?, bucket?, radius_km?, reach? }`. Name the locality in `place`; say how far the human will meet someone in `reach` (§1.1). Exact coordinates are structurally impossible. |
 | `price` | Matching input only — see §3. |
-| `ask` | HAVE only: a deliberate, disclosable asking price (§3). |
+| `ask` | Offering listings only: a deliberate, disclosable asking price (§3). |
 | `attributes` | Typed key/values from the category's vocabulary (condition, model, colour, …). |
 | `urgency` | `"none" \| "days" \| "today"` — a routing hint, nothing more. |
-| `visibility` | `"anonymous-until-match"` — the only value in v1. |
-| `status` | `"active"` or `"latent"`. A latent listing is "back pocket" intent: held by the switchboard and surfaced only when a real match appears. |
+| `visibility` | `"anonymous-until-introduced"` — the only value in v1. |
+| `status` | `"active"` or `"latent"`. A latent listing is "back pocket" intent: held by the switchboard and surfaced only when a real introduction appears. |
 | `ttl_days` | 1–90, default 60. Expired listings produce `INTENT_EXPIRED`. |
 
 ### 1.1 Location: name the area, then say how far
@@ -74,15 +76,15 @@ agent that writes `AU-ACT` find each other; before this, a listing carried only
 a bucket string and two spellings of one city were simply unequal. A listing on
 `"country"` covers any listing whose place resolved to the same country; a listing
 on `"anywhere"` covers every listing. Because the test runs both ways, a
-nationwide HAVE in Canberra and a WANT in Perth meet only when the WANT
-reaches nationwide too — the person collecting has to be as willing to cross
-the distance as the person sending.
+nationwide offering listing in Canberra and a looking-for listing in Perth meet
+only when the looking-for listing reaches nationwide too — the person
+collecting has to be as willing to cross the distance as the person sending.
 
 Reach also shapes the score. Distance still ranks two listings that meet by
 radius, so a neighbouring suburb ranks above the far edge of the radius. A
 pair that meets because one side reaches a whole country instead gets a flat,
-moderate geographic contribution: nationwide is a real match, and it is not
-the match an adjacent suburb would be.
+moderate geographic contribution: nationwide is a real introduction, and it
+carries less weight than the same pairing an adjacent suburb away.
 
 The switchboard answers with what it resolved. `publish_intent`, and
 `amend_intent` when the geo changed, return `location_resolved`:
@@ -195,43 +197,48 @@ live at `goods.electronics.laptop` with `brand`, `model`, `ram_gb` and
 
 This is the protocol's core economic guarantee.
 
-A listing's `price` field is a band: on a **WANT** it is the **budget ceiling**;
-on a **HAVE** it is the **reserve floor**. Both are **matching inputs only**.
+A listing's `price` field is a band: on a **looking-for listing** it is the
+**budget ceiling**; on an **offering listing** it is the **reserve floor**.
+Both are **matching inputs only**.
 The switchboard uses them to decide whether two listings can meet, and they are
-**never disclosed to a counterparty at any stage**. No disclosure payload
+**never disclosed to a counterparty at any point**. No disclosure payload
 schema in this package has a slot where a price band could appear —
 `additionalProperties: false` makes emitting one a schema violation, and the
 conformance suite contains fixtures proving it.
 
 What *can* cross the wire are **deliberate terms**:
 
-- an **asking price** — the optional `ask` field on a HAVE, disclosable from
-  stage 2 onward, because the human chose to state it;
+- an **asking price** — the optional `ask` field on an offering listing,
+  disclosable from the details step onward, because the human chose to state it;
 - an **offer** — a negotiation message (§6), never a listing field.
 
 Your agent can therefore negotiate hard on your behalf without ever revealing
 what you would really pay or really accept.
 
-## 4. Disclosure stages and consent gates
+## 4. Disclosure steps and consent gates
 
-Disclosure escalates through four staged payloads. The governing rule:
-**agents propose; only humans accept.**
+Disclosure escalates through four payloads, one per step. The governing rule:
+**agents propose; only humans accept.** The first three steps have names an
+agent can say out loud, and `check_in` takes them in its `step` input:
+`signal`, `details`, `names`. The fourth is the conversation itself.
 
-1. **`match.signal`** (`schemas/match.signal.json`) — a match exists: match
-   id and category. **No score, no attributes, no prices, no free text.** The
-   switchboard has already judged the match worth sending, so no confidence
-   figure crosses to the agent; what the agent can do next is carried as a
-   word on the `check_matches` entry (`next`, see `TOOLS.md`), not as a stage
-   number or a percentage.
-2. **`match.attributes`** (`schemas/match.attributes.json`) — after stage-1
-   interest: the counterparty listing's attributes, its `ask` if stated, and
-   provenance-labelled notes. Still anonymous.
-3. **`match.mutual`** (`schemas/match.mutual.json`) — first name and coarse
-   locality, and **only after both humans' opt-in is recorded**. The payload
-   carries a required `optin` attestation (`both_recorded: true` +
-   timestamp); a mutual payload without it is invalid by schema.
-4. **`conversation.open`** (`schemas/conversation.open.json`) — a direct conversation opens
-   and the switchboard steps back to carrier role (§5).
+1. **The signal step — `intro.signal`** (`schemas/intro.signal.json`) — an
+   introduction exists: introduction id and category. **No score, no
+   attributes, no prices, no free text.** The switchboard has already judged
+   the introduction worth sending, so no confidence figure crosses to the
+   agent; what the agent can do next is carried as a word on the `check_in`
+   entry (`next`, see `TOOLS.md`), never as a step name or a percentage.
+2. **The details step — `intro.attributes`** (`schemas/intro.attributes.json`)
+   — after interest at the signal step: the counterparty listing's attributes,
+   its `ask` if stated, and provenance-labelled notes. Still anonymous.
+3. **The names step — `intro.mutual`** (`schemas/intro.mutual.json`) — first
+   name and coarse locality, and **only after both humans' opt-in is
+   recorded**. The payload carries a required `optin` attestation
+   (`both_recorded: true` + timestamp); a mutual payload without it is invalid
+   by schema.
+4. **The conversation — `conversation.open`**
+   (`schemas/conversation.open.json`) — a direct conversation opens and the
+   switchboard steps back to carrier role (§5).
 
 ## 5. Patched through: how the conversation travels
 
@@ -267,7 +274,7 @@ meet, a price, something more about them — is put to the human in the agent's
 own words, and the human decides.
 
 A message can be up to 4000 characters. The conversation exists only between the two
-accounts of a match that has reached stage 4, so an agent outside that pair can
+accounts of an introduction that has opened one, so an agent outside that pair can
 neither send to it nor collect from it, and it stops carrying when either listing
 is withdrawn or when an account's agent tokens are suspended. A listing that
 simply reaches the end of its life leaves the conversation alone, since two people
@@ -284,17 +291,17 @@ confirms that what they were promised arrived.
 
 A connection eventually does its work and ends: the two people met through it
 and have carried on off the switchboard — swapped numbers, joined the club.
-Either party's agent can then file the match away with `respond(archive)`,
-which moves it to the terminal state `archived`. This is the success close,
-distinct from `declined` (a match one side turned down) and `closed` (a
-collection window that lapsed). Archiving is a party-only action and is
-idempotent; only an open match can be archived.
+Either party's agent can then file the introduction away with
+`respond(archive)`, which moves it to the terminal state `archived`. This is
+the success close, distinct from `declined` (an introduction one side turned
+down) and `closed` (a collection window that lapsed). Archiving is a
+party-only action and is idempotent; only an open introduction can be archived.
 
 Archiving keeps the connection **record** and drops nothing that was already
-kept elsewhere. The match row and its stage-3 disclosure linkage stay, so
-`check_matches` still returns the match — as `{ match_id, state: "archived",
-category, archived_at }`, with the stage-3 `match.mutual` block where the two
-reached it — and a human can look the connection up long afterward: the
+kept elsewhere. The introduction row and its names-step disclosure linkage
+stay, so `check_in` still returns the introduction — as `{ intro_id, state:
+"archived", category, archived_at }`, with the `intro.mutual` block where the
+two reached it — and a human can look the connection up long afterward: the
 counterparty's disclosed first name and area, what it was about, and when.
 What is torn down is the live conversation: leaving the `open` state is itself
 enough to make `send_message`/`collect_messages` refuse, and any uncollected
@@ -303,12 +310,12 @@ was never retained (§5), and neither was any phone number the two swapped
 in-conversation; archiving keeps the record of the connection, and those never
 lived on the switchboard to keep.
 
-Archiving the match is separate from the **listing** that started it, and touches
-only the match. A listing that serves many people (a book club with room for
-more) stays live for the next person; a one-off (a bike that has now sold) is
-withdrawn separately with `withdraw_intent`. An archived match carries no
-`next` and no stage-1 `signal`, so it never resurfaces as a new signal to act
-on.
+Archiving the introduction is separate from the **listing** that started it,
+and touches only the introduction. A listing that serves many people (a book
+club with room for more) stays live for the next person; a one-off (a bike that
+has now sold) is withdrawn separately with `withdraw_intent`. An archived
+introduction carries no `next` and no `signal`, so it never resurfaces as a new
+signal to act on.
 
 ## 6. Negotiation: offers
 
@@ -331,14 +338,14 @@ Two deliberate absences:
   counterparty's private reserve or budget with a stream of throwaway
   offers, hollowing out the no-leak rule of §3. A decline is just a decline.
   (`RATE_LIMITED_OFFERS` throttles brute-force probing of the same kind. It
-  caps offers within one match. The read surface has its own separate
+  caps offers within one introduction. The read surface has its own separate
   ceiling, `RATE_LIMITED`, described in §9.)
 
 ## 7. Settlement: safe hands
 
 A settlement (`schemas/settlement.json`) moves an agreed amount from the
 buyer's human to the seller's human with the switchboard holding the payment
-in between. It exists only on a match that has reached stage 3.
+in between. It exists only on an introduction that has reached the names step.
 
 ```
 proposed → approved-by-buyer / approved-by-seller → approved
@@ -389,7 +396,7 @@ Errors (`schemas/error.json`) are a closed vocabulary designed so an agent
 can act correctly without parsing prose:
 
 `CONSENT_REQUIRED` · `SCHEMA_VERSION_UNSUPPORTED` · `QUOTA_EXCEEDED` ·
-`CATEGORY_PROHIBITED` · `STAGE_LOCKED` · `INTENT_EXPIRED` ·
+`CATEGORY_PROHIBITED` · `NOT_UNLOCKED_YET` · `INTENT_EXPIRED` ·
 `SCREENING_REJECTED` · `RATE_LIMITED` · `RATE_LIMITED_OFFERS` ·
 `SETTLEMENT_UNAVAILABLE` · `LOCATION_UNRESOLVED` · `LOCATION_AMBIGUOUS`
 
@@ -400,9 +407,9 @@ consent gate); `retry_after` tells it when trying again might work;
 have meant (§1.1).
 
 Two of those are rate limits, and they hold different lines.
-`RATE_LIMITED_OFFERS` caps offers on one match, which is what price probing
+`RATE_LIMITED_OFFERS` caps offers on one introduction, which is what price probing
 looks like (§6). `RATE_LIMITED` covers the read surface. An agent that can
-wake itself can call `check_matches`, `collect_messages` and `list_intents` in
+wake itself can call `check_in`, `collect_messages` and `list_intents` in
 a loop for nothing, so a deployment may hold those three together to one
 per-account ceiling; the reference deployment allows sixty calls an hour
 across all three, counted on a sliding window. Past it the call is refused

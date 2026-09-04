@@ -5,7 +5,9 @@
   "description": "Machine-readable lessons. Every error tells the agent what happened (code), what its human can do about it (human_action), when to retry (retry_after), and where to read more (docs_url). No free-form error prose is needed to act correctly.",
   "type": "object",
   "properties": {
-    "schema_version": { "$ref": "common.json#/$defs/schemaVersion" },
+    "schema_version": {
+      "$ref": "common.json#/$defs/schemaVersion"
+    },
     "code": {
       "type": "string",
       "enum": [
@@ -13,7 +15,7 @@
         "SCHEMA_VERSION_UNSUPPORTED",
         "QUOTA_EXCEEDED",
         "CATEGORY_PROHIBITED",
-        "STAGE_LOCKED",
+        "NOT_UNLOCKED_YET",
         "INTENT_EXPIRED",
         "SCREENING_REJECTED",
         "RATE_LIMITED",
@@ -34,23 +36,34 @@
       "minimum": 0
     },
     "suggestions": {
-      "description": "Up to three open taxonomy categories closest to the one that was refused, nearest first. Present on CATEGORY_PROHIBITED when the server can work them out; a server that cannot still refuses the card the same way, so an agent must handle the field being absent.",
+      "description": "Up to three open taxonomy categories closest to the one that was refused, nearest first. Present on CATEGORY_PROHIBITED when the server can work them out; a server that cannot still refuses the listing the same way, so an agent must handle the field being absent.",
       "type": "array",
       "maxItems": 3,
-      "items": { "$ref": "common.json#/$defs/category" }
+      "items": {
+        "$ref": "common.json#/$defs/category"
+      }
     },
     "candidates": {
-      "description": "Present on LOCATION_AMBIGUOUS: the places the name could have meant, largest first, at most five. 'display' is the fully qualified name to put to a human ('Perth, Scotland, GB'); 'place' is the exact string to send back in the card's geo.place to choose that one. A server that cannot list them still refuses the card the same way, so an agent must handle the field being absent.",
+      "description": "Present on LOCATION_AMBIGUOUS: the places the name could have meant, largest first, at most five. 'display' is the fully qualified name to put to a human ('Perth, Scotland, GB'); 'place' is the exact string to send back in the listing's geo.place to choose that one. A server that cannot list them still refuses the listing the same way, so an agent must handle the field being absent.",
       "type": "array",
       "minItems": 2,
       "maxItems": 5,
       "items": {
         "type": "object",
         "properties": {
-          "display": { "type": "string", "maxLength": 120 },
-          "place": { "type": "string", "maxLength": 120 }
+          "display": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "place": {
+            "type": "string",
+            "maxLength": 120
+          }
         },
-        "required": ["display", "place"],
+        "required": [
+          "display",
+          "place"
+        ],
         "additionalProperties": false
       }
     },
@@ -60,6 +73,9 @@
       "pattern": "^https://"
     }
   },
-  "required": ["code", "docs_url"],
+  "required": [
+    "code",
+    "docs_url"
+  ],
   "additionalProperties": false
 }

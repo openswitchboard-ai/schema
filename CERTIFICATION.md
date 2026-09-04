@@ -83,13 +83,13 @@ Content-Type: application/json
 { "schema": "<schema-name>", "data": { ... } }
 ```
 
-Valid schema names are the nine short names from `src/index.ts`
-(`SCHEMA_NAMES`): `common`, `intent-card`, `match.signal`,
-`match.attributes`, `match.mutual`, `conversation.open`, `offer`, `error`,
-`deny-list`.
+Valid schema names are the eleven short names from `src/index.ts`
+(`SCHEMA_NAMES`): `common`, `intent-card`, `intro.signal`,
+`intro.attributes`, `intro.mutual`, `conversation.open`,
+`conversation.message`, `offer`, `settlement`, `error`, `deny-list`.
 
 A worked example using the `data` payload from
-`fixtures/card-want-sofa.json`:
+`fixtures/card-looking-for-sofa.json`:
 
 ```bash
 curl -X POST https://mcp-dev.openswitchboard.ai/conformance/validate \
@@ -98,7 +98,7 @@ curl -X POST https://mcp-dev.openswitchboard.ai/conformance/validate \
     "schema": "intent-card",
     "data": {
       "schema_version": "0.1.0",
-      "type": "WANT",
+      "type": "looking_for",
       "category": "goods.furniture.sofa",
       "geo": { "bucket": "gbsuv", "radius_km": 10 },
       "price": { "band": { "max": 300 }, "ccy": "GBP" },
@@ -138,11 +138,12 @@ stops bad payloads from being made at all. The TypeScript SDK
 `@openswitchboard/sdk`) provides builders that can only produce valid
 shapes, and validators you can run on anything inbound. What it gives you:
 
-- **Builders** — `want()`, `have()`, `offer()`, `markAwaitingHuman()`,
-  `recordHumanAcceptance()`, `declineOffer()`, `withdrawOffer()`. The
-  builders make invalid states unrepresentable at the type level: `want()`
-  cannot carry an `ask`, `declineOffer()` has no reason parameter, and the
-  only path to an accepted offer is `recordHumanAcceptance()`.
+- **Builders** — `lookingFor()`, `offering()`, `offer()`,
+  `markAwaitingHuman()`, `recordHumanAcceptance()`, `declineOffer()`,
+  `withdrawOffer()`. The builders make invalid states unrepresentable at the
+  type level: `lookingFor()` cannot carry an `ask`, `declineOffer()` has no
+  reason parameter, and the only path to an accepted offer is
+  `recordHumanAcceptance()`.
 - **Validators** — `validateCard()`, `validatePayload()`, `validateOffer()`,
   `validateError()`, `validateDenyList()`, and the general
   `validateAgainst(schema, data)`. All return
@@ -174,8 +175,8 @@ endpoint to catch schema-version drift.
 
 Registration on the dev switchboard is currently closed to outside
 implementers, so the full hosted end-to-end flow — register a test account,
-connect an agent over MCP with OAuth, post listings, receive staged match
-payloads, exercise offers through to a human decision on your approval
+connect an agent over MCP with OAuth, post listings, receive the introduction
+payloads step by step, exercise offers through to a human decision on your approval
 page — opens with launch. When it does, the three steps above remain the
 prerequisite: an implementation that passes the conformance suite and
 validates cleanly against the live endpoint is ready for the sandbox on day

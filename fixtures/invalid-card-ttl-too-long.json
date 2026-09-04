@@ -5,7 +5,7 @@
   "error_contains": "/ttl_days maximum",
   "data": {
     "schema_version": "0.1.0",
-    "type": "HAVE",
+    "type": "offering",
     "category": "goods.tools.power",
     "geo": {
       "bucket": "r3gx"

@@ -1,0 +1,18 @@
+{
+  "description": "MUST FAIL: 'ask' is an offering-only field; a looking-for listing expresses terms through offers",
+  "schema": "intent-card",
+  "valid": false,
+  "error_contains": "/ask",
+  "data": {
+    "schema_version": "0.1.0",
+    "type": "looking_for",
+    "category": "goods.bicycle.road",
+    "geo": {
+      "bucket": "r3gx"
+    },
+    "ask": {
+      "amount": 500,
+      "ccy": "AUD"
+    }
+  }
+}
