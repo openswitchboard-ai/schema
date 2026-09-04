@@ -1,28 +1,52 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schema.openswitchboard.ai/v0/conversation.open.json",
-  "title": "Stage 4 - conversation.open",
+  "title": "conversation.open",
   "description": "A direct conversation between the two parties is opened. The switchboard steps back to carrier role.",
   "type": "object",
   "properties": {
-    "schema_version": { "$ref": "common.json#/$defs/schemaVersion" },
-    "kind": { "const": "conversation.open" },
-    "match_id": { "$ref": "common.json#/$defs/matchId" },
+    "schema_version": {
+      "$ref": "common.json#/$defs/schemaVersion"
+    },
+    "kind": {
+      "const": "conversation.open"
+    },
+    "intro_id": {
+      "$ref": "common.json#/$defs/introId"
+    },
     "conversation": {
       "type": "object",
       "properties": {
         "medium": {
           "description": "v1 supports switchboard-mediated in-app messaging only.",
           "type": "string",
-          "enum": ["in-app"]
+          "enum": [
+            "in-app"
+          ]
         },
-        "conversation_id": { "type": "string", "minLength": 1, "maxLength": 128 }
+        "conversation_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        }
       },
-      "required": ["medium", "conversation_id"],
+      "required": [
+        "medium",
+        "conversation_id"
+      ],
       "additionalProperties": false
     },
-    "opened_at": { "type": "string", "format": "date-time" }
+    "opened_at": {
+      "type": "string",
+      "format": "date-time"
+    }
   },
-  "required": ["schema_version", "kind", "match_id", "conversation", "opened_at"],
+  "required": [
+    "schema_version",
+    "kind",
+    "intro_id",
+    "conversation",
+    "opened_at"
+  ],
   "additionalProperties": false
 }

@@ -1,0 +1,20 @@
+{
+  "description": "Valid details-step payload for a counterparty looking-for listing (no ask, counterparty note only)",
+  "schema": "intro.attributes",
+  "valid": true,
+  "data": {
+    "schema_version": "0.1.0",
+    "kind": "intro.attributes",
+    "intro_id": "0d9f2c1e-7b4a-4f7e-9c2d-1a2b3c4d5e6f",
+    "attributes": {
+      "seats": 2,
+      "colour": "navy"
+    },
+    "notes": [
+      {
+        "text": "Looking for something pet-free.",
+        "provenance": "counterparty-untrusted"
+      }
+    ]
+  }
+}

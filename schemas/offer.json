@@ -2,26 +2,58 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schema.openswitchboard.ai/v0/offer.json",
   "title": "Offer message",
-  "description": "A negotiation message. Offers are messages, not card fields. There is NO agent-level accept state: the only acceptance the protocol can express is 'accepted-by-human'. Declines carry no reason field - by design (anti-probing): a reasoned decline would let an agent binary-search the counterparty's private reserve or budget. 'additionalProperties: false' makes a decline reason structurally impossible.",
+  "description": "A negotiation message. Offers are messages, not listing fields. There is NO agent-level accept state: the only acceptance the protocol can express is 'accepted-by-human'. Declines carry no reason field - by design (anti-probing): a reasoned decline would let an agent binary-search the counterparty's private reserve or budget. 'additionalProperties: false' makes a decline reason structurally impossible.",
   "type": "object",
   "properties": {
-    "schema_version": { "$ref": "common.json#/$defs/schemaVersion" },
-    "kind": { "const": "offer" },
-    "offer_id": { "type": "string", "format": "uuid" },
-    "match_id": { "$ref": "common.json#/$defs/matchId" },
-    "amount": { "type": "number", "exclusiveMinimum": 0 },
-    "ccy": { "$ref": "common.json#/$defs/ccy" },
-    "expiry": { "type": "string", "format": "date-time" },
+    "schema_version": {
+      "$ref": "common.json#/$defs/schemaVersion"
+    },
+    "kind": {
+      "const": "offer"
+    },
+    "offer_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "intro_id": {
+      "$ref": "common.json#/$defs/introId"
+    },
+    "amount": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "ccy": {
+      "$ref": "common.json#/$defs/ccy"
+    },
+    "expiry": {
+      "type": "string",
+      "format": "date-time"
+    },
     "state": {
       "description": "Offer lifecycle. 'proposed' -> 'awaiting-human' -> 'accepted-by-human' | 'declined'; 'withdrawn' is available to the proposer before acceptance. Agents propose; only humans accept.",
       "type": "string",
-      "enum": ["proposed", "awaiting-human", "accepted-by-human", "declined", "withdrawn"]
+      "enum": [
+        "proposed",
+        "awaiting-human",
+        "accepted-by-human",
+        "declined",
+        "withdrawn"
+      ]
     },
     "message": {
       "$ref": "common.json#/$defs/labeledText",
       "description": "Optional provenance-labelled free text accompanying the offer."
     }
   },
-  "required": ["schema_version", "kind", "offer_id", "match_id", "amount", "ccy", "expiry", "state"],
+  "required": [
+    "schema_version",
+    "kind",
+    "offer_id",
+    "intro_id",
+    "amount",
+    "ccy",
+    "expiry",
+    "state"
+  ],
   "additionalProperties": false
 }

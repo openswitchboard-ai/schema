@@ -1,0 +1,13 @@
+{
+  "description": "Valid offering listing with only required fields",
+  "schema": "intent-card",
+  "valid": true,
+  "data": {
+    "schema_version": "0.1.0",
+    "type": "offering",
+    "category": "goods.baby.stroller",
+    "geo": {
+      "bucket": "r1r0"
+    }
+  }
+}

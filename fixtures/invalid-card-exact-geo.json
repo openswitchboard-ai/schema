@@ -5,7 +5,7 @@
   "error_contains": "\"additionalProperty\":\"lat\"",
   "data": {
     "schema_version": "0.1.0",
-    "type": "WANT",
+    "type": "looking_for",
     "category": "goods.furniture.bed",
     "geo": {
       "bucket": "r3gx",

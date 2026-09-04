@@ -1,0 +1,15 @@
+{
+  "description": "Well-formed card the taxonomy still refuses: social.dating is a reserved vertical",
+  "schema": "intent-card",
+  "valid": true,
+  "taxonomy": { "status": "reserved", "reason_contains": "regulated-vertical" },
+  "data": {
+    "schema_version": "0.4.0",
+    "type": "looking_for",
+    "category": "social.dating.serious",
+    "geo": {
+      "place": "Canberra",
+      "radius_km": 25
+    }
+  }
+}

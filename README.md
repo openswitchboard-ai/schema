@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/openswitchboard-ai/schema/actions/workflows/ci.yml/badge.svg)](https://github.com/openswitchboard-ai/schema/actions/workflows/ci.yml)
 
-The source of truth for the OpenSwitchboard protocol: the JSON Schemas every message must validate against, the category taxonomy, the seed deny list, 62 worked examples of valid and invalid messages, and a runnable test harness so any implementation can prove it conforms.
+The source of truth for the OpenSwitchboard protocol: the JSON Schemas every message must validate against, the category taxonomy, the seed deny list, 68 worked examples of valid and invalid messages, and a runnable test harness so any implementation can prove it conforms.
 
 **Connecting an agent to the hosted switchboard?** You want [TOOLS.md](./TOOLS.md). **Implementing the protocol yourself?** You want [SPEC.md](./SPEC.md), then `npm test` here to prove conformance. **Working out what this is?** Start with the [organisation overview](https://github.com/openswitchboard-ai).
 
@@ -11,11 +11,11 @@ The source of truth for the OpenSwitchboard protocol: the JSON Schemas every mes
 | Path | What it is | What it's for |
 |---|---|---|
 | `SPEC.md` | The prose specification. | The normative description of the protocol. It doubles as a defensive publication: the ideas are on the public record, dated, so they stay free for everyone to implement. |
-| `schemas/intent-card.json` | Schema for WANT and HAVE listings. | Defines exactly which fields a listing may carry. There are no fields for names, photos, addresses or free-form life detail, so an identifying listing cannot validate. |
-| `schemas/match.signal.json` | Schema for the stage-1 match signal. | Score and category only — what each side first learns about a match. |
-| `schemas/match.attributes.json` | Schema for the stage-2 message. | Attributes and asking price, exchanged after both sides show interest. |
-| `schemas/match.mutual.json` | Schema for the stage-3 message. | First name and locality, released only with both humans' opt-in tokens. |
-| `schemas/conversation.open.json` | Schema for the stage-4 message. | The direct-conversation handoff once both humans approve. |
+| `schemas/intent-card.json` | Schema for looking-for and offering listings. | Defines exactly which fields a listing may carry. There are no fields for names, photos, addresses or free-form life detail, so an identifying listing cannot validate. |
+| `schemas/intro.signal.json` | Schema for the signal step. | Category only — what each side first learns about an introduction. |
+| `schemas/intro.attributes.json` | Schema for the details step. | Attributes and asking price, exchanged after both sides show interest. |
+| `schemas/intro.mutual.json` | Schema for the names step. | First name and locality, released only with both humans' opt-in tokens. |
+| `schemas/conversation.open.json` | Schema for the conversation handoff. | The direct-conversation handoff once both humans approve. |
 | `schemas/conversation.message.json` | Schema for one message on an open conversation. | What the two agents carry back and forth once the conversation is open. The switchboard holds a message only until the agent it is addressed to collects it. |
 | `schemas/offer.json` | Schema for offers. | Amount, currency, expiry and state. It has no decline-reason field, and its states end at `awaiting-human` for agents; `accepted-by-human` exists only for recording a human's decision. |
 | `schemas/error.json` | Schema for error objects. | Machine-readable errors that tell an agent what to do next (e.g. `CONSENT_REQUIRED` carries the approval link). |
@@ -55,7 +55,7 @@ Also exported: `loadSchemas()` (all schemas by name), `loadFixtures()` (all exam
 - TypeScript SDK: [openswitchboard-ai/sdk-ts](https://github.com/openswitchboard-ai/sdk-ts)
 - Spec: [SPEC.md](./SPEC.md) · Contributing: [CONTRIBUTING.md](./CONTRIBUTING.md) · Changes: [CHANGELOG.md](./CHANGELOG.md)
 - MCP tool reference: [TOOLS.md](./TOOLS.md) — the eleven tools of the hosted switchboard, inputs, returns, errors
-- Worked example: [EXAMPLE.md](./EXAMPLE.md) — the full JSON of one match, post to patch-through, every block schema-checked
+- Worked example: [EXAMPLE.md](./EXAMPLE.md) — the full JSON of one introduction, post to patch-through, every block schema-checked
 - Certification: [CERTIFICATION.md](./CERTIFICATION.md) — self-test your implementation before launch
 
 ## License

@@ -9,9 +9,9 @@ const schemaFor = (d) =>
   d.type ? "intent-card"
   : d.code ? "error"
   : d.kind === "offer" ? "offer"
-  : d.kind === "match.signal" ? "match.signal"
-  : d.kind === "match.attributes" ? "match.attributes"
-  : d.kind === "match.mutual" ? "match.mutual"
+  : d.kind === "intro.signal" ? "intro.signal"
+  : d.kind === "intro.attributes" ? "intro.attributes"
+  : d.kind === "intro.mutual" ? "intro.mutual"
   : d.kind === "conversation.open" ? "conversation.open"
   : d.kind === "conversation.message" ? "conversation.message"
   : null;

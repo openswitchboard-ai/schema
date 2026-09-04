@@ -5,7 +5,7 @@
   "error_contains": "/geo/place pattern",
   "data": {
     "schema_version": "0.3.0",
-    "type": "WANT",
+    "type": "looking_for",
     "category": "goods.bicycle.mountain",
     "geo": {
       "place": "12 Smith St"

@@ -1,0 +1,17 @@
+{
+  "description": "Valid looking-for listing: location given as a place name, no bucket - the switchboard resolves it",
+  "schema": "intent-card",
+  "valid": true,
+  "data": {
+    "schema_version": "0.3.0",
+    "type": "looking_for",
+    "category": "goods.bicycle.mountain",
+    "geo": {
+      "place": "Canberra",
+      "radius_km": 25
+    },
+    "attributes": {
+      "condition": "good"
+    }
+  }
+}

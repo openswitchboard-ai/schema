@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.openswitchboard.ai/v0/intro.signal.json",
+  "title": "The signal step - intro.signal",
+  "description": "The first thing either side learns: an introduction exists. Deliberately thin - introduction id and category only. NO score, NO attributes, NO prices, NO free text. The switchboard has already decided the introduction is worth sending, so no confidence figure crosses to the agent; what the agent can do next is said as a word on the check_in entry (see TOOLS.md), never as a number. Anything richer requires escalation through the consent gates.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "$ref": "common.json#/$defs/schemaVersion"
+    },
+    "kind": {
+      "const": "intro.signal"
+    },
+    "intro_id": {
+      "$ref": "common.json#/$defs/introId"
+    },
+    "category": {
+      "$ref": "common.json#/$defs/category"
+    },
+    "counterparty_type": {
+      "description": "Whether the counterparty listing is looking for something or offering something.",
+      "type": "string",
+      "enum": [
+        "looking_for",
+        "offering"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "kind",
+    "intro_id",
+    "category"
+  ],
+  "additionalProperties": false
+}
