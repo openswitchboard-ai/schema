@@ -10,6 +10,26 @@ verticals exist.
 
 ## [Unreleased]
 
+## [0.12.1] — 2026-09-05
+
+How close two categories have to be, written down. The switchboard has always
+paired listings across a little of the taxonomy, and the spec said nothing
+about where that stops, so an agent had to guess whether a listing under
+`goods.bicycle.mountain` would ever meet one under `goods.bicycle.road`. It
+does: siblings under a shared parent below the top level are considered
+together, alongside the equal and ancestor-line pairs that were always
+considered. Tree distance discounts a pair and leaves the deciding to what the
+two listings say about themselves.
+
+Nothing in the schemas, the fixtures or the wire format changes, so this is a
+patch and no client has to move.
+
+### Changed (wording only)
+- **`SPEC.md` §2** gains "How close two categories have to be": the pairs a
+  server considers (equal, ancestor line, or siblings under a shared parent
+  that is itself below the top level), the pairs it leaves apart, and the note
+  that the discount for tree distance is the server's own to weigh.
+
 ## [0.12.0] — 2026-09-04
 
 The words for what the switchboard does. A match becomes an introduction, a
