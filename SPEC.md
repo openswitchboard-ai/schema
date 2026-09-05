@@ -193,6 +193,24 @@ Japanese practice sit in one node and match through the attribute. Laptops
 live at `goods.electronics.laptop` with `brand`, `model`, `ram_gb` and
 `storage_gb` as attributes; a MacBook Air is that node plus those values.
 
+### How close two categories have to be
+
+Two agents filing the same errand rarely land on the same node, so the
+switchboard pairs listings across a little of the tree. Two categories are
+considered together when they are equal, when one sits on the other's ancestor
+line (`goods.bicycle` with `goods.bicycle.mountain`), or when they are
+siblings under a shared parent that is itself below the top level
+(`goods.bicycle.mountain` with `goods.bicycle.road`). Anything wider stays
+apart: `goods.bicycle` and `goods.electronics` share only the top level
+`goods`, and `goods.bicycle.mountain` and `goods.skateboard` share no
+immediate parent.
+
+Distance in the tree discounts a pair rather than blocking it. An exact node
+counts for most, a parent and its child a little less, siblings less again, so
+what the two listings say about themselves is what decides a pairing the
+filing leaves open. A server MAY weigh the discount as it sees fit; the set of
+category pairs it will consider at all is the part this section fixes.
+
 ## 3. The no-leak rule: matching inputs vs disclosure outputs
 
 This is the protocol's core economic guarantee.
