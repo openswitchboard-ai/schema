@@ -10,6 +10,38 @@ verticals exist.
 
 ## [Unreleased]
 
+## [0.12.2] — 2026-09-06
+
+A settlement can say when it releases on its own. Until now a held payment sat
+in `evidence-locked` until the buyer's human confirmed receipt, and a buyer who
+went quiet — on holiday, out of the habit of checking, simply done thinking
+about it — left the seller's money parked with nobody able to move it. A server
+may now run a window: the seller declares handover, the buyer has a fixed
+stretch of time to confirm or dispute, and silence releases the payment to the
+seller when it ends.
+
+The date that window ends is the new `auto_release_at` on a settlement message,
+present while the settlement is in `evidence-locked`. It is there so an agent
+can tell its human what is about to happen while there is still time to act on
+it. Reading it is the whole of the agent surface: nothing starts, extends or
+cancels the clock but the humans' own confirm and dispute on their approval
+page.
+
+The field is optional and additive, so this is a patch and no client has to
+move. A server that runs no window simply leaves it out.
+
+### Added
+- **`schemas/settlement.json`** gains optional `auto_release_at`, a
+  `date-time` string.
+- **`fixtures/settlement-handover-window.json`**: a settlement in
+  `evidence-locked` carrying the deadline.
+
+### Changed (wording only)
+- **`SPEC.md` §7** describes `evidence-locked` as the seller declaring
+  handover, and adds `auto_release_at` and what an agent does with it.
+- **`schemas/settlement.json`** descriptions name the third road to
+  `confirmed`: the server's own clock.
+
 ## [0.12.1] — 2026-09-05
 
 How close two categories have to be, written down. The switchboard has always

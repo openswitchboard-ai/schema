@@ -1,0 +1,15 @@
+{
+  "description": "Valid settlement in 'evidence-locked' carrying the buyer's auto-release deadline",
+  "schema": "settlement",
+  "valid": true,
+  "data": {
+    "schema_version": "0.2.0",
+    "kind": "settlement",
+    "settlement_id": "7a2e5c1d-9f4b-4c8a-b3e6-2d1f0a9b8c7d",
+    "intro_id": "0d9f2c1e-7b4a-4f7e-9c2d-1a2b3c4d5e6f",
+    "amount": 600,
+    "ccy": "AUD",
+    "state": "evidence-locked",
+    "auto_release_at": "2026-09-13T04:15:00.000Z"
+  }
+}

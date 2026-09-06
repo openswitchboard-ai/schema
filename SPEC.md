@@ -382,8 +382,15 @@ and **read** its state. Everything else happens elsewhere:
 - **`funded`, `released` and `refunded`** are recorded only from the payment
   provider's verified events. The buyer pays on the provider's hosted page;
   card details never touch the switchboard.
-- **`evidence-locked`** freezes the seller's handover evidence (photos and a
-  manifest) in a write-once store before the buyer is asked to confirm.
+- **`evidence-locked`** is the seller declaring handover. It freezes whatever
+  handover evidence they added (photos and a manifest) in a write-once store
+  and asks the buyer to confirm.
+- **`auto_release_at`** appears on a settlement in `evidence-locked` and says
+  when the held payment releases to the seller on the server's own clock. The
+  buyer's window runs from the handover; confirming or disputing inside it
+  ends the window, and silence lets the payment go. An agent reads the field
+  and tells its human what the date means; there is no agent action that
+  starts, extends or cancels the clock.
 
 The enum contains no agent-level approve, release or refund state — the same
 design as offers (§6): agents propose; only humans (and the payment
