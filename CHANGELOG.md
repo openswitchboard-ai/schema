@@ -10,6 +10,43 @@ verticals exist.
 
 ## [Unreleased]
 
+## [0.12.3] — 2026-09-07
+
+A frozen payment, and the ways two people get out of it. Until now a dispute
+was the end of a settlement: the money went straight back to the buyer and the
+item stayed where it was, which suits a buyer who never received anything and
+suits nobody else. A dispute now freezes the held amount and leaves the two
+people room to sort it out — by agreeing a split, by sending the item back, or
+by letting the server's default rule follow whichever side can show where the
+parcel went.
+
+A settlement message carries the shape of that: why it was frozen, when the
+default rule decides, the tracking references each side gave, and the split
+currently on the table with who has approved it. All of it is there so an agent
+can tell its human what is waiting on them while there is still time to act;
+none of it is an agent action. Approving a split, marking a return, adding
+tracking and raising a dispute all happen on a human's own approval page, as
+before.
+
+Additive, so a patch, except that the `state` enum grows: a client that pins the
+old enum will not recognise `resolution-proposed`, `resolved` or `settled-split`.
+A server that runs no dispute resolution never sends them.
+
+### Added
+- **`schemas/settlement.json`** gains optional `dispute_ground`
+  (`not_arrived` | `not_as_described`), `deadlock_at` (`date-time`),
+  `delivery_tracking` and `return_tracking` (provenance-labelled free text),
+  and `resolution` (`refund_to_buyer`, `release_to_seller`, and the two
+  approval flags).
+- **`fixtures/settlement-dispute-resolution.json`**: a frozen settlement with
+  a split on the table.
+
+### Changed
+- **`schemas/settlement.json`** `state` enum gains `resolution-proposed`,
+  `resolved` and `settled-split`. `settled-split` is terminal.
+- **`SPEC.md` §7** describes what a dispute now does, the three ways one ends,
+  and the default rule.
+
 ## [0.12.2] — 2026-09-06
 
 A settlement can say when it releases on its own. Until now a held payment sat

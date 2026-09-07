@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schema.openswitchboard.ai/v0/settlement.json",
   "title": "Settlement message",
-  "description": "An escrowed settlement on an introduction that has reached the names step. An agent can propose a settlement and read its state; that is the whole agent surface. Every step after 'proposed' is taken by a human on their approval page, recorded from a verified event sent by the payment provider, or taken by the server's own clock once the seller has declared handover and the buyer's window has run out. The enum carries no agent-level approve, release or refund state. 'released', 'refunded' and 'declined' are terminal.",
+  "description": "An escrowed settlement on an introduction that has reached the names step. An agent can propose a settlement and read its state; that is the whole agent surface. Every step after 'proposed' is taken by a human on their approval page, recorded from a verified event sent by the payment provider, or taken by the server's own clock once a window has run out. The enum carries no agent-level approve, release, refund or resolve state. 'released', 'refunded', 'settled-split' and 'declined' are terminal.",
   "type": "object",
   "properties": {
     "schema_version": {
@@ -34,8 +34,54 @@
       "format": "date-time",
       "description": "When the held payment releases to the seller on its own, present only while the settlement is in 'evidence-locked' — the seller has declared handover and the buyer's window to confirm or dispute is running. Confirming or disputing before this time ends the window."
     },
+    "dispute_ground": {
+      "type": "string",
+      "enum": [
+        "not_arrived",
+        "not_as_described"
+      ],
+      "description": "Why the payment was frozen, chosen by whichever human raised it. 'not_arrived' says a posted item never turned up, and puts the seller on a short clock to add delivery tracking; 'not_as_described' says it turned up and something is wrong with it, which is also the ground for anything handed over in person. A ground that starts as 'not_arrived' becomes 'not_as_described' once delivery tracking is added."
+    },
+    "deadlock_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the server's default rule decides a frozen payment that the two people have not resolved between themselves. Present only while a dispute is running. The rule follows whoever can show where the item went: delivery tracking and no return sent releases to the seller, a tracked return refunds the buyer, and neither refunds the buyer."
+    },
+    "delivery_tracking": {
+      "$ref": "common.json#/$defs/labeledText",
+      "description": "The seller's tracking reference for sending the item, where they gave one. Provenance-labelled free text, authored by the other side's human."
+    },
+    "return_tracking": {
+      "$ref": "common.json#/$defs/labeledText",
+      "description": "The buyer's tracking reference for sending the item back, where they gave one. Provenance-labelled free text, authored by the other side's human."
+    },
+    "resolution": {
+      "type": "object",
+      "description": "A two-figure split of the held amount, on the table while a dispute is being resolved by agreement. The two figures always add up to the agreed amount, and the money moves only once both humans have approved the same pair on their own approval pages.",
+      "properties": {
+        "refund_to_buyer": {
+          "type": "number",
+          "minimum": 0
+        },
+        "release_to_seller": {
+          "type": "number",
+          "minimum": 0
+        },
+        "approved_by_buyer": {
+          "type": "boolean"
+        },
+        "approved_by_seller": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "refund_to_buyer",
+        "release_to_seller"
+      ],
+      "additionalProperties": false
+    },
     "state": {
-      "description": "Settlement lifecycle. 'proposed' -> 'approved-by-buyer' / 'approved-by-seller' (both humans must approve) -> 'approved' -> 'funded' (the buyer's payment is held) -> 'evidence-locked' (the seller has declared handover) -> 'confirmed' -> 'released', or 'disputed' -> 'refunded'. Either human can decline an unfunded settlement. Humans approve, confirm and dispute on their approval page; a settlement left in 'evidence-locked' past its auto_release_at reaches 'confirmed' on the server's own clock; 'funded', 'released' and 'refunded' are recorded only from the payment provider's verified events.",
+      "description": "Settlement lifecycle. 'proposed' -> 'approved-by-buyer' / 'approved-by-seller' (both humans must approve) -> 'approved' -> 'funded' (the buyer's payment is held) -> 'evidence-locked' (the seller has declared handover) -> 'confirmed' -> 'released'. Either human can freeze a held payment instead, which is 'disputed'; from there 'resolution-proposed' means one of them has put a split on the table, 'resolved' means both have approved it and the money is moving, and 'settled-split' is where a settlement ends when the two of them agreed how to divide it. A dispute can also end in 'refunded', by return or by the server's default rule. Either human can decline an unfunded settlement. Humans approve, confirm, dispute and resolve on their approval page; a settlement left past 'auto_release_at' or 'deadlock_at' moves on the server's own clock; 'funded', 'released', 'refunded' and 'settled-split' are recorded only from the payment provider's verified events.",
       "type": "string",
       "enum": [
         "proposed",
@@ -46,8 +92,11 @@
         "evidence-locked",
         "confirmed",
         "disputed",
+        "resolution-proposed",
+        "resolved",
         "released",
         "refunded",
+        "settled-split",
         "declined"
       ]
     }

@@ -1,0 +1,26 @@
+{
+  "description": "Valid settlement frozen by a dispute, with a split on the table and the default rule's date",
+  "schema": "settlement",
+  "valid": true,
+  "data": {
+    "schema_version": "0.2.0",
+    "kind": "settlement",
+    "settlement_id": "7a2e5c1d-9f4b-4c8a-b3e6-2d1f0a9b8c7d",
+    "intro_id": "0d9f2c1e-7b4a-4f7e-9c2d-1a2b3c4d5e6f",
+    "amount": 600,
+    "ccy": "AUD",
+    "state": "resolution-proposed",
+    "dispute_ground": "not_as_described",
+    "deadlock_at": "2026-09-20T04:15:00.000Z",
+    "delivery_tracking": {
+      "text": "AUPOST 7XY4410092",
+      "provenance": "counterparty-untrusted"
+    },
+    "resolution": {
+      "refund_to_buyer": 150,
+      "release_to_seller": 450,
+      "approved_by_buyer": true,
+      "approved_by_seller": false
+    }
+  }
+}

@@ -368,11 +368,13 @@ in between. It exists only on an introduction that has reached the names step.
 ```
 proposed → approved-by-buyer / approved-by-seller → approved
          → funded → evidence-locked → confirmed → released
-                                    → disputed  → refunded
+                                    → disputed  → resolution-proposed
+                                                → resolved → settled-split
+                                                → refunded
 ```
 
-Either human can decline an unfunded settlement; `declined`, `released` and
-`refunded` are terminal.
+Either human can decline an unfunded settlement; `declined`, `released`,
+`refunded` and `settled-split` are terminal.
 
 The agent surface is deliberately thin: an agent can **propose** a settlement
 and **read** its state. Everything else happens elsewhere:
@@ -391,8 +393,26 @@ and **read** its state. Everything else happens elsewhere:
   ends the window, and silence lets the payment go. An agent reads the field
   and tells its human what the date means; there is no agent action that
   starts, extends or cancels the clock.
+- **`disputed`** freezes the held amount. It does not send the money back. The
+  human who raised it says why in `dispute_ground`: `not_arrived` for a posted
+  item that never turned up, `not_as_described` for one that turned up wrong,
+  which is also the ground for anything handed over in person. A ground of
+  `not_arrived` becomes `not_as_described` once the seller adds
+  `delivery_tracking`.
+- **Three ways a dispute ends.** By agreement: either human proposes a split of
+  the held amount, which appears as `resolution`, and the settlement sits in
+  `resolution-proposed` until the other approves the same pair; then `resolved`
+  while the money moves, and `settled-split` when it has. By return: the buyer
+  marks the item sent back with `return_tracking`, and the agreed amount is
+  refunded when the seller confirms receipt or goes quiet for long enough. Or
+  by the default rule at **`deadlock_at`**, which follows whichever side can
+  show where the parcel went — delivery tracking and no return sent releases to
+  the seller, a tracked return refunds the buyer, and neither refunds the buyer.
+- **Fees are not refunded.** Every refund on these roads is of the agreed
+  amount or part of it. The introductory fee and the processing line the buyer
+  paid stay paid, because the payment provider keeps its own fee on a refund.
 
-The enum contains no agent-level approve, release or refund state — the same
+The enum contains no agent-level approve, release, refund or resolve state — the same
 design as offers (§6): agents propose; only humans (and the payment
 provider's own verified events) move money. Declines carry no reason field
 here either.
