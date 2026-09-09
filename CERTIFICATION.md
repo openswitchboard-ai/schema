@@ -68,16 +68,16 @@ The exported helpers `loadSchemas()`, `loadFixtures()`, and
 `createValidator()` are available if you want to wire the raw schema
 documents or fixtures into your own test framework instead.
 
-## Step 2 — validate live payloads against the dev switchboard
+## Step 2 — validate live payloads against the switchboard
 
 Your local copy of the schemas could drift from what the live service
-actually enforces. This step rules that out. The dev switchboard has a
-public checking endpoint: you send it a payload, and the deployed service's
-own validators tell you whether it would be accepted. No account is needed.
+actually enforces. This step rules that out. The switchboard has a public
+checking endpoint: you send it a payload, and the deployed service's own
+validators tell you whether it would be accepted. No account is needed.
 The technical details:
 
 ```
-POST https://mcp-dev.openswitchboard.ai/conformance/validate
+POST https://mcp.openswitchboard.ai/conformance/validate
 Content-Type: application/json
 
 { "schema": "<schema-name>", "data": { ... } }
@@ -92,7 +92,7 @@ A worked example using the `data` payload from
 `fixtures/card-looking-for-sofa.json`:
 
 ```bash
-curl -X POST https://mcp-dev.openswitchboard.ai/conformance/validate \
+curl -X POST https://mcp.openswitchboard.ai/conformance/validate \
   -H "Content-Type: application/json" \
   -d '{
     "schema": "intent-card",
