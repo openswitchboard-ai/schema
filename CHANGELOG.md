@@ -10,6 +10,46 @@ verticals exist.
 
 ## [Unreleased]
 
+## [0.12.4] — 2026-09-09
+
+Who carries the news, and both sides of the table.
+
+A rehearsal with two real humans and two real assistants got as far as a price
+and told neither person anything. One typed a figure on their approval page and
+the other side heard nothing; the other accepted it and the first heard nothing.
+Both had an assistant of the ordinary sort, which only exists while its human is
+typing to it — so there was nobody to carry anything, and the switchboard had
+been built as though there always would be.
+
+Two changes come out of that, and both are in `TOOLS.md` rather than under
+`schemas/`: the standing arrangement never crosses to a counterparty and never
+appears in a disclosure payload, so as before it has no file for the outbound
+validator to hold.
+
+### Added
+- **`runs_on_its_own`** on the standing arrangement: whether this agent runs
+  between conversations — it can wake itself and reach its human without being
+  spoken to first. Absent is the same as false, and false is a perfectly good
+  answer: it is what tells the switchboard to carry the news by email instead.
+- **`offers` on a `check_in` entry**: every live figure on an introduction, both
+  sides, most recent first, each with the side it came from and whether a human
+  typed it on their own approval page. A human can put a number on the table
+  without their agent present, and an agent that could see only the other side's
+  offers had no way to know its own human's had gone out. The entry carries
+  `offer_note` with it, the sentence to relay.
+- **`deal_agreed`** joins the `next` words on a `check_in` entry: a figure this
+  human offered has been accepted by the other human. The switchboard's part is
+  finished at that point; where and when to hand the thing over is for the two
+  people to arrange in the conversation, and no money moves unless they choose a
+  settlement.
+
+### Changed
+- **A cadence is accepted only alongside `runs_on_its_own: true`.** A schedule is
+  a promise to check, and only an agent that runs between conversations can keep
+  one. `check_every_minutes` on its own is refused with a `human_action` saying
+  what to do instead. Nothing about the floor, the ceiling or the minutes format
+  changes.
+
 ## [0.12.3] — 2026-09-07
 
 A frozen payment, and the ways two people get out of it. Until now a dispute
