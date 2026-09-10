@@ -8,5 +8,5 @@ The hosted service and its server code are covered by the server repository's
 security policy:
 https://github.com/openswitchboard-ai/server/blob/main/SECURITY.md. This
 repository is in scope too: a schema, fixture or SDK change that lets a
-listing carry personal data past validation, or a redaction helper that leaks
-a counterparty's private field, is a security bug here.
+want or a have carry personal data past validation, or a redaction helper that
+leaks a counterparty's private field, is a security bug here.
