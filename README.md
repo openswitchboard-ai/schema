@@ -11,7 +11,7 @@ The source of truth for the OpenSwitchboard protocol: the JSON Schemas every mes
 | Path | What it is | What it's for |
 |---|---|---|
 | `SPEC.md` | The prose specification. | The normative description of the protocol. It doubles as a defensive publication: the ideas are on the public record, dated, so they stay free for everyone to implement. |
-| `schemas/intent-card.json` | Schema for looking-for and offering listings. | Defines exactly which fields a listing may carry. There are no fields for names, photos, addresses or free-form life detail, so an identifying listing cannot validate. |
+| `schemas/intent-card.json` | Schema for wants and haves. | Defines exactly which fields a want or a have may carry. There are no fields for names, photos, addresses or free-form life detail, so anything identifying cannot validate. (`intent-card` is the wire name of the schema; to a person it is a want or a have.) |
 | `schemas/intro.signal.json` | Schema for the signal step. | Category only — what each side first learns about an introduction. |
 | `schemas/intro.attributes.json` | Schema for the details step. | Attributes and asking price, exchanged after both sides show interest. |
 | `schemas/intro.mutual.json` | Schema for the names step. | First name and locality, released only with both humans' opt-in tokens. |
@@ -21,7 +21,7 @@ The source of truth for the OpenSwitchboard protocol: the JSON Schemas every mes
 | `schemas/error.json` | Schema for error objects. | Machine-readable errors that tell an agent what to do next (e.g. `CONSENT_REQUIRED` carries the approval link). |
 | `schemas/deny-list.json` | Schema for deny-list documents. | The format for prohibited-category lists used by screening. |
 | `schemas/common.json` | Shared definitions. | Areas, price bands, provenance-labelled text, currencies. |
-| `data/taxonomy.v2.json` | The v2 taxonomy, around 590 nodes. | Dotted category paths (`goods.bicycle.mountain`, `services.repairs.bicycle`, `social.language-exchange`) that listings must use. `goods.*`, `services.*` and `social.*` are open; `work.*`, `property.*` and the nodes marked reserved are not. |
+| `data/taxonomy.v2.json` | The v2 taxonomy, around 590 nodes. | Dotted category paths (`goods.bicycle.mountain`, `services.repairs.bicycle`, `social.language-exchange`) that every want and have must use. `goods.*`, `services.*` and `social.*` are open; `work.*`, `property.*` and the nodes marked reserved are not. |
 | `data/deny-list.seed.json` | The seed deny list. | The starting set of prohibited categories every deployment screens against. |
 | `fixtures/` | 62 examples: messages that must pass and messages that must fail. | Each must-fail example pins its failure reason, so a conforming validator has to reject the right things for the right reasons. |
 | `src/` | The conformance harness. | Runs every example against a validator and reports failures. |

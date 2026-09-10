@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schema.openswitchboard.ai/v0/offer.json",
   "title": "Offer message",
-  "description": "A negotiation message. Offers are messages, not listing fields. There is NO agent-level accept state: the only acceptance the protocol can express is 'accepted-by-human'. Declines carry no reason field - by design (anti-probing): a reasoned decline would let an agent binary-search the counterparty's private reserve or budget. 'additionalProperties: false' makes a decline reason structurally impossible.",
+  "description": "A negotiation message. An offer is a message of its own; it is never a field on a want or a have. There is NO agent-level accept state: the only acceptance the protocol can express is 'accepted-by-human'. Declines carry no reason field - by design (anti-probing): a reasoned decline would let an agent binary-search the counterparty's private reserve or budget. 'additionalProperties: false' makes a decline reason structurally impossible.",
   "type": "object",
   "properties": {
     "schema_version": {

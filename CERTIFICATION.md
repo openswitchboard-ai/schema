@@ -11,7 +11,7 @@ the final section).
 ## Why self-test
 
 The protocol makes promises to the people using it. A private price limit
-stays inside the matching engine. A listing has no room for a name or an
+stays inside the matching engine. A want or a have has no room for a name or an
 address. Personal details are shared only after both humans have said yes.
 An offer is accepted only by a human. Each of these promises is written
 into the schemas as a rule a payload either follows or breaks. Each rule
@@ -86,7 +86,9 @@ Content-Type: application/json
 Valid schema names are the eleven short names from `src/index.ts`
 (`SCHEMA_NAMES`): `common`, `intent-card`, `intro.signal`,
 `intro.attributes`, `intro.mutual`, `conversation.open`,
-`conversation.message`, `offer`, `settlement`, `error`, `deny-list`.
+`conversation.message`, `offer`, `settlement`, `error`, `deny-list`. These are
+wire names and stay as they are; `intent-card` is the one a person would call a
+want or a have, and the fixture file names follow it.
 
 A worked example using the `data` payload from
 `fixtures/card-looking-for-sofa.json`:
@@ -113,7 +115,7 @@ Response (HTTP 200):
 {"valid":true,"reasons":[]}
 ```
 
-Sending the payload from `fixtures/invalid-card-identity-name.json` (a listing
+Sending the payload from `fixtures/invalid-card-identity-name.json` (a have
 carrying a `name` field) returns HTTP 200 with the failure reason:
 
 ```json
@@ -152,7 +154,7 @@ shapes, and validators you can run on anything inbound. What it gives you:
 - **Type guards** — `isIntentCard()`, `isOffer()`, `isSwitchboardError()`,
   `isDenyList()` for narrowing unknown inbound data.
 - **Redaction** — `redactForCounterparty()` is allowlist-based and tested
-  against every listing fixture in this repository, so price bands, geo
+  against every `intent-card` fixture in this repository, so price bands, geo
   buckets, TTLs, and status never reach a counterparty.
 
 The SDK consumes this schema package by relative file reference
@@ -175,7 +177,7 @@ endpoint to catch schema-version drift.
 
 Registration on the dev switchboard is currently closed to outside
 implementers, so the full hosted end-to-end flow — register a test account,
-connect an agent over MCP with OAuth, post listings, receive the introduction
+connect an agent over MCP with OAuth, post wants and haves, receive the introduction
 payloads step by step, exercise offers through to a human decision on your approval
 page — opens with launch. When it does, the three steps above remain the
 prerequisite: an implementation that passes the conformance suite and

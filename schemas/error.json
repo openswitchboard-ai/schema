@@ -36,7 +36,7 @@
       "minimum": 0
     },
     "suggestions": {
-      "description": "Up to three open taxonomy categories closest to the one that was refused, nearest first. Present on CATEGORY_PROHIBITED when the server can work them out; a server that cannot still refuses the listing the same way, so an agent must handle the field being absent.",
+      "description": "Up to three open taxonomy categories closest to the one that was refused, nearest first. Present on CATEGORY_PROHIBITED when the server can work them out; a server that cannot still refuses what was posted the same way, so an agent must handle the field being absent.",
       "type": "array",
       "maxItems": 3,
       "items": {
@@ -44,7 +44,7 @@
       }
     },
     "candidates": {
-      "description": "Present on LOCATION_AMBIGUOUS: the places the name could have meant, largest first, at most five. 'display' is the fully qualified name to put to a human ('Perth, Scotland, GB'); 'place' is the exact string to send back in the listing's geo.place to choose that one. A server that cannot list them still refuses the listing the same way, so an agent must handle the field being absent.",
+      "description": "Present on LOCATION_AMBIGUOUS: the places the name could have meant, largest first, at most five. 'display' is the fully qualified name to put to a human ('Perth, Scotland, GB'); 'place' is the exact string to send back in geo.place to choose that one. A server that cannot list them still refuses what was posted the same way, so an agent must handle the field being absent.",
       "type": "array",
       "minItems": 2,
       "maxItems": 5,

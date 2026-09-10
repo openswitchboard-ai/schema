@@ -18,7 +18,7 @@
       "$ref": "common.json#/$defs/category"
     },
     "counterparty_type": {
-      "description": "Whether the counterparty listing is looking for something or offering something.",
+      "description": "Whether the counterparty is looking for something or offering something.",
       "type": "string",
       "enum": [
         "looking_for",

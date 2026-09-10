@@ -41,7 +41,7 @@ export interface Fixture {
   valid: boolean;
   /**
    * For intent-card fixtures that also exercise the taxonomy gate: the status
-   * the listing's category must resolve to. A listing can be perfectly well-formed
+   * the category must resolve to. A want or a have can be perfectly well-formed
    * and still be refused because its category is reserved or unknown, so this
    * assertion is separate from schema validity.
    */
@@ -53,7 +53,7 @@ export interface Fixture {
   /**
    * For invalid fixtures: a substring that must appear in the validator's
    * reason output, pinning the failure to the *right* rule (e.g. the identity
-   * field, not some incidental typo).
+   * field rather than some incidental typo).
    */
   error_contains?: string;
   /** The payload under test. */
@@ -108,7 +108,7 @@ export function loadTaxonomy(): Taxonomy {
   return taxonomyCache;
 }
 
-/** Every category a listing may be posted under, in taxonomy order. */
+/** Every category a want or a have may be posted under, in taxonomy order. */
 export function openCategories(taxonomy: Taxonomy = loadTaxonomy()): string[] {
   return Object.keys(taxonomy.nodes).filter(
     (c) => categoryStatus(c, taxonomy).status === "open",

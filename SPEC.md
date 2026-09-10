@@ -14,18 +14,20 @@ last word.
 
 ---
 
-## 1. Listings
+## 1. Wants and haves
 
-There are exactly two objects that matter: a listing whose `type` is
-`looking_for`, and a listing whose `type` is `offering`. Everything else in the
-protocol exists to match them and to disclose carefully afterwards.
+There are exactly two objects that matter: a **want**, whose `type` is
+`looking_for`, and a **have**, whose `type` is `offering`. Everything else in
+the protocol exists to match them and to disclose carefully afterwards.
 
-A listing is a **thin projection** of intent. It deliberately excludes names,
-photos, addresses and free-form life detail. This is not a privacy setting a
-user might forget to enable — it is structural. The listing schema
-(`schemas/intent-card.json`) has `additionalProperties: false` at the top
-level and a forbidden-key list on `attributes`, so a listing carrying an identity
-field is not a private listing: it is not a listing at all.
+A want or a have is a **thin projection** of intent, about as thin as an index
+card. It deliberately excludes names, photos, addresses and free-form life
+detail. This is a structural property rather than a privacy setting a user
+might forget to enable. The schema (`schemas/intent-card.json`) has
+`additionalProperties: false` at the top level and a forbidden-key list on
+`attributes`, so one carrying an identity field does not validate at all.
+(`intent-card` is the wire name of the schema; to a person it is a want or a
+have.)
 
 Fields:
 
@@ -36,26 +38,26 @@ Fields:
 | `category` | Dotted taxonomy path, e.g. `goods.bicycle.mountain` (§2). |
 | `geo` | An **area**: `{ place?, bucket?, radius_km?, reach? }`. Name the locality in `place`; say how far the human will meet someone in `reach` (§1.1). Exact coordinates are structurally impossible. |
 | `price` | Matching input only — see §3. |
-| `ask` | Offering listings only: a deliberate, disclosable asking price (§3). |
+| `ask` | Haves only: a deliberate, disclosable asking price (§3). |
 | `attributes` | Typed key/values from the category's vocabulary (condition, model, colour, …). |
 | `urgency` | `"none" \| "days" \| "today"` — a routing hint, nothing more. |
 | `visibility` | `"anonymous-until-introduced"` — the only value in v1. |
-| `status` | `"active"` or `"latent"`. A latent listing is "back pocket" intent: held by the switchboard and surfaced only when a real introduction appears. |
-| `ttl_days` | 1–90, default 60. Expired listings produce `INTENT_EXPIRED`. |
+| `status` | `"active"` or `"latent"`. A latent want or have is "back pocket" intent: held by the switchboard and surfaced only when a real introduction appears. |
+| `ttl_days` | 1–90, default 60. Once it expires, it produces `INTENT_EXPIRED`. |
 
 ### 1.1 Location: name the area, then say how far
 
-A listing's `geo` holds two separate things: where the listing is, and how far its
-human will meet someone. They are not the same question, and a listing that
-conflates them ends up in the wrong place.
+The `geo` block holds two separate things: where the want or the have is, and
+how far its human will meet someone. They are not the same question, and
+anything that conflates them ends up in the wrong place.
 
-**Where the listing is.** An agent gives `place` — the name of a suburb, city or
+**Where it is.** An agent gives `place` — the name of a suburb, city or
 region, such as `Canberra`, `Newtown, NSW` or `AU-ACT` — and the switchboard
 resolves that name against its own gazetteer into a centre point, a coarse
 cell (`bucket`, a geohash4) and the width of the named area. Resolution
 happens inside the switchboard, so nobody outside it learns what an agent
 looked up. An agent already holding a canonical cell may send `bucket` on its
-own; a listing carries at least one of the two.
+own; every want and have carries at least one of the two.
 
 **How far the human will meet someone.** `reach` takes one of three values:
 
@@ -69,18 +71,18 @@ The place is a real town whatever the reach. An agent whose human says "I'll
 post it anywhere in Australia" writes their town in `place` and `"country"`
 in `reach` — it does not write `"Australia"` in `place`, which is refused.
 
-**How two listings meet.** Each side's reach has to cover where the other side
-is. Two listings on `radius` meet when the distance between their centres falls
+**How a want and a have meet.** Each side's reach has to cover where the other
+side is. Two sides on `radius` meet when the distance between their centres falls
 within the sum of their radii, so an agent that writes `Canberra` and an
-agent that writes `AU-ACT` find each other; before this, a listing carried only
-a bucket string and two spellings of one city were simply unequal. A listing on
-`"country"` covers any listing whose place resolved to the same country; a listing
-on `"anywhere"` covers every listing. Because the test runs both ways, a
-nationwide offering listing in Canberra and a looking-for listing in Perth meet
-only when the looking-for listing reaches nationwide too — the person
+agent that writes `AU-ACT` find each other; before this, each side carried only
+a bucket string and two spellings of one city were simply unequal. A side on
+`"country"` covers anything whose place resolved to the same country; a side
+on `"anywhere"` covers everything. Because the test runs both ways, a
+nationwide have in Canberra and a want in Perth meet
+only when the want reaches nationwide too — the person
 collecting has to be as willing to cross the distance as the person sending.
 
-Reach also shapes the score. Distance still ranks two listings that meet by
+Reach also shapes the score. Distance still ranks two sides that meet by
 radius, so a neighbouring suburb ranks above the far edge of the radius. A
 pair that meets because one side reaches a whole country instead gets a flat,
 moderate geographic contribution: nationwide is a real introduction, and it
@@ -99,8 +101,8 @@ Text the switchboard will not place is refused rather than guessed at.
 `LOCATION_UNRESOLVED` (§9) covers four shapes: a street address; a name the
 gazetteer does not know; a bare state or territory ("ACT", "Texas"); and a
 bare country or country code ("Australia", "AU", "US"). The last two are
-areas nobody lives in the middle of — resolving them silently puts a listing
-hundreds of kilometres from the human it belongs to — so the error names what
+areas nobody lives in the middle of — resolving them silently puts a want or a
+have hundreds of kilometres from the human it belongs to — so the error names what
 it heard, asks for a town or city inside it, and says that nationwide is what
 `reach` is for: `place: "Canberra"`, `reach: "country"`. The deliberate forms still
 work: `AU-ACT` and `US-CA` say plainly that the whole division is meant, and
@@ -108,7 +110,8 @@ a comma-qualified name (`Newtown, NSW`) settles itself.
 
 `LOCATION_AMBIGUOUS` covers the rest: a bare name that several cities answer
 to. `Perth` is a city in Western Australia and a city in Scotland, and
-picking the bigger one silently is how a listing ends up on the wrong continent.
+picking the bigger one silently is how a want or a have ends up on the wrong
+continent.
 The error carries `candidates` — up to five, largest first, each with a
 `display` to put to a human and a `place` string that selects it — so the
 agent can ask which one and repost with the qualified form. One case resolves
@@ -117,9 +120,9 @@ of every other and no rival is a town in its own right, `Paris` is Paris.
 
 ### No identity, no sensitive attributes
 
-There are **no identity fields anywhere in a listing** — no names, contact
+There are **no identity fields anywhere in a want or a have** — no names, contact
 details, photos, or addresses. In addition, **sensitive personal attributes
-are forbidden in listings**: health, sexuality, beliefs, ethnicity, political
+are forbidden in both**: health, sexuality, beliefs, ethnicity, political
 affiliation and their relatives are on the schema-level forbidden-key list.
 If such facts are relevant to an agent's judgement ("my human needs a bike
 with a step-through frame because of a hip injury"), they live **client-side
@@ -146,7 +149,7 @@ Three top levels are open:
   things, travel company, family company.
 
 `work.*` and `property.*` are reserved. The nodes are named in the taxonomy so
-the shape of those verticals is public, and listings posted under them are
+the shape of those verticals is public, and anything posted under them is
 rejected with `CATEGORY_PROHIBITED`.
 
 ### Reserved nodes
@@ -182,7 +185,7 @@ goods.electronics.laptop, goods.electronics.tablet, goods.electronics.desktop.
 ```
 
 Suggestions are a courtesy. A server that cannot compute them still refuses
-the listing the same way.
+what was posted the same way.
 
 ### Attributes carry the specifics
 
@@ -196,7 +199,7 @@ live at `goods.electronics.laptop` with `brand`, `model`, `ram_gb` and
 ### How close two categories have to be
 
 Two agents filing the same errand rarely land on the same node, so the
-switchboard pairs listings across a little of the tree. Two categories are
+switchboard pairs across a little of the tree. Two categories are
 considered together when they are equal, when one sits on the other's ancestor
 line (`goods.bicycle` with `goods.bicycle.mountain`), or when they are
 siblings under a shared parent that is itself below the top level
@@ -207,7 +210,7 @@ immediate parent.
 
 Distance in the tree discounts a pair rather than blocking it. An exact node
 counts for most, a parent and its child a little less, siblings less again, so
-what the two listings say about themselves is what decides a pairing the
+what the two sides say about themselves is what decides a pairing the
 filing leaves open. A server MAY weigh the discount as it sees fit; the set of
 category pairs it will consider at all is the part this section fixes.
 
@@ -215,10 +218,10 @@ category pairs it will consider at all is the part this section fixes.
 
 This is the protocol's core economic guarantee.
 
-A listing's `price` field is a band: on a **looking-for listing** it is the
-**budget ceiling**; on an **offering listing** it is the **reserve floor**.
+The `price` field is a band: on a **want** it is the
+**budget ceiling**; on a **have** it is the **reserve floor**.
 Both are **matching inputs only**.
-The switchboard uses them to decide whether two listings can meet, and they are
+The switchboard uses them to decide whether a want and a have can meet, and they are
 **never disclosed to a counterparty at any point**. No disclosure payload
 schema in this package has a slot where a price band could appear —
 `additionalProperties: false` makes emitting one a schema violation, and the
@@ -226,9 +229,9 @@ conformance suite contains fixtures proving it.
 
 What *can* cross the wire are **deliberate terms**:
 
-- an **asking price** — the optional `ask` field on an offering listing,
+- an **asking price** — the optional `ask` field on a have,
   disclosable from the details step onward, because the human chose to state it;
-- an **offer** — a negotiation message (§6), never a listing field.
+- an **offer** — a negotiation message (§6), never a field on a want or a have.
 
 Your agent can therefore negotiate hard on your behalf without ever revealing
 what you would really pay or really accept.
@@ -247,7 +250,7 @@ agent can say out loud, and `check_in` takes them in its `step` input:
    agent; what the agent can do next is carried as a word on the `check_in`
    entry (`next`, see `TOOLS.md`), never as a step name or a percentage.
 2. **The details step — `intro.attributes`** (`schemas/intro.attributes.json`)
-   — after interest at the signal step: the counterparty listing's attributes,
+   — after interest at the signal step: the counterparty's attributes,
    its `ask` if stated, and provenance-labelled notes. Still anonymous.
 3. **The names step — `intro.mutual`** (`schemas/intro.mutual.json`) — first
    name and coarse locality, and **only after both humans' opt-in is
@@ -293,9 +296,9 @@ own words, and the human decides.
 
 A message can be up to 4000 characters. The conversation exists only between the two
 accounts of an introduction that has opened one, so an agent outside that pair can
-neither send to it nor collect from it, and it stops carrying when either listing
-is withdrawn or when an account's agent tokens are suspended. A listing that
-simply reaches the end of its life leaves the conversation alone, since two people
+neither send to it nor collect from it, and it stops carrying when either side
+withdraws what they posted or when an account's agent tokens are suspended. A want
+or a have that simply reaches the end of its life leaves the conversation alone, since two people
 already talking should keep talking. A
 deployment states its own sending rate; the reference deployment allows each
 side sixty messages an hour on any one conversation and answers a request past that
@@ -328,8 +331,8 @@ was never retained (§5), and neither was any phone number the two swapped
 in-conversation; archiving keeps the record of the connection, and those never
 lived on the switchboard to keep.
 
-Archiving the introduction is separate from the **listing** that started it,
-and touches only the introduction. A listing that serves many people (a book
+Archiving the introduction is separate from the **want or have** that started
+it, and touches only the introduction. Something that serves many people (a book
 club with room for more) stays live for the next person; a one-off (a bike that
 has now sold) is withdrawn separately with `withdraw_intent`. An archived
 introduction carries no `next` and no `signal`, so it never resurfaces as a new
@@ -476,7 +479,7 @@ pending a per-vertical policy, rather than permanently prohibited.
 
 ## 11. Versioning and governance
 
-The schema package is semver-versioned. Every listing and payload carries
+The schema package is semver-versioned. Every want, have and payload carries
 `schema_version`. Servers MUST reject an unknown MAJOR version with
 `SCHEMA_VERSION_UNSUPPORTED`; MINOR and PATCH changes are additive and
 backward-compatible. See `CHANGELOG.md` for history.
@@ -490,7 +493,7 @@ verticals exist. Taxonomy changes go through the process in
 
 `npm test` validates every fixture in `fixtures/` against its schema, with
 expected pass/fail **and** failure-reason assertions (an invalid fixture must
-fail for the right rule, not incidentally). The same suite is exported as a
+fail for the right rule rather than incidentally). The same suite is exported as a
 library (`runConformance`) so third-party implementations can prove they
 accept and reject exactly what this specification requires.
 

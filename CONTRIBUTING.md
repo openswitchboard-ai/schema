@@ -17,9 +17,9 @@ PRs with unsigned commits will not be merged.
 ## Ground rules
 
 - The protocol's invariants are not up for negotiation in a PR: no identity
-  fields in cards, price bands never disclosed, no agent-level accept, no
+  fields on a want or a have, price bands never disclosed, no agent-level accept, no
   decline reasons, provenance labels on all free text. A change that weakens
-  one of these needs a design discussion (open an issue), not a patch.
+  one of these needs a design discussion (open an issue) rather than a patch.
 - Every schema change must ship with fixtures: at least one valid example and
   one must-fail example whose `error_contains` pins the new rule.
 - `npm run lint && npm test` must be green.
