@@ -1,5 +1,5 @@
 {
-  "description": "Valid looking-for listing: laptop, urgency 'days', boolean/number attribute types",
+  "description": "Valid want: laptop, urgency 'days', boolean/number attribute types",
   "schema": "intent-card",
   "valid": true,
   "data": {

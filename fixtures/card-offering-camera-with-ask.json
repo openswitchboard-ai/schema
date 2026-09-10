@@ -1,5 +1,5 @@
 {
-  "description": "Valid offering listing: camera with reserve floor and asking price",
+  "description": "Valid have: camera with reserve floor and asking price",
   "schema": "intent-card",
   "valid": true,
   "data": {

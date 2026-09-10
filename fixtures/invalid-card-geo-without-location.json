@@ -1,5 +1,5 @@
 {
-  "description": "MUST FAIL: a radius with nothing to centre it on - a card carries a place or a bucket",
+  "description": "MUST FAIL: a radius with nothing to centre it on - a want or have carries a place or a bucket",
   "schema": "intent-card",
   "valid": false,
   "error_contains": "/geo anyOf",

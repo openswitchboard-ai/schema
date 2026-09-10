@@ -1,5 +1,5 @@
 {
-  "description": "Well-formed card the taxonomy still refuses: social.dating is a reserved vertical",
+  "description": "Well-formed want the taxonomy still refuses: social.dating is a reserved vertical",
   "schema": "intent-card",
   "valid": true,
   "taxonomy": { "status": "reserved", "reason_contains": "regulated-vertical" },

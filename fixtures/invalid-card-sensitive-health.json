@@ -1,5 +1,5 @@
 {
-  "description": "MUST FAIL: sensitive personal attribute ('health') - forbidden in cards, client-side only",
+  "description": "MUST FAIL: sensitive personal attribute ('health') - forbidden in a want or have, client-side only",
   "schema": "intent-card",
   "valid": false,
   "error_contains": "\"propertyName\":\"health\"",

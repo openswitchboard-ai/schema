@@ -1,5 +1,5 @@
 {
-  "description": "MUST FAIL: 'ask' is an offering-only field; a looking-for listing expresses terms through offers",
+  "description": "MUST FAIL: 'ask' is an offering-only field; a want expresses terms through offers",
   "schema": "intent-card",
   "valid": false,
   "error_contains": "/ask",

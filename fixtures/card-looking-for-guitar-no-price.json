@@ -1,5 +1,5 @@
 {
-  "description": "Valid looking-for listing with no price band at all (price is optional)",
+  "description": "Valid want with no price band at all (price is optional)",
   "schema": "intent-card",
   "valid": true,
   "data": {

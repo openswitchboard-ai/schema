@@ -1,5 +1,5 @@
 {
-  "description": "Valid looking-for listing in the services vertical: everyday, non-licensed help",
+  "description": "Valid want in the services vertical: everyday, non-licensed help",
   "schema": "intent-card",
   "valid": true,
   "taxonomy": { "status": "open" },

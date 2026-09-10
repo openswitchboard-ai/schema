@@ -1,5 +1,5 @@
 {
-  "description": "Valid looking-for listing: location given as a place name, no bucket - the switchboard resolves it",
+  "description": "Valid want: location given as a place name, no bucket - the switchboard resolves it",
   "schema": "intent-card",
   "valid": true,
   "data": {

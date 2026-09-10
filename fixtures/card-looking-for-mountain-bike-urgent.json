@@ -1,5 +1,5 @@
 {
-  "description": "Valid urgent looking-for listing: mountain bike, budget ceiling as matching input, needed today",
+  "description": "Valid urgent want: mountain bike, budget ceiling as matching input, needed today",
   "schema": "intent-card",
   "valid": true,
   "data": {

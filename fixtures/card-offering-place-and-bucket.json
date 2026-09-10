@@ -1,5 +1,5 @@
 {
-  "description": "Valid offering listing: a place name alongside the canonical cell the switchboard resolved it to",
+  "description": "Valid have: a place name alongside the canonical cell the switchboard resolved it to",
   "schema": "intent-card",
   "valid": true,
   "data": {

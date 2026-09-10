@@ -1,5 +1,5 @@
 {
-  "description": "Well-formed card the taxonomy still refuses: electrical work is a licensed trade",
+  "description": "Well-formed have the taxonomy still refuses: electrical work is a licensed trade",
   "schema": "intent-card",
   "valid": true,
   "taxonomy": { "status": "reserved", "reason_contains": "licensed-trade" },

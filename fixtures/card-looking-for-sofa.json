@@ -1,5 +1,5 @@
 {
-  "description": "Valid looking-for listing: sofa with minimal fields (defaults apply)",
+  "description": "Valid want: sofa with minimal fields (defaults apply)",
   "schema": "intent-card",
   "valid": true,
   "data": {

@@ -1,5 +1,5 @@
 {
-  "description": "MUST FAIL: a street address where a locality belongs - a card names an area, never a door",
+  "description": "MUST FAIL: a street address where a locality belongs - a want or have names an area, never a door",
   "schema": "intent-card",
   "valid": false,
   "error_contains": "/geo/place pattern",

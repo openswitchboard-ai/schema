@@ -1,5 +1,5 @@
 {
-  "description": "Valid offering listing with only required fields",
+  "description": "Valid have with only required fields",
   "schema": "intent-card",
   "valid": true,
   "data": {

@@ -1,5 +1,5 @@
 {
-  "description": "Well-formed card the taxonomy still refuses: the category is not a taxonomy node",
+  "description": "Well-formed want the taxonomy still refuses: the category is not a taxonomy node",
   "schema": "intent-card",
   "valid": true,
   "taxonomy": { "status": "unknown", "reason_contains": "is not in the taxonomy" },

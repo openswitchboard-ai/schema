@@ -1,5 +1,5 @@
 {
-  "description": "Valid details-step payload for a counterparty looking-for listing (no ask, counterparty note only)",
+  "description": "Valid details-step payload for a counterparty's want (no ask, counterparty note only)",
   "schema": "intro.attributes",
   "valid": true,
   "data": {

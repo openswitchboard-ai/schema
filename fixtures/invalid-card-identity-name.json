@@ -1,5 +1,5 @@
 {
-  "description": "MUST FAIL: identity field ('name') on a card - cards carry no identity, ever",
+  "description": "MUST FAIL: identity field ('name') on a want or have - they carry no identity, ever",
   "schema": "intent-card",
   "valid": false,
   "error_contains": "\"additionalProperty\":\"name\"",

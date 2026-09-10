@@ -1,5 +1,5 @@
 {
-  "description": "Well-formed card the taxonomy still refuses: property.* is a reserved top level",
+  "description": "Well-formed want the taxonomy still refuses: property.* is a reserved top level",
   "schema": "intent-card",
   "valid": true,
   "taxonomy": { "status": "reserved", "reason_contains": "top level 'property' is reserved" },
