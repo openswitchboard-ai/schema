@@ -10,6 +10,48 @@ verticals exist.
 
 ## [Unreleased]
 
+## [0.12.5] — 2026-09-11
+
+The assistant fetches the link.
+
+A person on the switchboard hears about all of it through their assistant, and
+the assistant does the carrying. What was missing was the last step: when a
+formality is genuinely needed — sharing a first name, sending a figure, taking
+one, closing a window, handing the wheel over — the assistant had nowhere to
+send them except "your approval page", which is a place rather than a question.
+
+So `respond` learns four actions that mint a single-use link and hand it back
+to the agent. The agent never acts on any of them; it passes the link to its
+human in the conversation they are already having, and the link opens one page
+that asks one question and offers two buttons. Everything under `schemas/`
+is unchanged: this is the tool surface, so it lives in `TOOLS.md`.
+
+### Added
+- **`respond` link actions.** `request_share_name` (the first-name step),
+  `request_accept` (`offer_id`: accept a figure that is on the table),
+  `request_close_window` (`intent_id`: close the short window on one of the
+  human's own wants or haves), `request_auto_negotiate` (`intent_id` +
+  `numbers`: switch one to Auto-negotiate with the figures the human gave).
+  Each answers `{ link, expires_in_minutes, what_it_does }`. Links are
+  single-use, live fifteen minutes, and are bound to the exact figures and ids
+  they name.
+- **`respond` takes `intent_id` and `numbers`.** `intent_id` names one of the
+  human's own wants or haves, for the two actions that work on one rather than
+  on an introduction; `numbers` is `{ open?, limit, step?, ccy }`.
+- **`check_in` carries `hears_via` and `runs_on_its_own`.** How this human
+  hears about the switchboard (`"email"` or `"assistant"`), and whether the
+  agent on this account has said it runs between conversations. Both have to be
+  true before an agent may offer to negotiate, and `request_auto_negotiate` is
+  refused with a plain `human_action` naming whichever is missing.
+
+### Changed
+- **`respond` requires `action` alone.** `intro_id` was required for every
+  action; the two that work on a want or have take `intent_id` instead, and a
+  missing `intro_id` on an introduction action is refused by name.
+- **`propose_offer` on Pass on** answers `CONSENT_REQUIRED` carrying a link to
+  a page that asks about the exact figure the agent tried to send, rather than
+  a link to the introduction's page.
+
 ## [0.12.4] — 2026-09-09
 
 Who carries the news, and both sides of the table.
