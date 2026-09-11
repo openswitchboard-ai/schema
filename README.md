@@ -1,4 +1,4 @@
-# 🐙 OpenSwitchboard — protocol schema
+# OpenSwitchboard — protocol schema
 
 [![CI](https://github.com/openswitchboard-ai/schema/actions/workflows/ci.yml/badge.svg)](https://github.com/openswitchboard-ai/schema/actions/workflows/ci.yml)
 
