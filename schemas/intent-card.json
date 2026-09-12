@@ -66,6 +66,22 @@
       "minimum": 1,
       "maximum": 90,
       "default": 60
+    },
+    "slots": {
+      "description": "How many people this can take at once. By default the switchboard introduces one at a time: it holds a line of candidates and only the ones in a slot are live, so neither human has a crowd to manage. A book club with room for four sets 4. Routing only. The number itself is never disclosed to a counterparty, and neither is any count of who else is in the line.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10,
+      "default": 1
+    },
+    "sale": {
+      "description": "Haves only: how the asking price works. 'straight' is the ask as it stands, with introductions made one at a time. 'best-offer' opens a short gathering window in which everyone who fits is introduced at once and each of them may put exactly ONE number on the table, sealed: the ask is the floor, nobody ever sees anyone else's number, and the holder sees them all only after the window has closed. Structurally forbidden on a want.",
+      "type": "string",
+      "enum": [
+        "straight",
+        "best-offer"
+      ],
+      "default": "straight"
     }
   },
   "required": [
@@ -89,7 +105,8 @@
       },
       "then": {
         "properties": {
-          "ask": false
+          "ask": false,
+          "sale": false
         }
       }
     }

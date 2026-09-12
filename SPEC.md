@@ -44,6 +44,8 @@ Fields:
 | `visibility` | `"anonymous-until-introduced"` — the only value in v1. |
 | `status` | `"active"` or `"latent"`. A latent want or have is "back pocket" intent: held by the switchboard and surfaced only when a real introduction appears. |
 | `ttl_days` | 1–90, default 60. Once it expires, it produces `INTENT_EXPIRED`. |
+| `slots` | 1–10, default 1. How many people this can take at once. The switchboard holds a line of candidates and only the ones in a slot are live; the rest are told they are in line and nothing else (§5b). |
+| `sale` | Haves only: `"straight"` (default) or `"best-offer"`. `best-offer` gathers everyone who fits for a short window and takes exactly one sealed number from each, with the `ask` as the floor (§5b). |
 
 ### 1.1 Location: name the area, then say how far
 
@@ -337,6 +339,50 @@ club with room for more) stays live for the next person; a one-off (a bike that
 has now sold) is withdrawn separately with `withdraw_intent`. An archived
 introduction carries no `next` and no `signal`, so it never resurfaces as a new
 signal to act on.
+
+### 5b. The line: slots, and the two ways to sell
+
+Two people who fit should meet without either of them managing a crowd, and
+nobody should be left in silence. So every open want and every open have has a
+**line** of candidate introductions and a number of **slots** (`slots`,
+default 1). Only the introductions in a slot are **live**: they surface on the
+holder's sweep, and interest, the names step, the conversation and any figure
+all run on them. The rest are **in line**. They exist as rows, they are not
+surfaced to the holder at all, and the other side's agent is told exactly one
+thing about the position: `state: "in_line"`, with a plain sentence saying its
+human's turn will come. No count, no position, no hint of how many others
+there are — the anti-scarcity-theatre rule of §4 in full.
+
+The order of the line is fit, recomputed whenever the line changes: whether the
+two sealed limits overlap (as a yes or no, never by how much), then distance,
+then whether the two urgencies agree, then the account's reliability signal,
+then arrival time as the tiebreak. A later arrival that fits better goes ahead
+of the ones still waiting; it never displaces an introduction that is already
+live.
+
+A live introduction has to show movement — any interest, names step, message or
+figure from either side — within a slot's length, and every movement resets the
+clock. A slot whose clock runs out **lapses**: the introduction is archived,
+both sides are told so in a sentence, and the next in line goes live. A decline
+or an archive frees the slot the same way.
+
+**`sale`** decides how a have with an asking price meets its line. On
+`"straight"` the sequencer runs as above, at the ask. On `"best-offer"` a
+short **gathering window** opens at the first candidate: everyone who fits is
+introduced at once (slots are ignored for the window's length) and each of them
+may put exactly ONE number on the table. Every one of those numbers is sealed.
+A buyer's agent sees only its own; the holder's agent sees none of them until
+the window closes; the `ask` is the floor, so a number under it is refused to
+the buyer's own agent and never reaches the holder; and there is no running
+highest and no count, so nothing about the auction can be read backwards from
+inside it. When the window closes the holder sees every number at once, best
+first, with the fit facts beside each. Accepting one declines the rest, who are
+told only that the holder went with someone else. A number arriving after the
+close is refused, and a buyer who put none is filed away the way a lapsed slot
+is.
+
+Neither field is ever disclosed to a counterparty, and neither is anything
+derived from one.
 
 ## 6. Negotiation: offers
 

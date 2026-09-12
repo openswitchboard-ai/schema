@@ -1,0 +1,21 @@
+{
+  "description": "Valid have: a book club with room for four, so four introductions run at once",
+  "schema": "intent-card",
+  "valid": true,
+  "data": {
+    "schema_version": "0.1.0",
+    "type": "offering",
+    "category": "social.activity-partner",
+    "geo": {
+      "place": "Canberra",
+      "reach": "anywhere"
+    },
+    "attributes": {
+      "format": "video call",
+      "frequency": "monthly"
+    },
+    "slots": 4,
+    "urgency": "none",
+    "status": "active"
+  }
+}

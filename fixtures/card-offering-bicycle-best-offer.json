@@ -1,0 +1,32 @@
+{
+  "description": "Valid have: a bike sold on best offer, with the ask as the floor under every sealed number",
+  "schema": "intent-card",
+  "valid": true,
+  "data": {
+    "schema_version": "0.1.0",
+    "type": "offering",
+    "category": "goods.bicycle.mountain",
+    "geo": {
+      "bucket": "r3dp",
+      "radius_km": 25
+    },
+    "price": {
+      "band": {
+        "min": 380
+      },
+      "ccy": "AUD"
+    },
+    "ask": {
+      "amount": 420,
+      "ccy": "AUD"
+    },
+    "attributes": {
+      "condition": "good",
+      "frame_size": "medium"
+    },
+    "sale": "best-offer",
+    "slots": 1,
+    "urgency": "days",
+    "status": "active"
+  }
+}
