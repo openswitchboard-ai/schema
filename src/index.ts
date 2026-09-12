@@ -74,6 +74,26 @@ export type ValidateFn = (schema: SchemaName, data: unknown) => ValidationResult
 
 export interface TaxonomyNode {
   label: string;
+  /**
+   * The node as a person says it inside a sentence, where `label` is the
+   * heading a catalogue would print. "Mountain bikes" is the label; "mountain
+   * bike" is the phrase, and it is what goes after "your" and "the … you are
+   * after". Written by hand on every leaf that may be posted; absent on the
+   * branches above them.
+   */
+  phrase?: string;
+  /**
+   * Whether the phrase takes "a"/"an" in front of it. Default true. False for
+   * mass nouns ("climbing gear") and for phrases a person keeps plural
+   * ("guitar lessons"), which take no article at all.
+   */
+  countable?: boolean;
+  /**
+   * The article, spelled out only where the phrase does not predict it — "an
+   * Xbox" begins with a consonant letter and a vowel sound. Everywhere else it
+   * is derived.
+   */
+  article?: "a" | "an";
   /** Absent means open. 'reserved' closes this node and everything under it. */
   status?: "reserved";
   /** Why the node is reserved: 'licensed-trade' or 'regulated-vertical'. */

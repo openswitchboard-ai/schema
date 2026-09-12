@@ -10,6 +10,44 @@ verticals exist.
 
 ## [Unreleased]
 
+## [0.13.0] — 2026-09-12
+
+The taxonomy learns to say its own names.
+
+Every node in the taxonomy has carried a label since v2, and a label is a
+heading: "Mountain bikes", "Kettles, toasters & benchtop appliances", "Hi-fi &
+amplifiers". Headings are right at the top of a list and wrong in the middle of
+a sentence, and servers have been pushing them into sentences anyway, with a
+mechanical rule that lowercases the first clause and trims the last s. That
+rule turns "DSLR cameras" into "dslr camera", "PlayStation" into "playstation",
+"BMX bikes" into "bmx bike", and "Kids clothing" into "kids clothing". A person
+reading that can tell the sentence was assembled.
+
+So every leaf a person may post under now carries the words a person actually
+uses for it. All 462 were written and read aloud by hand, in the three frames
+that matter: after "your", after "the ... you are after", and after "keen on".
+Acronyms and brands keep their capitals, mass nouns stay mass, lessons stay
+plural, and a leaf says for itself whether it takes an article.
+
+### Added
+- **`phrase` on every open leaf node** (462 of them) in `data/taxonomy.v2.json`:
+  the node as a person says it mid-sentence. "Mountain bikes" keeps its label
+  and gains the phrase "mountain bike"; "Gravel & cyclocross bikes" gains
+  "gravel bike"; "Kids clothing" gains "kids' clothing"; "Climbing gear" stays
+  "climbing gear"; "Guitar lessons" stays "guitar lessons". Labels are
+  unchanged, so headings and badges read as they always have.
+- **`countable` on a leaf** (optional, default `true`). `false` says the phrase
+  takes no article at all, which covers mass nouns ("climbing gear", "hi-fi
+  gear") and the phrases people keep plural ("guitar lessons", "power tools").
+- **`article` on a leaf** (optional, `"a"` or `"an"`). Spelled out only where
+  the spelling does not predict the sound. One leaf needs it today: "an Xbox".
+- **`TaxonomyNode` carries the three new fields** in `src/index.ts`, all
+  optional, so a consumer that ignores them behaves exactly as before.
+
+### Changed
+- **Taxonomy `schema_version` is `0.3.0`.** Additive: nothing that was valid
+  before is invalid now, and a node without a phrase still resolves.
+
 ## [0.12.5] — 2026-09-11
 
 The assistant fetches the link.
