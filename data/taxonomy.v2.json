@@ -402,7 +402,7 @@
     "services.creative.printing": {"label":"Printing & framing","phrase":"printing and framing","countable":false},
     "services.events": {"label":"Events help"},
     "services.events.setup": {"label":"Event setup & pack-down","phrase":"event setup","countable":false},
-    "services.events.dj": {"label":"DJ & music for events","phrase":"DJ"},
+    "services.events.dj": {"label":"DJ & music for events","phrase":"DJ set"},
     "services.events.live-music": {"label":"Live music for events","phrase":"live music","countable":false},
     "services.events.decoration": {"label":"Decorating","phrase":"decorating","countable":false},
     "services.events.hosting-help": {"label":"Hosting help","phrase":"hosting help","countable":false},
