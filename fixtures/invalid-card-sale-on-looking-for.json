@@ -1,0 +1,15 @@
+{
+  "description": "MUST FAIL: 'sale' is an offering-only field; a want has no asking price to sell against",
+  "schema": "intent-card",
+  "valid": false,
+  "error_contains": "/sale",
+  "data": {
+    "schema_version": "0.1.0",
+    "type": "looking_for",
+    "category": "goods.bicycle.mountain",
+    "geo": {
+      "bucket": "r3dp"
+    },
+    "sale": "best-offer"
+  }
+}

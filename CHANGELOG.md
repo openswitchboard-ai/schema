@@ -10,6 +10,44 @@ verticals exist.
 
 ## [Unreleased]
 
+## [0.14.0] — 2026-09-12
+
+One at a time, and one sealed number each.
+
+A want or a have used to meet everyone at once. The second person to come
+forward put the first one's human into a short window during which they could
+talk to everybody and commit to nobody, and the third and the fourth arrived
+on top of that. What a person actually wants is to meet one person who fits,
+settle it, and meet the next one only if that came to nothing. So the
+switchboard now holds a line: every want and every have has a number of slots,
+the introductions in a slot are live, and the rest wait their turn and are told
+only that they are in line. Nothing about the line is disclosed beyond that
+sentence: no count, no position, no hint of how many others there are.
+
+Two wire fields carry the human's own word about it, and both of them are
+routing inputs that never cross to a counterparty.
+
+### Added
+- **`slots`** on a want or a have (integer 1-10, default 1). How many people
+  this can take at once: a book club with room for four sets 4, a bike for
+  sale leaves it alone. The switchboard fills the slots by fit and keeps the
+  rest in line; a later arrival that fits better goes ahead of the ones still
+  waiting and never displaces an introduction already live.
+- **`sale`** on a have (`"straight"` | `"best-offer"`, default `"straight"`),
+  structurally forbidden on a want the same way `ask` is. `straight` is the
+  ask as it stands, one introduction at a time. `best-offer` opens a short
+  gathering window in which everyone who fits is introduced at once and each
+  of them may put exactly ONE number on the table: the ask is the floor, a
+  number under it never reaches the holder, nobody sees anyone else's number
+  at any point, and the holder sees them all only once the window has closed.
+  There is no running highest and there is no count, so the sealed auction
+  cannot be read backwards by anyone bidding in it.
+
+### Fixtures
+- `card-offering-book-club-with-slots.json`, `card-offering-bicycle-best-offer.json`
+- `invalid-card-sale-on-looking-for.json` (`/sale`),
+  `invalid-card-slots-below-one.json` (`/slots`)
+
 ## [0.13.0] — 2026-09-12
 
 The taxonomy learns to say its own names.

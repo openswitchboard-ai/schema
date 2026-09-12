@@ -1,0 +1,15 @@
+{
+  "description": "MUST FAIL: a want or have that can take nobody is not a want or a have; slots starts at 1",
+  "schema": "intent-card",
+  "valid": false,
+  "error_contains": "/slots",
+  "data": {
+    "schema_version": "0.1.0",
+    "type": "offering",
+    "category": "goods.bicycle.mountain",
+    "geo": {
+      "bucket": "r3dp"
+    },
+    "slots": 0
+  }
+}
