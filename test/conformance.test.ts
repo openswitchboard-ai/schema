@@ -113,6 +113,50 @@ describe("taxonomy", () => {
     expect(categoryStatus("nonsense.thing").status).toBe("unknown");
   });
 
+  // A label is a heading and a phrase is what a person says mid-sentence. Every
+  // leaf someone may post under needs the second one, because that is the one
+  // that ends up in "your ..." and "the ... you are after".
+  it("gives every open leaf a phrase a person would say", () => {
+    const paths = Object.keys(taxonomy.nodes);
+    const leaves = paths.filter(
+      (p) =>
+        taxonomy.nodes[p].status !== "reserved" &&
+        !paths.some((o) => o !== p && o.startsWith(`${p}.`)),
+    );
+    expect(leaves.length).toBeGreaterThanOrEqual(400);
+    for (const path of leaves) {
+      const node = taxonomy.nodes[path];
+      expect(node.phrase, `${path} needs a phrase`).toBeTruthy();
+      const phrase = node.phrase as string;
+      expect(phrase, `${path} phrase has stray spacing`).toBe(phrase.trim());
+      expect(phrase, `${path} phrase must not carry the label's &`).not.toContain("&");
+      expect(phrase, `${path} phrase has a double space`).not.toMatch(/\s\s/);
+      // An acronym in the label stays an acronym in the phrase.
+      for (const run of node.label.match(/[A-Z]{2,}/g) ?? []) {
+        expect(phrase, `${path} lower-cased ${run}`).not.toContain(run.toLowerCase());
+      }
+      if (node.article !== undefined) {
+        expect(node.article, `${path} article must be a or an`).toMatch(/^(a|an)$/);
+        expect(node.countable, `${path} carries an article so it must be countable`).not.toBe(
+          false,
+        );
+      }
+      if (node.countable !== undefined) {
+        expect(node.countable, `${path} countable is a boolean`).toBe(false);
+      }
+    }
+  });
+
+  it("keeps the phrase off the branches above the leaves", () => {
+    const paths = Object.keys(taxonomy.nodes);
+    for (const path of paths) {
+      const hasChildren = paths.some((o) => o !== path && o.startsWith(`${path}.`));
+      if (hasChildren) {
+        expect(taxonomy.nodes[path].phrase, `${path} is a branch and needs no phrase`).toBeUndefined();
+      }
+    }
+  });
+
   it("keeps language exchange in one place, with the language as an attribute", () => {
     expect(taxonomy.nodes["social.language-exchange"].attributes).toHaveProperty("language");
     expect(taxonomy.nodes["social.conversation.language-exchange"]).toBeUndefined();
