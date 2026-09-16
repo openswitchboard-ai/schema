@@ -36,6 +36,7 @@ Fields:
 | `schema_version` | Semver of this schema package (see §11). |
 | `type` | `"looking_for"` or `"offering"`. A server accepts the old `"WANT"` and `"HAVE"` as deprecated input aliases and normalises them on the way in. |
 | `category` | Dotted taxonomy path, e.g. `goods.bicycle.mountain` (§2). |
+| `kind` | What the thing is in the poster's own plain words, a short noun phrase of at most 60 characters: `"vintage synth repair"`, `"bouldering partner"`. Required where `category` names a leaf the taxonomy does not know (§2); welcome anywhere else. |
 | `geo` | An **area**: `{ place?, bucket?, radius_km?, reach? }`. Name the locality in `place`; say how far the human will meet someone in `reach` (§1.1). Exact coordinates are structurally impossible. |
 | `price` | Matching input only — see §3. |
 | `ask` | Haves only: a deliberate, disclosable asking price (§3). |
@@ -176,18 +177,30 @@ mode.
 
 ### Categories outside the taxonomy
 
-A category that resolves to `unknown` or `reserved` is refused with
-`CATEGORY_PROHIBITED`. The refusal is a taxonomy decision and nothing else
-decides it. Alongside the refusal a server SHOULD name up to three of the
-closest open nodes, so an agent can correct itself on the next call:
+The catalogue is a **deny list**. A category is accepted when its top level is
+one the taxonomy knows and holds open, and no node on its path — itself
+included — is reserved. A leaf the taxonomy has never heard of is NOT a
+refusal: it goes up, filed where it was filed, and the posting says what the
+thing is in `kind`. `kind` is required there, because every sentence the
+switchboard writes about a want or a have names the thing, and for a leaf it
+does not know the catalogue has no word to lend it.
+
+`CATEGORY_PROHIBITED` is what is left: a reserved family, and a top level the
+taxonomy has no name for. Alongside either refusal a server SHOULD name up to
+three of the closest open nodes, so an agent can correct itself on the next
+call:
 
 ```
-That category isn't in the taxonomy. Closest open ones:
+That category is reserved and can't be posted yet. Closest open ones:
 goods.electronics.laptop, goods.electronics.tablet, goods.electronics.desktop.
 ```
 
 Suggestions are a courtesy. A server that cannot compute them still refuses
 what was posted the same way.
+
+A server SHOULD write down every unknown leaf it accepts, with the `kind` that
+came with it. That record is a growth list for the next taxonomy release: the
+posting went up, and the string is the evidence that a node is missing.
 
 ### Attributes carry the specifics
 
@@ -215,6 +228,12 @@ counts for most, a parent and its child a little less, siblings less again, so
 what the two sides say about themselves is what decides a pairing the
 filing leaves open. A server MAY weigh the discount as it sees fit; the set of
 category pairs it will consider at all is the part this section fixes.
+
+Where either side names a leaf the taxonomy does not know, closeness is
+measured from the nearest node on each side that it does know. Where that is
+only the top level for either of them, the filing has told the server nothing,
+and it SHOULD drop the category from the score altogether rather than let a
+term that measured nothing vote in it.
 
 ### The category knows how far the thing travels
 
@@ -558,6 +577,15 @@ for stolen-goods markers and recalled goods (enforced at screening time as
 `SCREENING_REJECTED` on any goods category). Grey zones — alcohol, event
 tickets, wildlife products — are marked `vertical-policy-pending`: not open,
 pending a per-vertical policy, rather than permanently prohibited.
+
+Since the catalogue became a deny list (§2), a path glob can no longer be the
+whole of this: a thing filed under a made-up leaf never matches one. So a
+server MUST also read what a posting is FOR — its category labels, its `kind`
+and its attribute values — and refuse at screening time, with the same reason
+codes. Four of those describe a thing rather than a place in the tree and so
+carry no glob at all: `drugs`, `sexual-services`, `illegal-activity`, and
+`people`, which covers anything offering or seeking a person as the thing
+itself.
 
 ## 11. Versioning and governance
 

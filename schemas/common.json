@@ -10,10 +10,16 @@
       "pattern": "^\\d+\\.\\d+\\.\\d+$"
     },
     "category": {
-      "description": "Dotted taxonomy path, e.g. 'goods.bicycle.mountain', 'services.repairs.bicycle' or 'social.language-exchange'. The taxonomy lives in data/taxonomy.v2.json. The top levels goods.*, services.* and social.* are open; work.* and property.* are reserved, and so are individual nodes marked reserved (licensed trades such as services.trades.electrical, and social.dating). A category outside the taxonomy is rejected with CATEGORY_PROHIBITED, and the error names the closest open nodes.",
+      "description": "Dotted taxonomy path, e.g. 'goods.bicycle.mountain', 'services.repairs.bicycle' or 'social.language-exchange'. The taxonomy lives in data/taxonomy.v2.json. The top levels goods.*, services.* and social.* are open; work.* and property.* are reserved, and so are individual nodes marked reserved (licensed trades such as services.trades.electrical, and social.dating). The catalogue is a deny list: a leaf it has never heard of still goes up, filed under the nearest node it does know, so long as the top level is open and nothing on the path is reserved. Say what the thing is in 'kind' when that happens. CATEGORY_PROHIBITED is left for a reserved family and for a top level the taxonomy has no name for, and the error still names the closest open nodes.",
       "type": "string",
       "pattern": "^[a-z][a-z0-9-]*(\\.[a-z][a-z0-9-]*)*$",
       "maxLength": 120
+    },
+    "kind": {
+      "description": "What the thing is, in the poster's own plain words: a short noun phrase, 'vintage synth repair' or 'bouldering partner'. REQUIRED where the category names a leaf the taxonomy does not know, so that something the catalogue has no word for still reads as English wherever the switchboard names it; welcome on any other posting too, where it is kept and carried into matching. Words only: no digits, no currency symbol, no email address, phone number or link, and no more than six words.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 60
     },
     "ccy": {
       "description": "ISO 4217 currency code.",

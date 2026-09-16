@@ -1,0 +1,18 @@
+{
+  "description": "A have under a leaf the taxonomy has never heard of. The catalogue is a deny list, so it goes up: the top level is open, nothing on the path is reserved, and 'kind' says in plain words what the thing is.",
+  "schema": "intent-card",
+  "valid": true,
+  "data": {
+    "schema_version": "0.1.0",
+    "type": "offering",
+    "category": "services.repairs.vintage-synthesiser",
+    "kind": "vintage synth repair",
+    "geo": {
+      "place": "Canberra",
+      "radius_km": 25
+    },
+    "attributes": {
+      "turnaround": "two weeks"
+    }
+  }
+}

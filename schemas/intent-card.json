@@ -19,6 +19,9 @@
     "category": {
       "$ref": "common.json#/$defs/category"
     },
+    "kind": {
+      "$ref": "common.json#/$defs/kind"
+    },
     "geo": {
       "$ref": "common.json#/$defs/geoBucket"
     },

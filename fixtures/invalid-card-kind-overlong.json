@@ -1,0 +1,16 @@
+{
+  "description": "'kind' is a short noun phrase, not a description. Past 60 characters it is prose, and prose is where a name or an address hides.",
+  "schema": "intent-card",
+  "valid": false,
+  "error_contains": "maxLength",
+  "data": {
+    "schema_version": "0.1.0",
+    "type": "offering",
+    "category": "services.repairs.vintage-synthesiser",
+    "kind": "repairing vintage analogue synthesisers of almost any make, quickly and cheaply",
+    "geo": {
+      "place": "Canberra",
+      "radius_km": 25
+    }
+  }
+}
