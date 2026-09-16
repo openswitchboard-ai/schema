@@ -94,6 +94,16 @@ export interface TaxonomyNode {
    * is derived.
    */
   article?: "a" | "an";
+  /**
+   * The reach this leaf usually wants, when nobody has said otherwise: the
+   * same three values as `geo.reach` on a want or a have. `radius` for what is
+   * bulky, fragile or done face to face; `country` for what fits in a parcel;
+   * `anywhere` for what happens over the internet. Absent means the taxonomy
+   * has no answer — a leaf that is routinely both collected and posted — and
+   * whoever files the want or the have decides, as they did before this field
+   * existed. Advice, never a limit: a human's own stated distance wins.
+   */
+  default_reach?: "radius" | "country" | "anywhere";
   /** Absent means open. 'reserved' closes this node and everything under it. */
   status?: "reserved";
   /** Why the node is reserved: 'licensed-trade' or 'regulated-vertical'. */

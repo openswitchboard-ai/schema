@@ -157,6 +157,77 @@ describe("taxonomy", () => {
     }
   });
 
+  // The category already knows how far the thing travels: a mountain bike is
+  // always bulky, an online language partner is never local. A leaf says so
+  // once, instead of a model deciding it afresh every time. The field is
+  // optional, and an unset leaf means the taxonomy has no answer.
+  it("gives every leaf that carries a default reach one of the three values", () => {
+    for (const [path, node] of Object.entries(taxonomy.nodes)) {
+      if (node.default_reach === undefined) continue;
+      expect(node.default_reach, `${path} default_reach is not one of the three`).toMatch(
+        /^(radius|country|anywhere)$/,
+      );
+    }
+  });
+
+  it("keeps the default reach off the branches above the leaves", () => {
+    const paths = Object.keys(taxonomy.nodes);
+    for (const path of paths) {
+      const hasChildren = paths.some((o) => o !== path && o.startsWith(`${path}.`));
+      if (hasChildren) {
+        expect(
+          taxonomy.nodes[path].default_reach,
+          `${path} is a branch and needs no default reach`,
+        ).toBeUndefined();
+      }
+    }
+  });
+
+  // Optional means optional: an older consumer that has never heard of the
+  // field reads the taxonomy exactly as it did before, and a leaf without one
+  // still resolves and still posts.
+  it("leaves the default reach optional, so an older consumer is unaffected", () => {
+    const paths = Object.keys(taxonomy.nodes);
+    const leaves = paths.filter(
+      (p) =>
+        categoryStatus(p).status === "open" &&
+        !paths.some((o) => o !== p && o.startsWith(`${p}.`)),
+    );
+    const unset = leaves.filter((p) => taxonomy.nodes[p].default_reach === undefined);
+    expect(unset.length, "some leaves are genuinely both, and say nothing").toBeGreaterThan(0);
+    for (const path of unset) {
+      expect(categoryStatus(path).status, `${path} must still resolve`).toBe("open");
+    }
+    // Most leaves do carry one, or the field is not earning its keep.
+    expect(leaves.length - unset.length).toBeGreaterThan(leaves.length / 2);
+  });
+
+  // Specific expectations, so a careless bulk edit fails loudly rather than
+  // quietly posting a bike across a continent.
+  it("pins what the three tests mean on leaves a person would recognise", () => {
+    const reach = (path: string) => taxonomy.nodes[path].default_reach;
+    // Bulky, heavy, fragile in transit, or done face to face.
+    expect(reach("goods.bicycle.mountain")).toBe("radius");
+    expect(reach("goods.furniture.sofa")).toBe("radius");
+    expect(reach("goods.appliances.kitchen.fridge")).toBe("radius");
+    expect(reach("goods.building.timber")).toBe("radius");
+    expect(reach("services.moving.heavy-lifting")).toBe("radius");
+    expect(reach("services.lessons.swimming")).toBe("radius");
+    expect(reach("social.activity-partner.hiking")).toBe("radius");
+    // Fits in a parcel, survives the post, and nobody has to meet.
+    expect(reach("goods.books-media.books")).toBe("country");
+    expect(reach("goods.clothing.adult")).toBe("country");
+    expect(reach("goods.art.collectables")).toBe("country");
+    expect(reach("goods.electronics.console.games")).toBe("country");
+    // Done over the internet, with nothing physical moving.
+    expect(reach("social.language-exchange.conversation-practice")).toBe("anywhere");
+    expect(reach("services.creative.translation")).toBe("anywhere");
+    expect(reach("services.admin.transcription")).toBe("anywhere");
+    // Routinely both, so the taxonomy says nothing and the filer decides.
+    expect(reach("goods.motoring.parts")).toBeUndefined();
+    expect(reach("services.tutoring.maths")).toBeUndefined();
+  });
+
   it("keeps language exchange in one place, with the language as an attribute", () => {
     expect(taxonomy.nodes["social.language-exchange"].attributes).toHaveProperty("language");
     expect(taxonomy.nodes["social.conversation.language-exchange"]).toBeUndefined();
