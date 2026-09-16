@@ -216,6 +216,42 @@ what the two sides say about themselves is what decides a pairing the
 filing leaves open. A server MAY weigh the discount as it sees fit; the set of
 category pairs it will consider at all is the part this section fixes.
 
+### The category knows how far the thing travels
+
+A mountain bike is always bulky and an online language partner is never local,
+and neither fact changes from one posting to the next. So a leaf may carry
+`default_reach` — one of `radius`, `country` or `anywhere`, the same three
+values as `geo.reach` in §1.1 — and that is the reach to use when nobody has
+said otherwise. It is a default and nothing more: it is advice from the
+taxonomy about the usual shape of this thing, never a limit on what a human
+may ask for.
+
+The field is optional. A leaf that carries nothing says the taxonomy has no
+answer for it, and the old behaviour stands: whoever is filing the want or the
+have decides, the same way they decided before this field existed. Leaving a
+leaf blank is the honest answer where the same leaf is routinely both — car
+parts are a sensor one week and a bumper bar the next.
+
+These are the tests. A future editor applies the same three to anything new:
+
+- **`radius`** — bulky, heavy, fragile in transit, or inherently face to face.
+  Bicycles, furniture, appliances, building materials, anything where postage
+  would cost more than the thing. Every lift, every pair of hands, every
+  in-person lesson, every companion or partner activity.
+- **`country`** — it fits in a parcel and survives the post, and the two people
+  never need to meet. Small goods, books, clothes, tools, collectables, parts.
+- **`anywhere`** — done over the internet with nothing physical moving. Online
+  tutoring, language practice, proofreading, design, remote help.
+- **unset** — the same leaf is routinely two of those, most often collected or
+  posted depending on the item. Leave it out rather than guess; an unset leaf
+  costs nothing, and a wrong default is worse than no default.
+
+Branches carry no `default_reach`, the same way they carry no `phrase`: the
+leaf is where a want or a have is filed, so the leaf is where the answer sits.
+
+Wiring this into how a server fills in `geo.reach` is a separate change, and
+until a server does it nothing about publishing changes.
+
 ## 3. The no-leak rule: matching inputs vs disclosure outputs
 
 This is the protocol's core economic guarantee.

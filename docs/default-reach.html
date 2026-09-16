@@ -1,0 +1,2491 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Default reach by category</title>
+<style>
+  :root { color-scheme: light dark; --ink: #17181a; --dim: #6b6f76; --rule: #d8dade; --ground: #ffffff; --band: #f5f6f8; }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink: #e9eaec; --dim: #9aa0a8; --rule: #34373c; --ground: #17181a; --band: #1e2024; }
+  }
+  html { background: var(--ground); }
+  body { margin: 0; padding: 32px 20px 64px; background: var(--ground); color: var(--ink);
+         font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  h1 { font-size: 26px; font-weight: 600; margin: 0 0 8px; }
+  h2 { font-size: 20px; font-weight: 600; margin: 34px 0 4px; border-bottom: 1px solid var(--rule); padding-bottom: 6px; }
+  h3 { font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--dim); margin: 20px 0 4px; }
+  p.lead { color: var(--dim); margin: 0 0 6px; max-width: 64ch; }
+  ul.tests { color: var(--dim); max-width: 64ch; margin: 10px 0 0; padding-left: 20px; }
+  ul.tests li { margin: 0 0 4px; }
+  .count { color: var(--dim); font-size: 13px; margin: 18px 0 10px; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; }
+  td { text-align: left; vertical-align: top; padding: 7px 12px; border-bottom: 1px solid var(--rule); }
+  tr:nth-child(even) td { background: var(--band); }
+  td.id { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--dim); white-space: nowrap; text-align: right; }
+  td.said { white-space: nowrap; }
+  td.reach { white-space: nowrap; width: 40%; }
+  .dim { color: var(--dim); font-weight: 400; font-size: 13px; }
+  b { font-weight: 600; }
+  .pill { display: inline-block; font-size: 11px; letter-spacing: .5px; text-transform: uppercase;
+          border: 1px solid var(--rule); border-radius: 3px; padding: 1px 6px; }
+  .pill.radius { border-color: #7a8794; }
+  .pill.country { border-color: #6f8f5f; }
+  .pill.anywhere { border-color: #5f7f9f; }
+  .pill.unset { border-style: dashed; color: var(--dim); }
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Default reach by category</h1>
+<p class="lead">How far a thing travels is a fact about the thing, not a judgement to be made afresh every time. A mountain bike is always bulky; an online language partner is never local. Each leaf below carries the reach to use when nobody has said otherwise.</p>
+<p class="lead">It is a default and nothing else. A human who says how far they will go always wins, and a leaf marked <b>not set</b> behaves exactly as everything did before: whoever files the want or the have decides.</p>
+<ul class="tests">
+<li><b>radius</b> — Collected, or done face to face. Bulky, heavy, fragile in the post, or inherently in person.</li>
+<li><b>country</b> — Posted anywhere in the country. It fits in a parcel and nobody has to meet.</li>
+<li><b>anywhere</b> — Done online, so distance does not matter. Nothing physical moves.</li>
+<li><b>not set</b> — routinely both, so the taxonomy says nothing rather than guessing.</li>
+</ul>
+<p class="count">446 categories: 268 radius, 110 country, 27 anywhere, 41 not set.</p>
+<p class="lead">If a line looks wrong, the value lives on the leaf in <code>data/taxonomy.v2.json</code>.</p>
+<section><h2>goods <span class="dim">222</span></h2>
+<h3>bicycle</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>mountain bike</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.bicycle.mountain</td>
+</tr>
+<tr>
+<td class="said"><b>road bike</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.bicycle.road</td>
+</tr>
+<tr>
+<td class="said"><b>gravel bike</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.bicycle.gravel</td>
+</tr>
+<tr>
+<td class="said"><b>hybrid bike</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.bicycle.hybrid</td>
+</tr>
+<tr>
+<td class="said"><b>kids' bike</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.bicycle.kids</td>
+</tr>
+<tr>
+<td class="said"><b>e-bike</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.bicycle.electric</td>
+</tr>
+<tr>
+<td class="said"><b>folding bike</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.bicycle.folding</td>
+</tr>
+<tr>
+<td class="said"><b>BMX bike</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.bicycle.bmx</td>
+</tr>
+<tr>
+<td class="said"><b>cargo bike</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.bicycle.cargo</td>
+</tr>
+<tr>
+<td class="said"><b>touring bike</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.bicycle.touring</td>
+</tr>
+<tr>
+<td class="said"><b>bike trailer</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.bicycle.trailer</td>
+</tr>
+<tr>
+<td class="said"><b>bike parts</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">goods.bicycle.parts</td>
+</tr>
+<tr>
+<td class="said"><b>bike accessories</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.bicycle.accessories</td>
+</tr>
+</tbody>
+</table></div>
+<h3>furniture</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>sofa</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.furniture.sofa</td>
+</tr>
+<tr>
+<td class="said"><b>table</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.furniture.table</td>
+</tr>
+<tr>
+<td class="said"><b>chair</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.furniture.chair</td>
+</tr>
+<tr>
+<td class="said"><b>bed</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.furniture.bed</td>
+</tr>
+<tr>
+<td class="said"><b>mattress</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.furniture.mattress</td>
+</tr>
+<tr>
+<td class="said"><b>shelving</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.furniture.storage</td>
+</tr>
+<tr>
+<td class="said"><b>bookcase</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.furniture.bookcase</td>
+</tr>
+<tr>
+<td class="said"><b>wardrobe</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.furniture.wardrobe</td>
+</tr>
+<tr>
+<td class="said"><b>desk</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.furniture.desk</td>
+</tr>
+<tr>
+<td class="said"><b>office chair</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.furniture.office-chair</td>
+</tr>
+<tr>
+<td class="said"><b>outdoor furniture</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.furniture.outdoor</td>
+</tr>
+<tr>
+<td class="said"><b>lamp</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">goods.furniture.lighting</td>
+</tr>
+<tr>
+<td class="said"><b>mirror</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.furniture.mirror</td>
+</tr>
+<tr>
+<td class="said"><b>rug</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.furniture.rug</td>
+</tr>
+</tbody>
+</table></div>
+<h3>electronics</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>phone</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.phone</td>
+</tr>
+<tr>
+<td class="said"><b>laptop</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.laptop</td>
+</tr>
+<tr>
+<td class="said"><b>desktop computer</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.electronics.desktop</td>
+</tr>
+<tr>
+<td class="said"><b>tablet</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.tablet</td>
+</tr>
+<tr>
+<td class="said"><b>monitor</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.electronics.monitor</td>
+</tr>
+<tr>
+<td class="said"><b>computer parts</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.components</td>
+</tr>
+<tr>
+<td class="said"><b>computer accessories</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.peripherals</td>
+</tr>
+<tr>
+<td class="said"><b>printer</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.electronics.printer</td>
+</tr>
+<tr>
+<td class="said"><b>router</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.networking</td>
+</tr>
+<tr>
+<td class="said"><b>hard drive</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.storage</td>
+</tr>
+<tr>
+<td class="said"><b>mirrorless camera</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.camera.mirrorless</td>
+</tr>
+<tr>
+<td class="said"><b>DSLR camera</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.camera.dslr</td>
+</tr>
+<tr>
+<td class="said"><b>film camera</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.camera.film</td>
+</tr>
+<tr>
+<td class="said"><b>action camera</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.camera.action</td>
+</tr>
+<tr>
+<td class="said"><b>camera lens</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.camera.lens</td>
+</tr>
+<tr>
+<td class="said"><b>camera accessories</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.camera.accessories</td>
+</tr>
+<tr>
+<td class="said"><b>headphones</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.audio.headphones</td>
+</tr>
+<tr>
+<td class="said"><b>speakers</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">goods.electronics.audio.speakers</td>
+</tr>
+<tr>
+<td class="said"><b>hi-fi gear</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.electronics.audio.hifi</td>
+</tr>
+<tr>
+<td class="said"><b>turntable</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.electronics.audio.turntable</td>
+</tr>
+<tr>
+<td class="said"><b>microphone</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.audio.microphone</td>
+</tr>
+<tr>
+<td class="said"><b>TV</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.electronics.tv</td>
+</tr>
+<tr>
+<td class="said"><b>projector</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.projector</td>
+</tr>
+<tr>
+<td class="said"><b>PlayStation</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.console.playstation</td>
+</tr>
+<tr>
+<td class="said"><b>Xbox</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.console.xbox</td>
+</tr>
+<tr>
+<td class="said"><b>Nintendo</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.console.nintendo</td>
+</tr>
+<tr>
+<td class="said"><b>handheld console</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.console.handheld</td>
+</tr>
+<tr>
+<td class="said"><b>retro console</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.console.retro</td>
+</tr>
+<tr>
+<td class="said"><b>video games</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.console.games</td>
+</tr>
+<tr>
+<td class="said"><b>console accessories</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.console.accessories</td>
+</tr>
+<tr>
+<td class="said"><b>smartwatch</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.wearable</td>
+</tr>
+<tr>
+<td class="said"><b>smart home device</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.smart-home</td>
+</tr>
+<tr>
+<td class="said"><b>drone</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.drone</td>
+</tr>
+<tr>
+<td class="said"><b>e-reader</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.e-reader</td>
+</tr>
+<tr>
+<td class="said"><b>phone accessories</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.electronics.phone-accessories</td>
+</tr>
+</tbody>
+</table></div>
+<h3>appliances</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>fridge</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.appliances.kitchen.fridge</td>
+</tr>
+<tr>
+<td class="said"><b>oven</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.appliances.kitchen.oven</td>
+</tr>
+<tr>
+<td class="said"><b>dishwasher</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.appliances.kitchen.dishwasher</td>
+</tr>
+<tr>
+<td class="said"><b>microwave</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.appliances.kitchen.microwave</td>
+</tr>
+<tr>
+<td class="said"><b>coffee machine</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.appliances.kitchen.coffee</td>
+</tr>
+<tr>
+<td class="said"><b>kitchen appliance</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">goods.appliances.kitchen.small</td>
+</tr>
+<tr>
+<td class="said"><b>washing machine</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.appliances.laundry.washer</td>
+</tr>
+<tr>
+<td class="said"><b>clothes dryer</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.appliances.laundry.dryer</td>
+</tr>
+<tr>
+<td class="said"><b>iron</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.appliances.laundry.iron</td>
+</tr>
+<tr>
+<td class="said"><b>heater</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.appliances.climate.heater</td>
+</tr>
+<tr>
+<td class="said"><b>air conditioner</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.appliances.climate.air-conditioner</td>
+</tr>
+<tr>
+<td class="said"><b>fan</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.appliances.climate.fan</td>
+</tr>
+<tr>
+<td class="said"><b>dehumidifier</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.appliances.climate.dehumidifier</td>
+</tr>
+<tr>
+<td class="said"><b>vacuum cleaner</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.appliances.cleaning.vacuum</td>
+</tr>
+<tr>
+<td class="said"><b>carpet cleaner</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.appliances.cleaning.steam</td>
+</tr>
+</tbody>
+</table></div>
+<h3>clothing</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>clothing</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.clothing.adult</td>
+</tr>
+<tr>
+<td class="said"><b>kids' clothing</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.clothing.kids</td>
+</tr>
+<tr>
+<td class="said"><b>shoes</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.clothing.shoes</td>
+</tr>
+<tr>
+<td class="said"><b>clothing accessories</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.clothing.accessories</td>
+</tr>
+<tr>
+<td class="said"><b>coat</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.clothing.outerwear</td>
+</tr>
+<tr>
+<td class="said"><b>formal wear</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.clothing.formal</td>
+</tr>
+<tr>
+<td class="said"><b>sportswear</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.clothing.sportswear</td>
+</tr>
+<tr>
+<td class="said"><b>maternity clothing</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.clothing.maternity</td>
+</tr>
+<tr>
+<td class="said"><b>costume</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.clothing.costume</td>
+</tr>
+<tr>
+<td class="said"><b>workwear</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.clothing.workwear</td>
+</tr>
+<tr>
+<td class="said"><b>vintage clothing</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.clothing.vintage</td>
+</tr>
+<tr>
+<td class="said"><b>bag</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.clothing.bags</td>
+</tr>
+<tr>
+<td class="said"><b>jewellery</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.clothing.jewellery</td>
+</tr>
+<tr>
+<td class="said"><b>watch</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.clothing.watches</td>
+</tr>
+</tbody>
+</table></div>
+<h3>sports</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>weights</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.sports.fitness.weights</td>
+</tr>
+<tr>
+<td class="said"><b>treadmill</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.sports.fitness.cardio</td>
+</tr>
+<tr>
+<td class="said"><b>yoga gear</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.sports.fitness.yoga</td>
+</tr>
+<tr>
+<td class="said"><b>tent</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.sports.outdoor.tent</td>
+</tr>
+<tr>
+<td class="said"><b>sleeping bag</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.sports.outdoor.sleeping</td>
+</tr>
+<tr>
+<td class="said"><b>backpack</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.sports.outdoor.backpack</td>
+</tr>
+<tr>
+<td class="said"><b>camp cooking gear</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.sports.outdoor.cooking</td>
+</tr>
+<tr>
+<td class="said"><b>climbing gear</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.sports.outdoor.climbing</td>
+</tr>
+<tr>
+<td class="said"><b>surfboard</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.sports.water.surf</td>
+</tr>
+<tr>
+<td class="said"><b>kayak</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.sports.water.kayak</td>
+</tr>
+<tr>
+<td class="said"><b>swimming gear</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.sports.water.swim</td>
+</tr>
+<tr>
+<td class="said"><b>diving gear</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.sports.water.dive</td>
+</tr>
+<tr>
+<td class="said"><b>ski gear</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.sports.winter.ski</td>
+</tr>
+<tr>
+<td class="said"><b>snowboard</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.sports.winter.snowboard</td>
+</tr>
+<tr>
+<td class="said"><b>ice skates</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.sports.winter.skate</td>
+</tr>
+<tr>
+<td class="said"><b>football gear</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.sports.team.football</td>
+</tr>
+<tr>
+<td class="said"><b>basketball gear</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.sports.team.basketball</td>
+</tr>
+<tr>
+<td class="said"><b>cricket gear</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.sports.team.cricket</td>
+</tr>
+<tr>
+<td class="said"><b>netball gear</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.sports.team.netball</td>
+</tr>
+<tr>
+<td class="said"><b>hockey gear</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.sports.team.hockey</td>
+</tr>
+<tr>
+<td class="said"><b>tennis gear</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.sports.racquet.tennis</td>
+</tr>
+<tr>
+<td class="said"><b>badminton gear</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.sports.racquet.badminton</td>
+</tr>
+<tr>
+<td class="said"><b>table tennis gear</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">goods.sports.racquet.table-tennis</td>
+</tr>
+<tr>
+<td class="said"><b>squash gear</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.sports.racquet.squash</td>
+</tr>
+<tr>
+<td class="said"><b>golf gear</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.sports.golf</td>
+</tr>
+<tr>
+<td class="said"><b>fishing gear</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">goods.sports.fishing</td>
+</tr>
+<tr>
+<td class="said"><b>martial arts gear</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.sports.martial-arts</td>
+</tr>
+<tr>
+<td class="said"><b>skateboard</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.sports.skate</td>
+</tr>
+<tr>
+<td class="said"><b>riding gear</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">goods.sports.equestrian</td>
+</tr>
+</tbody>
+</table></div>
+<h3>music</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>guitar</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.music.guitar</td>
+</tr>
+<tr>
+<td class="said"><b>keyboard</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.music.keyboard</td>
+</tr>
+<tr>
+<td class="said"><b>drum kit</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.music.drums</td>
+</tr>
+<tr>
+<td class="said"><b>string instrument</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.music.strings</td>
+</tr>
+<tr>
+<td class="said"><b>brass instrument</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.music.brass</td>
+</tr>
+<tr>
+<td class="said"><b>woodwind instrument</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.music.woodwind</td>
+</tr>
+<tr>
+<td class="said"><b>amplifier</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.music.amps</td>
+</tr>
+<tr>
+<td class="said"><b>DJ gear</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.music.dj</td>
+</tr>
+<tr>
+<td class="said"><b>recording gear</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.music.recording</td>
+</tr>
+<tr>
+<td class="said"><b>instrument accessories</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.music.accessories</td>
+</tr>
+<tr>
+<td class="said"><b>sheet music</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.music.sheet-music</td>
+</tr>
+</tbody>
+</table></div>
+<h3>baby</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>pram</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.baby.stroller</td>
+</tr>
+<tr>
+<td class="said"><b>cot</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.baby.cot</td>
+</tr>
+<tr>
+<td class="said"><b>car seat</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.baby.carseat</td>
+</tr>
+<tr>
+<td class="said"><b>baby toys</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.baby.toys</td>
+</tr>
+<tr>
+<td class="said"><b>baby clothes</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.baby.clothing</td>
+</tr>
+<tr>
+<td class="said"><b>baby feeding gear</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.baby.feeding</td>
+</tr>
+<tr>
+<td class="said"><b>high chair</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.baby.highchair</td>
+</tr>
+<tr>
+<td class="said"><b>baby carrier</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.baby.carrier</td>
+</tr>
+<tr>
+<td class="said"><b>baby monitor</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.baby.monitor</td>
+</tr>
+<tr>
+<td class="said"><b>baby bath</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.baby.bath</td>
+</tr>
+<tr>
+<td class="said"><b>baby gate</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.baby.safety</td>
+</tr>
+</tbody>
+</table></div>
+<h3>tools</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>power tools</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.tools.power</td>
+</tr>
+<tr>
+<td class="said"><b>hand tools</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.tools.hand</td>
+</tr>
+<tr>
+<td class="said"><b>garden tools</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.tools.garden</td>
+</tr>
+<tr>
+<td class="said"><b>measuring tools</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.tools.measuring</td>
+</tr>
+<tr>
+<td class="said"><b>ladder</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.tools.ladder</td>
+</tr>
+<tr>
+<td class="said"><b>workbench</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.tools.workshop</td>
+</tr>
+<tr>
+<td class="said"><b>welding gear</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.tools.welding</td>
+</tr>
+<tr>
+<td class="said"><b>car tools</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.tools.automotive</td>
+</tr>
+<tr>
+<td class="said"><b>safety gear</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.tools.safety</td>
+</tr>
+</tbody>
+</table></div>
+<h3>books-media</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>books</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.books-media.books</td>
+</tr>
+<tr>
+<td class="said"><b>textbooks</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.books-media.textbooks</td>
+</tr>
+<tr>
+<td class="said"><b>comics</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.books-media.comics</td>
+</tr>
+<tr>
+<td class="said"><b>vinyl records</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.books-media.vinyl</td>
+</tr>
+<tr>
+<td class="said"><b>CDs</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.books-media.cd</td>
+</tr>
+<tr>
+<td class="said"><b>DVDs</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.books-media.dvd</td>
+</tr>
+<tr>
+<td class="said"><b>magazines</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.books-media.magazines</td>
+</tr>
+</tbody>
+</table></div>
+<h3>toys-games</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>board games</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.toys-games.board-games</td>
+</tr>
+<tr>
+<td class="said"><b>puzzle</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.toys-games.puzzles</td>
+</tr>
+<tr>
+<td class="said"><b>Lego</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.toys-games.construction</td>
+</tr>
+<tr>
+<td class="said"><b>trampoline</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.toys-games.outdoor-play</td>
+</tr>
+<tr>
+<td class="said"><b>remote-control toy</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.toys-games.rc</td>
+</tr>
+<tr>
+<td class="said"><b>trading cards</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.toys-games.trading-cards</td>
+</tr>
+<tr>
+<td class="said"><b>doll</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.toys-games.dolls</td>
+</tr>
+<tr>
+<td class="said"><b>model kit</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.toys-games.model-kits</td>
+</tr>
+</tbody>
+</table></div>
+<h3>home</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>kitchenware</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.home.kitchenware</td>
+</tr>
+<tr>
+<td class="said"><b>crockery</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.home.tableware</td>
+</tr>
+<tr>
+<td class="said"><b>bedding</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.home.bedding</td>
+</tr>
+<tr>
+<td class="said"><b>curtains</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.home.textiles</td>
+</tr>
+<tr>
+<td class="said"><b>home decor</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">goods.home.decor</td>
+</tr>
+<tr>
+<td class="said"><b>storage boxes</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.home.storage</td>
+</tr>
+<tr>
+<td class="said"><b>cleaning supplies</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.home.cleaning</td>
+</tr>
+<tr>
+<td class="said"><b>preserving gear</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.home.pantry</td>
+</tr>
+</tbody>
+</table></div>
+<h3>garden</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>plants</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.garden.plants</td>
+</tr>
+<tr>
+<td class="said"><b>seeds</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.garden.seeds</td>
+</tr>
+<tr>
+<td class="said"><b>plant pots</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.garden.pots</td>
+</tr>
+<tr>
+<td class="said"><b>compost</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.garden.compost</td>
+</tr>
+<tr>
+<td class="said"><b>BBQ</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.garden.bbq</td>
+</tr>
+<tr>
+<td class="said"><b>greenhouse</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.garden.greenhouse</td>
+</tr>
+<tr>
+<td class="said"><b>garden hose</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.garden.irrigation</td>
+</tr>
+<tr>
+<td class="said"><b>pavers</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.garden.landscaping</td>
+</tr>
+<tr>
+<td class="said"><b>play equipment</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.garden.play</td>
+</tr>
+<tr>
+<td class="said"><b>pool gear</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.garden.pool</td>
+</tr>
+</tbody>
+</table></div>
+<h3>art</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>painting</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.art.artwork</td>
+</tr>
+<tr>
+<td class="said"><b>print</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.art.prints</td>
+</tr>
+<tr>
+<td class="said"><b>craft supplies</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.art.craft-supplies</td>
+</tr>
+<tr>
+<td class="said"><b>antiques</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">goods.art.antiques</td>
+</tr>
+<tr>
+<td class="said"><b>collectables</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.art.collectables</td>
+</tr>
+<tr>
+<td class="said"><b>pottery</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.art.pottery</td>
+</tr>
+</tbody>
+</table></div>
+<h3>hobby</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>sewing machine</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.hobby.sewing</td>
+</tr>
+<tr>
+<td class="said"><b>yarn</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.hobby.knitting</td>
+</tr>
+<tr>
+<td class="said"><b>woodworking gear</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.hobby.woodworking</td>
+</tr>
+<tr>
+<td class="said"><b>electronics kit</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.hobby.electronics-kits</td>
+</tr>
+<tr>
+<td class="said"><b>3D printing gear</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">goods.hobby.3d-printing</td>
+</tr>
+<tr>
+<td class="said"><b>brewing gear</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.hobby.brewing</td>
+</tr>
+<tr>
+<td class="said"><b>telescope</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.hobby.astronomy</td>
+</tr>
+<tr>
+<td class="said"><b>metal detector</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.hobby.metal-detecting</td>
+</tr>
+</tbody>
+</table></div>
+<h3>office</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>stationery</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.office.stationery</td>
+</tr>
+<tr>
+<td class="said"><b>office supplies</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.office.supplies</td>
+</tr>
+<tr>
+<td class="said"><b>filing cabinet</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.office.filing</td>
+</tr>
+<tr>
+<td class="said"><b>art materials</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.office.art-materials</td>
+</tr>
+</tbody>
+</table></div>
+<h3>building</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>timber</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.building.timber</td>
+</tr>
+<tr>
+<td class="said"><b>tiles</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.building.tiles</td>
+</tr>
+<tr>
+<td class="said"><b>building hardware</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.building.hardware</td>
+</tr>
+<tr>
+<td class="said"><b>paint</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.building.paint</td>
+</tr>
+<tr>
+<td class="said"><b>door</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.building.fixtures</td>
+</tr>
+<tr>
+<td class="said"><b>reclaimed materials</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.building.salvage</td>
+</tr>
+<tr>
+<td class="said"><b>insulation</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.building.insulation</td>
+</tr>
+</tbody>
+</table></div>
+<h3>pet</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>pet bed</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.pet.bedding</td>
+</tr>
+<tr>
+<td class="said"><b>pet crate</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.pet.crate</td>
+</tr>
+<tr>
+<td class="said"><b>aquarium</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.pet.aquarium</td>
+</tr>
+<tr>
+<td class="said"><b>hutch</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.pet.enclosure</td>
+</tr>
+<tr>
+<td class="said"><b>pet grooming gear</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.pet.grooming</td>
+</tr>
+<tr>
+<td class="said"><b>pet bowl</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.pet.feeding</td>
+</tr>
+<tr>
+<td class="said"><b>pet toys</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.pet.toys</td>
+</tr>
+<tr>
+<td class="said"><b>dog lead</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.pet.walking</td>
+</tr>
+</tbody>
+</table></div>
+<h3>motoring</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>car parts</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">goods.motoring.parts</td>
+</tr>
+<tr>
+<td class="said"><b>tyres</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.motoring.tyres</td>
+</tr>
+<tr>
+<td class="said"><b>roof rack</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">goods.motoring.accessories</td>
+</tr>
+<tr>
+<td class="said"><b>car care gear</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">goods.motoring.car-care</td>
+</tr>
+<tr>
+<td class="said"><b>caravan gear</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">goods.motoring.camping</td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section><h2>services <span class="dim">121</span></h2>
+<h3>tutoring</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>maths tutoring</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.tutoring.maths</td>
+</tr>
+<tr>
+<td class="said"><b>English tutoring</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.tutoring.english</td>
+</tr>
+<tr>
+<td class="said"><b>science tutoring</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.tutoring.science</td>
+</tr>
+<tr>
+<td class="said"><b>language tutoring</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.tutoring.languages</td>
+</tr>
+<tr>
+<td class="said"><b>coding tutoring</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.tutoring.coding</td>
+</tr>
+<tr>
+<td class="said"><b>music theory tutoring</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.tutoring.music-theory</td>
+</tr>
+<tr>
+<td class="said"><b>exam preparation</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.tutoring.exam-prep</td>
+</tr>
+<tr>
+<td class="said"><b>primary school tutoring</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.tutoring.primary</td>
+</tr>
+<tr>
+<td class="said"><b>high school tutoring</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.tutoring.secondary</td>
+</tr>
+<tr>
+<td class="said"><b>university tutoring</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.tutoring.university</td>
+</tr>
+<tr>
+<td class="said"><b>adult literacy help</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.tutoring.adult-literacy</td>
+</tr>
+<tr>
+<td class="said"><b>study skills coaching</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.tutoring.study-skills</td>
+</tr>
+</tbody>
+</table></div>
+<h3>lessons</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>music lessons</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.lessons.music</td>
+</tr>
+<tr>
+<td class="said"><b>guitar lessons</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.lessons.guitar</td>
+</tr>
+<tr>
+<td class="said"><b>piano lessons</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.lessons.piano</td>
+</tr>
+<tr>
+<td class="said"><b>singing lessons</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.lessons.singing</td>
+</tr>
+<tr>
+<td class="said"><b>dance lessons</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.lessons.dance</td>
+</tr>
+<tr>
+<td class="said"><b>art lessons</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.lessons.art</td>
+</tr>
+<tr>
+<td class="said"><b>cooking lessons</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.lessons.cooking</td>
+</tr>
+<tr>
+<td class="said"><b>swimming lessons</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.lessons.swimming</td>
+</tr>
+<tr>
+<td class="said"><b>surf lessons</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.lessons.surfing</td>
+</tr>
+<tr>
+<td class="said"><b>yoga lessons</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.lessons.yoga</td>
+</tr>
+<tr>
+<td class="said"><b>fitness coaching</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.lessons.fitness</td>
+</tr>
+<tr>
+<td class="said"><b>martial arts lessons</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.lessons.martial-arts</td>
+</tr>
+<tr>
+<td class="said"><b>chess coaching</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.lessons.chess</td>
+</tr>
+<tr>
+<td class="said"><b>photography lessons</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.lessons.photography</td>
+</tr>
+<tr>
+<td class="said"><b>sewing lessons</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.lessons.sewing</td>
+</tr>
+<tr>
+<td class="said"><b>gardening lessons</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.lessons.gardening</td>
+</tr>
+</tbody>
+</table></div>
+<h3>repairs</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>bike repairs</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.repairs.bicycle</td>
+</tr>
+<tr>
+<td class="said"><b>computer repairs</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.repairs.computer</td>
+</tr>
+<tr>
+<td class="said"><b>phone repairs</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.repairs.phone</td>
+</tr>
+<tr>
+<td class="said"><b>appliance repairs</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.repairs.appliance</td>
+</tr>
+<tr>
+<td class="said"><b>furniture repairs</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.repairs.furniture</td>
+</tr>
+<tr>
+<td class="said"><b>clothing alterations</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.repairs.clothing</td>
+</tr>
+<tr>
+<td class="said"><b>shoe repairs</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.repairs.shoe</td>
+</tr>
+<tr>
+<td class="said"><b>watch repairs</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.repairs.watch</td>
+</tr>
+<tr>
+<td class="said"><b>jewellery repairs</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.repairs.jewellery</td>
+</tr>
+<tr>
+<td class="said"><b>instrument repairs</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.repairs.instrument</td>
+</tr>
+<tr>
+<td class="said"><b>mower repairs</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.repairs.garden-equipment</td>
+</tr>
+<tr>
+<td class="said"><b>toy repairs</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.repairs.toy</td>
+</tr>
+<tr>
+<td class="said"><b>upholstery</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.repairs.upholstery</td>
+</tr>
+<tr>
+<td class="said"><b>electronics repairs</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.repairs.electronics</td>
+</tr>
+</tbody>
+</table></div>
+<h3>home</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>house cleaning</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.home.cleaning</td>
+</tr>
+<tr>
+<td class="said"><b>laundry and ironing</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.home.laundry</td>
+</tr>
+<tr>
+<td class="said"><b>decluttering</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.home.decluttering</td>
+</tr>
+<tr>
+<td class="said"><b>rubbish removal</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.home.rubbish-removal</td>
+</tr>
+<tr>
+<td class="said"><b>window cleaning</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.home.window-cleaning</td>
+</tr>
+<tr>
+<td class="said"><b>pressure washing</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.home.pressure-washing</td>
+</tr>
+<tr>
+<td class="said"><b>gutter clearing</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.home.gutter-clearing</td>
+</tr>
+<tr>
+<td class="said"><b>flat-pack assembly</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.home.flatpack-assembly</td>
+</tr>
+<tr>
+<td class="said"><b>picture hanging</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.home.picture-hanging</td>
+</tr>
+<tr>
+<td class="said"><b>house sitting</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.home.house-sitting</td>
+</tr>
+<tr>
+<td class="said"><b>plant watering</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.home.plant-watering</td>
+</tr>
+<tr>
+<td class="said"><b>painting touch-ups</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.home.painting-touch-up</td>
+</tr>
+</tbody>
+</table></div>
+<h3>garden</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>lawn mowing</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.garden.mowing</td>
+</tr>
+<tr>
+<td class="said"><b>weeding</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.garden.weeding</td>
+</tr>
+<tr>
+<td class="said"><b>pruning</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.garden.pruning</td>
+</tr>
+<tr>
+<td class="said"><b>planting</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.garden.planting</td>
+</tr>
+<tr>
+<td class="said"><b>garden design advice</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.garden.design</td>
+</tr>
+<tr>
+<td class="said"><b>watering</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.garden.watering</td>
+</tr>
+<tr>
+<td class="said"><b>composting help</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.garden.composting</td>
+</tr>
+<tr>
+<td class="said"><b>fruit picking help</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.garden.harvest</td>
+</tr>
+<tr>
+<td class="said"><b>veggie patch setup</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.garden.veggie-patch</td>
+</tr>
+</tbody>
+</table></div>
+<h3>moving</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>moving help</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.moving.help</td>
+</tr>
+<tr>
+<td class="said"><b>heavy lifting</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.moving.heavy-lifting</td>
+</tr>
+<tr>
+<td class="said"><b>packing help</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.moving.packing</td>
+</tr>
+<tr>
+<td class="said"><b>local delivery</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.moving.delivery</td>
+</tr>
+<tr>
+<td class="said"><b>storage sorting help</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.moving.storage-help</td>
+</tr>
+</tbody>
+</table></div>
+<h3>tech</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>computer help</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.tech.computer-help</td>
+</tr>
+<tr>
+<td class="said"><b>phone help</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.tech.phone-help</td>
+</tr>
+<tr>
+<td class="said"><b>device setup</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.tech.device-setup</td>
+</tr>
+<tr>
+<td class="said"><b>Wi-Fi help</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.tech.wifi</td>
+</tr>
+<tr>
+<td class="said"><b>data recovery</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.tech.data-recovery</td>
+</tr>
+<tr>
+<td class="said"><b>software help</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">services.tech.software</td>
+</tr>
+<tr>
+<td class="said"><b>website help</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">services.tech.website</td>
+</tr>
+<tr>
+<td class="said"><b>smart home setup</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.tech.smart-home</td>
+</tr>
+<tr>
+<td class="said"><b>printer help</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.tech.printing</td>
+</tr>
+<tr>
+<td class="said"><b>AI help</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">services.tech.ai-help</td>
+</tr>
+<tr>
+<td class="said"><b>photo and file organising</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.tech.digital-tidy</td>
+</tr>
+<tr>
+<td class="said"><b>online safety help</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.tech.online-safety</td>
+</tr>
+</tbody>
+</table></div>
+<h3>pet-care</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>dog walking</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.pet-care.dog-walking</td>
+</tr>
+<tr>
+<td class="said"><b>pet sitting</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.pet-care.pet-sitting</td>
+</tr>
+<tr>
+<td class="said"><b>pet boarding</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.pet-care.boarding</td>
+</tr>
+<tr>
+<td class="said"><b>feeding visits</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.pet-care.feeding-visits</td>
+</tr>
+<tr>
+<td class="said"><b>pet grooming</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.pet-care.grooming</td>
+</tr>
+<tr>
+<td class="said"><b>dog training</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.pet-care.training</td>
+</tr>
+<tr>
+<td class="said"><b>pet transport</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.pet-care.transport</td>
+</tr>
+</tbody>
+</table></div>
+<h3>errands</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>shopping run</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.errands.shopping</td>
+</tr>
+<tr>
+<td class="said"><b>pick-ups and drop-offs</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.errands.collection</td>
+</tr>
+<tr>
+<td class="said"><b>courier run</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.errands.courier</td>
+</tr>
+<tr>
+<td class="said"><b>post office run</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.errands.post</td>
+</tr>
+<tr>
+<td class="said"><b>waiting-in help</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.errands.queueing</td>
+</tr>
+</tbody>
+</table></div>
+<h3>creative</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>photography</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.creative.photography</td>
+</tr>
+<tr>
+<td class="said"><b>video work</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.creative.video</td>
+</tr>
+<tr>
+<td class="said"><b>graphic design</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">services.creative.design</td>
+</tr>
+<tr>
+<td class="said"><b>illustration</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">services.creative.illustration</td>
+</tr>
+<tr>
+<td class="said"><b>writing</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">services.creative.writing</td>
+</tr>
+<tr>
+<td class="said"><b>editing</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">services.creative.editing</td>
+</tr>
+<tr>
+<td class="said"><b>translation</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">services.creative.translation</td>
+</tr>
+<tr>
+<td class="said"><b>music production</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">services.creative.music-production</td>
+</tr>
+<tr>
+<td class="said"><b>voice recording</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">services.creative.voice</td>
+</tr>
+<tr>
+<td class="said"><b>craft commission</b></td>
+<td class="reach"><span class="pill country">country</span></td>
+<td class="id">services.creative.craft</td>
+</tr>
+<tr>
+<td class="said"><b>printing and framing</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.creative.printing</td>
+</tr>
+</tbody>
+</table></div>
+<h3>events</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>event setup</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.events.setup</td>
+</tr>
+<tr>
+<td class="said"><b>DJ set</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.events.dj</td>
+</tr>
+<tr>
+<td class="said"><b>live music</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.events.live-music</td>
+</tr>
+<tr>
+<td class="said"><b>decorating</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.events.decoration</td>
+</tr>
+<tr>
+<td class="said"><b>hosting help</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.events.hosting-help</td>
+</tr>
+<tr>
+<td class="said"><b>face painting</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.events.face-painting</td>
+</tr>
+<tr>
+<td class="said"><b>event equipment</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.events.equipment-loan</td>
+</tr>
+</tbody>
+</table></div>
+<h3>admin</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>data entry</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">services.admin.data-entry</td>
+</tr>
+<tr>
+<td class="said"><b>transcription</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">services.admin.transcription</td>
+</tr>
+<tr>
+<td class="said"><b>research help</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">services.admin.research</td>
+</tr>
+<tr>
+<td class="said"><b>scheduling help</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">services.admin.scheduling</td>
+</tr>
+<tr>
+<td class="said"><b>spreadsheet help</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">services.admin.spreadsheets</td>
+</tr>
+<tr>
+<td class="said"><b>paperwork sorting</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.admin.filing</td>
+</tr>
+</tbody>
+</table></div>
+<h3>learning-support</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>reading buddy</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.learning-support.reading-buddy</td>
+</tr>
+<tr>
+<td class="said"><b>homework help</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">services.learning-support.homework-help</td>
+</tr>
+<tr>
+<td class="said"><b>digital literacy help</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">services.learning-support.digital-literacy</td>
+</tr>
+<tr>
+<td class="said"><b>resume help</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">services.learning-support.job-application</td>
+</tr>
+<tr>
+<td class="said"><b>interview practice</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">services.learning-support.interview-practice</td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section><h2>social <span class="dim">103</span></h2>
+<h3>conversation</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>coffee catch-up</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.conversation.coffee</td>
+</tr>
+<tr>
+<td class="said"><b>walk and talk</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.conversation.walk</td>
+</tr>
+<tr>
+<td class="said"><b>phone chat</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">social.conversation.phone</td>
+</tr>
+<tr>
+<td class="said"><b>video chat</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">social.conversation.video-call</td>
+</tr>
+<tr>
+<td class="said"><b>pen pal</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">social.conversation.pen-pal</td>
+</tr>
+<tr>
+<td class="said"><b>debate</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.conversation.debate</td>
+</tr>
+<tr>
+<td class="said"><b>philosophy chat</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.conversation.philosophy</td>
+</tr>
+<tr>
+<td class="said"><b>current affairs chat</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.conversation.current-affairs</td>
+</tr>
+</tbody>
+</table></div>
+<h3>language-exchange</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>conversation practice</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">social.language-exchange.conversation-practice</td>
+</tr>
+<tr>
+<td class="said"><b>language swap</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">social.language-exchange.tandem</td>
+</tr>
+<tr>
+<td class="said"><b>reading together</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">social.language-exchange.reading</td>
+</tr>
+<tr>
+<td class="said"><b>writing practice</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">social.language-exchange.writing</td>
+</tr>
+<tr>
+<td class="said"><b>pronunciation practice</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">social.language-exchange.pronunciation</td>
+</tr>
+<tr>
+<td class="said"><b>sign language practice</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">social.language-exchange.sign-language</td>
+</tr>
+</tbody>
+</table></div>
+<h3>activity-partner</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>walking</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.walking</td>
+</tr>
+<tr>
+<td class="said"><b>hiking</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.hiking</td>
+</tr>
+<tr>
+<td class="said"><b>running</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.running</td>
+</tr>
+<tr>
+<td class="said"><b>cycling</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.cycling</td>
+</tr>
+<tr>
+<td class="said"><b>swimming</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.swimming</td>
+</tr>
+<tr>
+<td class="said"><b>gym sessions</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.gym</td>
+</tr>
+<tr>
+<td class="said"><b>yoga</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.yoga</td>
+</tr>
+<tr>
+<td class="said"><b>climbing</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.climbing</td>
+</tr>
+<tr>
+<td class="said"><b>skiing</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.skiing</td>
+</tr>
+<tr>
+<td class="said"><b>snowboarding</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.snowboarding</td>
+</tr>
+<tr>
+<td class="said"><b>surfing</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.surfing</td>
+</tr>
+<tr>
+<td class="said"><b>kayaking</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.kayaking</td>
+</tr>
+<tr>
+<td class="said"><b>sailing</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.sailing</td>
+</tr>
+<tr>
+<td class="said"><b>fishing</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.fishing</td>
+</tr>
+<tr>
+<td class="said"><b>golf</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.golf</td>
+</tr>
+<tr>
+<td class="said"><b>tennis</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.tennis</td>
+</tr>
+<tr>
+<td class="said"><b>badminton</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.badminton</td>
+</tr>
+<tr>
+<td class="said"><b>table tennis</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.table-tennis</td>
+</tr>
+<tr>
+<td class="said"><b>squash</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.squash</td>
+</tr>
+<tr>
+<td class="said"><b>football</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.football</td>
+</tr>
+<tr>
+<td class="said"><b>basketball</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.basketball</td>
+</tr>
+<tr>
+<td class="said"><b>cricket</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.cricket</td>
+</tr>
+<tr>
+<td class="said"><b>netball</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.netball</td>
+</tr>
+<tr>
+<td class="said"><b>martial arts training</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.martial-arts</td>
+</tr>
+<tr>
+<td class="said"><b>dancing</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.dancing</td>
+</tr>
+<tr>
+<td class="said"><b>skating</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.skating</td>
+</tr>
+<tr>
+<td class="said"><b>camping</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.camping</td>
+</tr>
+<tr>
+<td class="said"><b>birdwatching</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.birdwatching</td>
+</tr>
+<tr>
+<td class="said"><b>photography outings</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.photography</td>
+</tr>
+<tr>
+<td class="said"><b>gardening together</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.gardening</td>
+</tr>
+<tr>
+<td class="said"><b>board games</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.board-games</td>
+</tr>
+<tr>
+<td class="said"><b>tabletop role-playing</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.tabletop-rpg</td>
+</tr>
+<tr>
+<td class="said"><b>card games</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.card-games</td>
+</tr>
+<tr>
+<td class="said"><b>chess</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.chess</td>
+</tr>
+<tr>
+<td class="said"><b>video games</b></td>
+<td class="reach"><span class="pill anywhere">anywhere</span></td>
+<td class="id">social.activity-partner.video-games</td>
+</tr>
+<tr>
+<td class="said"><b>trivia nights</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.trivia</td>
+</tr>
+<tr>
+<td class="said"><b>cooking together</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.cooking</td>
+</tr>
+<tr>
+<td class="said"><b>running group</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.running-club</td>
+</tr>
+<tr>
+<td class="said"><b>parkrun</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.parkrun</td>
+</tr>
+<tr>
+<td class="said"><b>pickleball</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.activity-partner.pickleball</td>
+</tr>
+</tbody>
+</table></div>
+<h3>hobby-group</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>book club</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.hobby-group.book-club</td>
+</tr>
+<tr>
+<td class="said"><b>study group</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.hobby-group.study-group</td>
+</tr>
+<tr>
+<td class="said"><b>writing group</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.hobby-group.writing-group</td>
+</tr>
+<tr>
+<td class="said"><b>craft circle</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.hobby-group.craft-circle</td>
+</tr>
+<tr>
+<td class="said"><b>knitting group</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.hobby-group.knitting</td>
+</tr>
+<tr>
+<td class="said"><b>jam session</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.hobby-group.music-jam</td>
+</tr>
+<tr>
+<td class="said"><b>choir</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.hobby-group.choir</td>
+</tr>
+<tr>
+<td class="said"><b>band</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.hobby-group.band</td>
+</tr>
+<tr>
+<td class="said"><b>art group</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.hobby-group.art-group</td>
+</tr>
+<tr>
+<td class="said"><b>hack night</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.hobby-group.coding-group</td>
+</tr>
+<tr>
+<td class="said"><b>maker group</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.hobby-group.maker-space</td>
+</tr>
+<tr>
+<td class="said"><b>film club</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.hobby-group.film-club</td>
+</tr>
+<tr>
+<td class="said"><b>cooking club</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.hobby-group.cooking-club</td>
+</tr>
+<tr>
+<td class="said"><b>garden club</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.hobby-group.garden-club</td>
+</tr>
+<tr>
+<td class="said"><b>stargazing group</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.hobby-group.astronomy</td>
+</tr>
+<tr>
+<td class="said"><b>model making group</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.hobby-group.model-making</td>
+</tr>
+</tbody>
+</table></div>
+<h3>community</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>volunteering</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.community.volunteering</td>
+</tr>
+<tr>
+<td class="said"><b>neighbourhood help</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.community.neighbourhood-help</td>
+</tr>
+<tr>
+<td class="said"><b>mutual aid</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.community.mutual-aid</td>
+</tr>
+<tr>
+<td class="said"><b>clean-up day</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.community.clean-up</td>
+</tr>
+<tr>
+<td class="said"><b>tree planting</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.community.tree-planting</td>
+</tr>
+<tr>
+<td class="said"><b>community garden</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.community.community-garden</td>
+</tr>
+<tr>
+<td class="said"><b>mentoring</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.community.mentoring</td>
+</tr>
+<tr>
+<td class="said"><b>welcoming newcomers</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.community.newcomer-welcome</td>
+</tr>
+<tr>
+<td class="said"><b>skill sharing</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.community.skill-share</td>
+</tr>
+<tr>
+<td class="said"><b>repair cafe</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.community.repair-cafe</td>
+</tr>
+<tr>
+<td class="said"><b>fundraising</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.community.fundraising</td>
+</tr>
+<tr>
+<td class="said"><b>working bee</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.community.working-bee</td>
+</tr>
+<tr>
+<td class="said"><b>street library</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.community.street-library</td>
+</tr>
+<tr>
+<td class="said"><b>local group</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.community.local-group</td>
+</tr>
+</tbody>
+</table></div>
+<h3>events</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>gig</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.events.gig</td>
+</tr>
+<tr>
+<td class="said"><b>cinema trip</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.events.cinema</td>
+</tr>
+<tr>
+<td class="said"><b>theatre trip</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.events.theatre</td>
+</tr>
+<tr>
+<td class="said"><b>museum trip</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.events.museum</td>
+</tr>
+<tr>
+<td class="said"><b>festival</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.events.festival</td>
+</tr>
+<tr>
+<td class="said"><b>watching sport</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.events.sport-spectator</td>
+</tr>
+<tr>
+<td class="said"><b>eating out</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.events.dining-out</td>
+</tr>
+<tr>
+<td class="said"><b>market trip</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.events.market</td>
+</tr>
+<tr>
+<td class="said"><b>talk</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.events.talk</td>
+</tr>
+<tr>
+<td class="said"><b>comedy night</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.events.comedy</td>
+</tr>
+</tbody>
+</table></div>
+<h3>travel</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>travel buddy</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">social.travel.buddy</td>
+</tr>
+<tr>
+<td class="said"><b>road trip</b></td>
+<td class="reach"><span class="pill unset">not set</span> <span class="dim">the filer decides, as before</span></td>
+<td class="id">social.travel.road-trip</td>
+</tr>
+<tr>
+<td class="said"><b>day trip</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.travel.day-trip</td>
+</tr>
+<tr>
+<td class="said"><b>showing someone around</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.travel.local-guide</td>
+</tr>
+<tr>
+<td class="said"><b>walking tour</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.travel.walking-tour</td>
+</tr>
+</tbody>
+</table></div>
+<h3>family</h3>
+<div class="scroll"><table>
+<tbody>
+<tr>
+<td class="said"><b>playdate</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.family.playdate</td>
+</tr>
+<tr>
+<td class="said"><b>parent group</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.family.parent-group</td>
+</tr>
+<tr>
+<td class="said"><b>family outing</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.family.family-outing</td>
+</tr>
+<tr>
+<td class="said"><b>intergenerational visit</b></td>
+<td class="reach"><span class="pill radius">radius</span></td>
+<td class="id">social.family.grandparent-visit</td>
+</tr>
+</tbody>
+</table></div>
+</section>
+</div>
+</body>
+</html>

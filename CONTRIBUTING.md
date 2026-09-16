@@ -36,7 +36,9 @@ once third-party verticals exist.
 2. **Discussion window** of at least 7 days for a new node; 14 days for
    renames/removals (which are breaking and ride the next MAJOR).
 3. **PR** adding the node plus fixtures using it. Additive nodes land in a
-   MINOR release.
+   MINOR release. A new leaf needs a `phrase`, and it needs a `default_reach`
+   unless it fails the three tests in SPEC §2 — in which case it carries none,
+   which is the honest answer and costs nothing.
 4. Reserved top levels (`work.*`, `property.*`) and reserved nodes (licensed
    trades, dating and their kin — see SPEC §2) are opened by the operator
    only, alongside a vertical policy. A PR that flips a `status` field on its

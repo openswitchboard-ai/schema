@@ -10,6 +10,58 @@ verticals exist.
 
 ## [Unreleased]
 
+## [0.15.0] — 2026-09-16
+
+The category knows how far the thing travels.
+
+A man in a rehearsal today was selling a Trek mountain bike for $450 and his
+assistant posted it to the whole of Australia. His own words: "Selling a bike
+australia wide would be difficult as postage would be exorbitant." Nothing was
+broken. The choice of reach is simply left to a model's judgement every single
+time, so it is made afresh, differently, forever — and the category already
+knew the answer, because a mountain bike is always bulky and an online language
+partner is never local.
+
+So the taxonomy carries the answer. Every open leaf was read against three
+tests and given the reach it usually wants, or given nothing at all where the
+same leaf is routinely both. The tests are written into `SPEC.md` §2 so the
+next editor applies the same ones.
+
+### Added
+- **`default_reach` on an open leaf** (optional, one of `"radius"`,
+  `"country"`, `"anywhere"` — the same three values as `geo.reach` on a want or
+  a have) in `data/taxonomy.v2.json`. 405 of the 446 open leaves carry one: 268
+  `radius`, 110 `country`, 27 `anywhere`. The remaining 41 carry nothing,
+  because the same leaf is routinely collected or posted depending on the item
+  — car parts, bike parts, a lamp, a fishing rod or a reel, maths tutoring at
+  a kitchen table or over a call. An unset leaf means the old behaviour: the
+  filer decides. Branches carry none, the same way they carry no `phrase`.
+- **`TaxonomyNode.default_reach` in `src/index.ts`**, optional, so a consumer
+  that has never heard of the field behaves exactly as before.
+- **The three tests, in `SPEC.md` §2** ("The category knows how far the thing
+  travels"): `radius` for bulky, heavy, fragile in transit or inherently face
+  to face; `country` for what fits in a parcel and survives the post where the
+  two people never need to meet; `anywhere` for what is done over the internet
+  with nothing physical moving; unset where a leaf is genuinely two of those.
+- **`scripts/render-default-reach.mjs`** (`npm run render:default-reach`) and
+  the page it writes, `docs/default-reach.html`: every leaf grouped by top
+  level with its phrase and its default, the unset ones marked, for reading
+  and correcting.
+- **Conformance tests**: every value is one of the three or absent, no branch
+  carries one, an unset leaf still resolves and still posts, and a sample of
+  leaves a person would recognise is pinned by name — a mountain bike is
+  `radius`, a paperback is `country`, online language practice is `anywhere` —
+  so a careless bulk edit fails loudly.
+
+### Changed
+- **Taxonomy `schema_version` is `0.4.0`.** Additive: nothing that was valid
+  before is invalid now, and a leaf without a default still resolves.
+
+### Not done here
+Nothing on the wire changed and no server behaviour changed. Reading the
+default when an agent has not said a reach is a separate change, once this is
+released and pinned.
+
 ## [0.14.0] — 2026-09-12
 
 One at a time, and one sealed number each.
