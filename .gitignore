@@ -2,3 +2,9 @@ node_modules/
 dist/
 *.log
 .DS_Store
+
+# Never commit credentials.
+.env
+.env.*
+*.pem
+*.key

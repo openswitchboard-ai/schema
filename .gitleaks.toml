@@ -1,0 +1,14 @@
+# gitleaks configuration for the OpenSwitchboard protocol schema.
+#
+# The default rule set is kept in full. The one addition is the shape of an
+# OpenSwitchboard agent key, which no scanner knows about but us.
+title = "OpenSwitchboard schema"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "osb-agent-key"
+description = "OpenSwitchboard agent key (osb_ak_...)"
+regex = '''osb_ak_[A-Za-z0-9_-]{20,}'''
+keywords = ["osb_ak_"]
