@@ -1,0 +1,17 @@
+# Dependabot: one pull request a week, not one per package.
+#
+# Minor and patch updates are grouped into a single PR, because reviewing
+# thirty separate lockfile bumps is how a bad one gets waved through. Major
+# updates come on their own, since those are the ones that need reading.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      minor-and-patch:
+        update-types:
+          - minor
+          - patch
