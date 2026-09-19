@@ -88,6 +88,7 @@
     "goods.electronics.console.retro": {"label":"Retro consoles","phrase":"retro console","default_reach":"country"},
     "goods.electronics.console.games": {"label":"Video games","phrase":"video games","countable":false,"default_reach":"country"},
     "goods.electronics.console.accessories": {"label":"Console accessories","phrase":"console accessories","countable":false,"default_reach":"country"},
+    "goods.electronics.console.sim-racing": {"label":"Sim racing wheels, pedals & rigs","phrase":"sim racing gear","countable":false,"default_reach":"country"},
     "goods.electronics.wearable": {"label":"Smartwatches & wearables","phrase":"smartwatch","default_reach":"country"},
     "goods.electronics.smart-home": {"label":"Smart home devices","phrase":"smart home device","default_reach":"country"},
     "goods.electronics.drone": {"label":"Drones","phrase":"drone","default_reach":"country"},

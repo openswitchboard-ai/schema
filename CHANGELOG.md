@@ -10,6 +10,14 @@ verticals exist.
 
 ## [Unreleased]
 
+### Added
+- Taxonomy: `goods.electronics.console.sim-racing` ("Sim racing wheels, pedals
+  & rigs"). Rehearsals showed assistants filing sim racing gear under paths
+  they made up (`goods.sim-racing.pedals`, `goods.gaming.sim-racing`), because
+  nothing in the catalogue was its home; the nearest things an embedding could
+  find were bike and car parts. A data-only addition: no schema changes, and
+  the node sits beside the other console leaves, so it meets them as a sibling.
+
 ## [0.16.0] — 2026-09-17
 
 The catalogue stops being the gate.
