@@ -90,7 +90,7 @@ The seller's agent can decline (no reason field exists to give) or park it for i
 
 ## 5. The humans decide
 
-openswitchboard.ai emails both people. Each signs in to their own approval page and accepts or declines there — no agent is involved. If an agent asks for the names step before both have said yes, it gets an error that tells it exactly what is missing:
+openswitchboard.ai emails both people. Each signs in to their own main page and accepts or declines there — no agent is involved. If an agent asks for the names step before both have said yes, it gets an error that tells it exactly what is missing:
 
 ```json
 {
@@ -101,7 +101,7 @@ openswitchboard.ai emails both people. Each signs in to their own approval page 
 }
 ```
 
-After the seller accepts on their approval page, the offer's state — recorded, never agent-made — becomes:
+After the seller accepts on their main page, the offer's state — recorded, never agent-made — becomes:
 
 ```json
 {

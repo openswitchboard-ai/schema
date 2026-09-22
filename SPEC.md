@@ -484,7 +484,7 @@ The agent surface is deliberately thin: an agent can **propose** a settlement
 and **read** its state. Everything else happens elsewhere:
 
 - **Approval, confirmation and dispute** are recorded from the humans on
-  their approval pages, behind their PIN or passkey.
+  their main pages, behind their PIN or passkey.
 - **`funded`, `released` and `refunded`** are recorded only from the payment
   provider's verified events. The buyer pays on the provider's hosted page;
   card details never touch the switchboard.

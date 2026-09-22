@@ -204,7 +204,7 @@ A person on the switchboard hears about all of it through their assistant, and
 the assistant does the carrying. What was missing was the last step: when a
 formality is genuinely needed — sharing a first name, sending a figure, taking
 one, closing a window, handing the wheel over — the assistant had nowhere to
-send them except "your approval page", which is a place rather than a question.
+send them except "your main page", which is a place rather than a question.
 
 So `respond` learns four actions that mint a single-use link and hand it back
 to the agent. The agent never acts on any of them; it passes the link to its
@@ -243,7 +243,7 @@ is unchanged: this is the tool surface, so it lives in `TOOLS.md`.
 Who carries the news, and both sides of the table.
 
 A rehearsal with two real humans and two real assistants got as far as a price
-and told neither person anything. One typed a figure on their approval page and
+and told neither person anything. One typed a figure on their main page and
 the other side heard nothing; the other accepted it and the first heard nothing.
 Both had an assistant of the ordinary sort, which only exists while its human is
 typing to it — so there was nobody to carry anything, and the switchboard had
@@ -261,7 +261,7 @@ validator to hold.
   answer: it is what tells the switchboard to carry the news by email instead.
 - **`offers` on a `check_in` entry**: every live figure on an introduction, both
   sides, most recent first, each with the side it came from and whether a human
-  typed it on their own approval page. A human can put a number on the table
+  typed it on their own main page. A human can put a number on the table
   without their agent present, and an agent that could see only the other side's
   offers had no way to know its own human's had gone out. The entry carries
   `offer_note` with it, the sentence to relay.
@@ -293,7 +293,7 @@ default rule decides, the tracking references each side gave, and the split
 currently on the table with who has approved it. All of it is there so an agent
 can tell its human what is waiting on them while there is still time to act;
 none of it is an agent action. Approving a split, marking a return, adding
-tracking and raising a dispute all happen on a human's own approval page, as
+tracking and raising a dispute all happen on a human's own main page, as
 before.
 
 Additive, so a patch, except that the `state` enum grows: a client that pins the
