@@ -17,6 +17,23 @@ verticals exist.
   nothing in the catalogue was its home; the nearest things an embedding could
   find were bike and car parts. A data-only addition: no schema changes, and
   the node sits beside the other console leaves, so it meets them as a sibling.
+- Taxonomy: `goods.food` ("Food & groceries") with five leaves: fresh
+  produce, sealed pantry food, coffee beans and tea, bulk buys and shared
+  orders, and surplus food from shops, cafes and bakeries. An edge-case probe
+  (26 September 2026) posted a café's leftover pastries and a share of a bulk
+  coffee order, and the nearest shelves the catalogue could offer were repair
+  cafes, coffee machines and crockery. SHOP-BOUGHT ONLY: food made, cooked or
+  baked at home is not open, pending a legal check, and a server refuses a
+  `goods.food` posting that says it is (SPEC §10). A draft sixth leaf for bread
+  and pastries was folded into surplus before release so that nothing on the
+  shelf reads as an invitation to post home baking. Cooking and catering to
+  order stay under the reserved `services.food` family. Data only.
+- Taxonomy: `social.community.lost-pet` ("Lost & found pets"). A lost pet is
+  posted as a want and a found one as a have, so an owner and a finder can
+  meet. It sits under community rather than goods because nothing here is
+  bought, sold, rehomed or adopted: it is neighbours getting an animal home.
+  Live animals stay prohibited everywhere else, and a server carries no price,
+  figure or offer on this shelf at all (SPEC §10). Data only.
 
 ## [0.16.0] — 2026-09-17
 

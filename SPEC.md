@@ -143,13 +143,14 @@ Three top levels are open:
 - **`goods.*`** — secondhand consumer goods: bikes, furniture, electronics,
   appliances, clothing, sports gear, instruments, baby things, tools, books,
   toys, household and garden items, art, hobby and building materials, pet
-  supplies, vehicle parts.
+  supplies, vehicle parts, and shop-bought food and groceries (see §10: food
+  made at home is not open).
 - **`services.*`** — everyday help between neighbours: tutoring, lessons,
   repairs, gardening, moving help, tech help, pet care, errands, creative
   work, event help, admin help.
 - **`social.*`** — people to do things with: conversation, language exchange,
-  activity partners, hobby groups, community and volunteering, going along to
-  things, travel company, family company.
+  activity partners, hobby groups, community and volunteering, lost and found
+  pets, going along to things, travel company, family company.
 
 `work.*` and `property.*` are reserved. The nodes are named in the taxonomy so
 the shape of those verticals is public, and anything posted under them is
@@ -586,6 +587,33 @@ codes. Four of those describe a thing rather than a place in the tree and so
 carry no glob at all: `drugs`, `sexual-services`, `illegal-activity`, and
 `people`, which covers anything offering or seeking a person as the thing
 itself.
+
+### Food: shop-bought only
+
+`goods.food.*` carries food that was bought, grown or packed, not made:
+fresh produce, sealed pantry food, coffee and tea, a share of a bulk order,
+and a shop's, café's or bakery's unsold stock. Food made, cooked or baked at
+home is NOT open while the legal position is checked, and neither is cooking
+or catering to order (`services.food.*` stays reserved). The taxonomy cannot
+say this on its own, because a home-baked cake and a bakery's leftover cake
+file under the same leaf. So a server MUST refuse, before a posting goes up,
+a `goods.food` posting whose own words (`kind` and attribute values) say the
+food is home-made, home-cooked or home-baked, with a plain sentence saying
+that home-made food is not open yet. The refusal is about the food, never
+about the person, and it is lifted by the operator, not by rewording.
+
+### Lost and found pets
+
+Live animals stay off the switchboard everywhere it runs, with one exception:
+`social.community.lost-pet`, where a lost pet is posted as a want and a found
+one as a have, so the owner and the finder can meet. Nothing on that shelf
+changes hands for money. A server MUST refuse a posting there that carries a
+price band, an asking price or a best-offer sale, and MUST carry no figure,
+offer or payment on an introduction made there. A posting on that shelf that
+reads as selling, rehoming, adopting or breeding an animal is refused as
+`live-animals`, as it would be anywhere else. The shelf is under `social`
+rather than `goods` so that the goods-wide screening codes (a found thing
+reads as a stolen-goods marker there) do not apply to a found dog.
 
 ## 11. Versioning and governance
 
