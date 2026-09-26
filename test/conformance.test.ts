@@ -232,6 +232,41 @@ describe("taxonomy", () => {
     expect(taxonomy.nodes["social.language-exchange"].attributes).toHaveProperty("language");
     expect(taxonomy.nodes["social.conversation.language-exchange"]).toBeUndefined();
   });
+
+  // Shelf rules are data (SPEC §2, "Shelf rules live in the data"): each one
+  // has to be well formed, because a server reads them generically.
+  it("carries shelf rules in a shape a server can read", () => {
+    for (const [path, node] of Object.entries(taxonomy.nodes)) {
+      for (const flag of ["no_money", "consumable", "thing"] as const) {
+        if (node[flag] !== undefined) expect(node[flag], `${path} ${flag}`).toBe(true);
+      }
+      for (const w of node.consumable_words ?? []) {
+        expect(w, `${path} consumable word`).toMatch(/^[a-z][a-z ]*$/);
+      }
+      if (node.consumable_words) expect(node.consumable, `${path} consumable_words needs consumable`).toBe(true);
+      if (node.screen_note !== undefined) {
+        expect(node.screen_note.length, `${path} screen_note`).toBeGreaterThan(20);
+        expect(node.screen_note.length, `${path} screen_note`).toBeLessThanOrEqual(300);
+      }
+      for (const rule of node.not_allowed ?? []) {
+        expect(rule.what, `${path} not_allowed.what`).toMatch(/^[a-z][^.]*[a-z]$/);
+        expect(rule.reason_code, `${path} not_allowed.reason_code`).toMatch(/^[a-z]+(-[a-z]+)*$/);
+        expect(rule.words.length, `${path} not_allowed.words`).toBeGreaterThan(0);
+        for (const w of rule.words) expect(() => new RegExp(w, "i"), `${path} ${w}`).not.toThrow();
+      }
+      if (node.closed_as !== undefined) {
+        expect(node.status, `${path} closed_as is for a closed family`).toBe("reserved");
+      }
+      for (const c of node.related_open ?? []) {
+        expect(categoryStatus(path).status, `${path} related_open is for a closed path`).toBe("reserved");
+        expect(taxonomy.nodes[c], `${path} related_open ${c} must exist`).toBeTruthy();
+        expect(categoryStatus(c).status, `${path} related_open ${c} must be open`).toBe("open");
+      }
+    }
+    for (const [top, t] of Object.entries(taxonomy.top_levels)) {
+      if (t.closed_as !== undefined) expect(t.status, `${top} closed_as`).toBe("reserved");
+    }
+  });
 });
 
 describe("shipped data files validate against their schemas", () => {

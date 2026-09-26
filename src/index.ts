@@ -104,6 +104,27 @@ export interface TaxonomyNode {
    * existed. Advice, never a limit: a human's own stated distance wins.
    */
   default_reach?: "radius" | "country" | "anywhere";
+  /**
+   * SHELF RULES (SPEC §2, "Shelf rules live in the data"). Each is inherited
+   * by everything filed beneath the node, and a server reads them the same way
+   * on every node.
+   */
+  /** Nothing here changes hands for money: no price, ask, offer or settlement. */
+  no_money?: boolean;
+  /** Things this shelf does not take, each in plain words with its triggers. */
+  not_allowed?: NotAllowed[];
+  /** Eaten or used up: asked for no make, model or condition. */
+  consumable?: boolean;
+  /** Plain words that mark a posting consumable by its `kind`, wherever filed. */
+  consumable_words?: string[];
+  /** One particular thing to recognise, not an activity: no swaps, one question. */
+  thing?: boolean;
+  /** One plain sentence the model screen reads beside the shelf's labels. */
+  screen_note?: string;
+  /** A closed family as a person names it after "isn't open to". */
+  closed_as?: string;
+  /** The only open shelves a refusal of this closed path suggests. */
+  related_open?: string[];
   /** Absent means open. 'reserved' closes this node and everything under it. */
   status?: "reserved";
   /** Why the node is reserved: 'licensed-trade' or 'regulated-vertical'. */
@@ -111,11 +132,20 @@ export interface TaxonomyNode {
   attributes?: Record<string, unknown>;
 }
 
+export interface NotAllowed {
+  /** The thing, in plain words that read after "it takes no". */
+  what: string;
+  /** The code the refusal is recorded under. */
+  reason_code: string;
+  /** Regular expressions (ECMAScript, no flags), matched case-insensitively as whole words. */
+  words: string[];
+}
+
 export interface Taxonomy {
   schema_version: string;
   notes: string;
   common_attributes: Record<string, unknown>;
-  top_levels: Record<string, { status: "open" | "reserved"; reason?: string }>;
+  top_levels: Record<string, { status: "open" | "reserved"; reason?: string; closed_as?: string }>;
   nodes: Record<string, TaxonomyNode>;
 }
 

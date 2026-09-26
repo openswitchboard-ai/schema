@@ -34,6 +34,15 @@ verticals exist.
   bought, sold, rehomed or adopted: it is neighbours getting an animal home.
   Live animals stay prohibited everywhere else, and a server carries no price,
   figure or offer on this shelf at all (SPEC §10). Data only.
+- Taxonomy: shelf rules are data (SPEC §2, "Shelf rules live in the data").
+  A node may carry `no_money`, `not_allowed` (`{ what, reason_code, words }`),
+  `consumable` with optional `consumable_words`, `thing` and `screen_note`,
+  each inherited by everything beneath it; a closed family may carry
+  `closed_as` and `related_open`. A server reads them the same way on every
+  node, so no server code is written for any one kind of thing. The food and
+  lost-and-found-pets rules above, and the plain names and neighbourly
+  suggestions for the closed families, move into these fields. Additive and
+  optional: a node without them behaves exactly as before.
 
 ## [0.16.0] — 2026-09-17
 

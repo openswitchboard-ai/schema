@@ -272,6 +272,52 @@ leaf is where a want or a have is filed, so the leaf is where the answer sits.
 Wiring this into how a server fills in `geo.reach` is a separate change, and
 until a server does it nothing about publishing changes.
 
+### Shelf rules live in the data
+
+Some shelves need a rule of their own, and the rule is written on the node, in
+the taxonomy, never in a server's code. A server reads these fields the same
+way for every node, and says nothing about any particular kind of thing except
+what the data itself supplies. Every field is inherited: a node's rule holds
+for everything filed beneath it, including a leaf the taxonomy does not know.
+
+- **`no_money: true`** — nothing on this shelf changes hands for money. A
+  server refuses a posting here that carries a price band, an asking price, a
+  best-offer sale, or money words in its own words (a reward, a fee, a
+  payment), and every door on an introduction made here refuses a figure, an
+  offer, a payment link and a settlement, with one general sentence.
+- **`not_allowed`** — a list of things this shelf does not take, even though
+  they would file under it. Each entry is `{ what, reason_code, words }`:
+  `what` is the thing in plain words as they read after "it takes no" ("food
+  made, cooked or baked at home"); `reason_code` is the code the refusal is
+  recorded under, and may be an existing deny-list code; `words` is a list of
+  regular expressions (ECMAScript syntax, no flags) matched case-insensitively,
+  as whole words, against the posting's own words (`kind`, `also_called`,
+  attribute keys and values). A posting that matches is refused before it goes
+  up with one general sentence naming only `what`. The rule is about the thing,
+  never the person, and it is lifted by changing the data, not by rewording.
+- **`consumable: true`** — what is filed here is eaten or used up: a server
+  asks it for no make, no model and no condition. `consumable_words`, where
+  given, are plain words that mark a posting as consumable by its `kind`
+  wherever it is filed.
+- **`thing: true`** — a want or a have here is one particular thing a stranger
+  has to recognise, not an activity or a service, although the shelf sits
+  under `social` or `services`. A server asks what someone would need to know
+  to recognise it, rather than when, how often or in person, and never pairs
+  two wants here as a swap.
+- **`screen_note`** — one plain sentence the model screen reads beside the
+  shelf's labels: what this shelf allows that the screen would otherwise
+  refuse, or the reverse.
+
+A closed family carries two more, both plain data for the refusal a server
+says aloud:
+
+- **`closed_as`** — the family as a person would name it after "isn't open
+  to" ("licensed trades like plumbing and electrical work"). A reserved top
+  level may carry it too.
+- **`related_open`** — the open shelves that are genuinely the same errand done
+  between neighbours, and the only suggestions a refusal of this closed path
+  makes. Absent means none, on purpose.
+
 ## 3. The no-leak rule: matching inputs vs disclosure outputs
 
 This is the protocol's core economic guarantee.
@@ -594,26 +640,20 @@ itself.
 fresh produce, sealed pantry food, coffee and tea, a share of a bulk order,
 and a shop's, café's or bakery's unsold stock. Food made, cooked or baked at
 home is NOT open while the legal position is checked, and neither is cooking
-or catering to order (`services.food.*` stays reserved). The taxonomy cannot
-say this on its own, because a home-baked cake and a bakery's leftover cake
-file under the same leaf. So a server MUST refuse, before a posting goes up,
-a `goods.food` posting whose own words (`kind` and attribute values) say the
-food is home-made, home-cooked or home-baked, with a plain sentence saying
-that home-made food is not open yet. The refusal is about the food, never
-about the person, and it is lifted by the operator, not by rewording.
+or catering to order (`services.food.*` stays reserved). A home-baked cake and
+a bakery's leftover cake file under the same leaf, so the rule is carried by
+the node's `not_allowed` entry (§2, "Shelf rules live in the data"), and a
+server applies it as it applies every such entry.
 
 ### Lost and found pets
 
 Live animals stay off the switchboard everywhere it runs, with one exception:
 `social.community.lost-pet`, where a lost pet is posted as a want and a found
-one as a have, so the owner and the finder can meet. Nothing on that shelf
-changes hands for money. A server MUST refuse a posting there that carries a
-price band, an asking price or a best-offer sale, and MUST carry no figure,
-offer or payment on an introduction made there. A posting on that shelf that
-reads as selling, rehoming, adopting or breeding an animal is refused as
-`live-animals`, as it would be anywhere else. The shelf is under `social`
-rather than `goods` so that the goods-wide screening codes (a found thing
-reads as a stolen-goods marker there) do not apply to a found dog.
+one as a have, so the owner and the finder can meet. The node carries
+`no_money`, `thing`, a `screen_note` and a `not_allowed` entry for an animal
+sold, rehomed, adopted or bred, recorded as `live-animals` (§2). The shelf is
+under `social` rather than `goods` so that the goods-wide screening codes (a
+found thing reads as a stolen-goods marker there) do not apply to a found dog.
 
 ## 11. Versioning and governance
 
