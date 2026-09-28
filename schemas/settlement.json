@@ -20,7 +20,8 @@
     },
     "amount": {
       "type": "number",
-      "exclusiveMinimum": 0
+      "exclusiveMinimum": 0,
+      "maximum": 100000000000
     },
     "ccy": {
       "$ref": "common.json#/$defs/ccy"
@@ -61,11 +62,13 @@
       "properties": {
         "refund_to_buyer": {
           "type": "number",
-          "minimum": 0
+          "minimum": 0,
+          "maximum": 100000000000
         },
         "release_to_seller": {
           "type": "number",
-          "minimum": 0
+          "minimum": 0,
+          "maximum": 100000000000
         },
         "approved_by_buyer": {
           "type": "boolean"

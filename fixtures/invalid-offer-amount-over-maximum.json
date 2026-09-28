@@ -1,0 +1,16 @@
+{
+  "description": "MUST FAIL: a money figure is capped at 100000000000; anything larger is not a price anyone meant",
+  "schema": "offer",
+  "valid": false,
+  "error_contains": "/amount",
+  "data": {
+    "schema_version": "0.16.1",
+    "kind": "offer",
+    "offer_id": "3f1c9a4e-0b2d-4e6f-8a1b-9c8d7e6f5a4b",
+    "intro_id": "0d9f2c1e-7b4a-4f7e-9c2d-1a2b3c4d5e6f",
+    "amount": 100000000001,
+    "ccy": "AUD",
+    "expiry": "2026-09-05T00:00:00Z",
+    "state": "proposed"
+  }
+}

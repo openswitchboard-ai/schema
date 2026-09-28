@@ -1,0 +1,21 @@
+{
+  "description": "MUST FAIL: a private price band is capped like every other money figure",
+  "schema": "intent-card",
+  "valid": false,
+  "error_contains": "/price/band/max",
+  "data": {
+    "schema_version": "0.16.1",
+    "type": "looking_for",
+    "category": "goods.bicycle.road",
+    "geo": {
+      "bucket": "r3gx"
+    },
+    "price": {
+      "band": {
+        "min": 0,
+        "max": 1000000000000000.0
+      },
+      "ccy": "AUD"
+    }
+  }
+}

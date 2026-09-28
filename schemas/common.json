@@ -140,11 +140,13 @@
           "properties": {
             "min": {
               "type": "number",
-              "minimum": 0
+              "minimum": 0,
+              "maximum": 100000000000
             },
             "max": {
               "type": "number",
-              "minimum": 0
+              "minimum": 0,
+              "maximum": 100000000000
             }
           },
           "additionalProperties": false
@@ -166,7 +168,8 @@
       "properties": {
         "amount": {
           "type": "number",
-          "exclusiveMinimum": 0
+          "exclusiveMinimum": 0,
+          "maximum": 100000000000
         },
         "ccy": {
           "$ref": "#/$defs/ccy"
