@@ -1,0 +1,17 @@
+{
+  "description": "Valid held-back deny-list entry carrying its plain reason sentence",
+  "schema": "deny-list",
+  "valid": true,
+  "data": {
+    "schema_version": "0.16.1",
+    "entries": [
+      {
+        "jurisdiction": "*",
+        "denied": ["goods.alcohol.**", "goods.alcohol"],
+        "reason_code": "alcohol",
+        "status": "vertical-policy-pending",
+        "closed_reason": "Selling this is licensed or restricted by law in many places, so the switchboard does not take it yet."
+      }
+    ]
+  }
+}

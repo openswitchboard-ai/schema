@@ -291,4 +291,39 @@ describe("shipped data files validate against their schemas", () => {
     expect(modes["recalled-goods"]).toBe("screening");
     expect(modes["weapons"]).toBe("deny");
   });
+
+  it("every held-back family carries one plain reason sentence", async () => {
+    const { readFileSync } = await import("node:fs");
+    const seed = JSON.parse(
+      readFileSync(new URL("../data/deny-list.seed.json", import.meta.url), "utf8"),
+    );
+    const pending = seed.entries.filter(
+      (e: { status?: string }) => e.status === "vertical-policy-pending",
+    );
+    expect(pending.map((e: { reason_code: string }) => e.reason_code).sort()).toEqual([
+      "alcohol",
+      "event-tickets",
+    ]);
+    for (const e of pending) {
+      expect(typeof e.closed_reason, e.reason_code).toBe("string");
+      expect(e.closed_reason.length, e.reason_code).toBeGreaterThan(20);
+      // General: the sentence never names the family it closes.
+      expect(e.closed_reason.toLowerCase(), e.reason_code).not.toContain(
+        e.reason_code.split("-")[0],
+      );
+    }
+  });
+
+  it("wildlife products are never allowed, not held back", async () => {
+    const { readFileSync } = await import("node:fs");
+    const seed = JSON.parse(
+      readFileSync(new URL("../data/deny-list.seed.json", import.meta.url), "utf8"),
+    );
+    const wildlife = seed.entries.find(
+      (e: { reason_code: string }) => e.reason_code === "wildlife-products",
+    );
+    expect(wildlife.status).toBe("denied");
+    expect(wildlife.mode ?? "deny").toBe("deny");
+    expect(wildlife.closed_reason).toBeUndefined();
+  });
 });

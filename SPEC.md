@@ -618,8 +618,8 @@ deletes nothing, so a waiting batch is still waiting afterwards.
 Prohibited categories are declared per jurisdiction in a machine-readable
 document (`schemas/deny-list.json`): entries of
 `{ jurisdiction, denied: [category-glob], reason_code, status, mode }`. The
-seed list (`data/deny-list.seed.json`) denies weapons, prescription medication
-and live animals outright, and carries jurisdiction-wide screening reason codes
+seed list (`data/deny-list.seed.json`) denies weapons, prescription medication,
+live animals and wildlife products outright, and carries jurisdiction-wide screening reason codes
 for stolen-goods markers and recalled goods (enforced at screening time as
 `SCREENING_REJECTED` on any goods category). `mode` says which of those two an
 entry is: `deny` (the default) refuses a matching category at publish time
@@ -628,9 +628,13 @@ reason code is checked against the posting's content instead. The stolen-goods
 and recalled-goods entries carry `mode: "screening"`, since they cover every
 goods category and describe some postings in it rather than the category
 itself. A server MUST read `mode` rather than keep its own list of
-screening-only reason codes. Grey zones — alcohol, event
-tickets, wildlife products — are marked `vertical-policy-pending`: not open,
-pending a per-vertical policy, rather than permanently prohibited.
+screening-only reason codes. Grey zones — alcohol and event
+tickets — are marked `vertical-policy-pending`: not open,
+pending a per-vertical policy, rather than permanently prohibited. Each such
+entry carries `closed_reason`, one plain general sentence saying why it is
+closed. A server serves that sentence with the refusal, whether the thing was
+caught by its category path or by what it is on another shelf, and an
+assistant says it to its human as it is.
 
 Since the catalogue became a deny list (§2), a path glob can no longer be the
 whole of this: a thing filed under a made-up leaf never matches one. So a

@@ -37,19 +37,21 @@
       "jurisdiction": "*",
       "denied": ["goods.alcohol.**", "goods.alcohol"],
       "reason_code": "alcohol",
-      "status": "vertical-policy-pending"
+      "status": "vertical-policy-pending",
+      "closed_reason": "Selling this is licensed or restricted by law in many places, so the switchboard does not take it yet."
     },
     {
       "jurisdiction": "*",
       "denied": ["goods.tickets.**", "goods.tickets"],
       "reason_code": "event-tickets",
-      "status": "vertical-policy-pending"
+      "status": "vertical-policy-pending",
+      "closed_reason": "Selling this is licensed or restricted by law in many places, so the switchboard does not take it yet."
     },
     {
       "jurisdiction": "*",
       "denied": ["goods.wildlife.**", "goods.wildlife"],
       "reason_code": "wildlife-products",
-      "status": "vertical-policy-pending"
+      "status": "denied"
     }
   ]
 }

@@ -40,6 +40,12 @@
             ],
             "default": "denied"
           },
+          "closed_reason": {
+            "description": "One plain, general sentence saying why the category is closed, for an assistant to say to its human as it is. It names no particular goods or service, so one sentence can serve every family closed for the same reason. Expected on a 'vertical-policy-pending' entry; a server that finds one serves it with the refusal, whether the thing was caught by its category path or by what it is on another shelf.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
           "mode": {
             "description": "How the entry is enforced. 'deny' (the default): a want or a have whose category matches is refused at publish time with CATEGORY_PROHIBITED. 'screening': the category is NOT refused; the reason code is checked against the posting's content at screening time, and a posting that carries it is refused as SCREENING_REJECTED. Use 'screening' for a reason that describes some postings in a category rather than the category itself, such as stolen-goods markers across all goods.",
             "type": "string",

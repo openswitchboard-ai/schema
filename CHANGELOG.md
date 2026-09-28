@@ -10,6 +10,26 @@ verticals exist.
 
 ## [Unreleased]
 
+## [0.16.2] — 2026-09-28
+
+Wildlife products are never allowed, and a held-back family says why it is
+closed.
+
+### Changed
+- Deny list seed: `wildlife-products` is now `status: "denied"`, prohibited
+  everywhere like weapons and live animals, rather than
+  `vertical-policy-pending`. It is not waiting on a per-vertical policy and
+  will not open. Only alcohol and event tickets are held back. Data only.
+
+### Added
+- Deny list: an optional `closed_reason` on an entry, one plain general
+  sentence saying why the category is closed. The two held-back families in
+  the seed (alcohol, event tickets) carry the same one:
+  "Selling this is licensed or restricted by law in many places, so the
+  switchboard does not take it yet." A server serves it with the refusal
+  whether the thing was caught by its path or by what it is on another shelf
+  (SPEC §10). Additive: an entry without it still validates.
+
 ## [0.16.1] — 2026-09-28
 
 Money has a ceiling, and the deny list says how each entry is enforced.
