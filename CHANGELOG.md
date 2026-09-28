@@ -10,6 +10,10 @@ verticals exist.
 
 ## [Unreleased]
 
+## [0.16.1] — 2026-09-28
+
+Money has a ceiling, and the deny list says how each entry is enforced.
+
 ### Added
 - Taxonomy: `goods.electronics.console.sim-racing` ("Sim racing wheels, pedals
   & rigs"). Rehearsals showed assistants filing sim racing gear under paths
