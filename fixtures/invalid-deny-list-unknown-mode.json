@@ -1,0 +1,19 @@
+{
+  "description": "MUST FAIL: an entry's mode is 'deny' or 'screening'",
+  "schema": "deny-list",
+  "valid": false,
+  "error_contains": "/entries/0/mode",
+  "data": {
+    "schema_version": "0.16.1",
+    "entries": [
+      {
+        "jurisdiction": "*",
+        "denied": [
+          "goods.**"
+        ],
+        "reason_code": "recalled-goods",
+        "mode": "warn"
+      }
+    ]
+  }
+}

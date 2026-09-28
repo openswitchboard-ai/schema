@@ -1,0 +1,27 @@
+{
+  "description": "Valid deny-list entry enforced at screening time rather than by category",
+  "schema": "deny-list",
+  "valid": true,
+  "data": {
+    "schema_version": "0.16.1",
+    "entries": [
+      {
+        "jurisdiction": "*",
+        "denied": [
+          "goods.**"
+        ],
+        "reason_code": "stolen-goods-markers",
+        "status": "denied",
+        "mode": "screening"
+      },
+      {
+        "jurisdiction": "AU",
+        "denied": [
+          "goods.weapons.**"
+        ],
+        "reason_code": "weapons",
+        "mode": "deny"
+      }
+    ]
+  }
+}

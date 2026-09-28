@@ -617,11 +617,18 @@ deletes nothing, so a waiting batch is still waiting afterwards.
 
 Prohibited categories are declared per jurisdiction in a machine-readable
 document (`schemas/deny-list.json`): entries of
-`{ jurisdiction, denied: [category-glob], reason_code, status }`. The seed
-list (`data/deny-list.seed.json`) denies weapons, prescription medication and
-live animals outright, and carries jurisdiction-wide screening reason codes
+`{ jurisdiction, denied: [category-glob], reason_code, status, mode }`. The
+seed list (`data/deny-list.seed.json`) denies weapons, prescription medication
+and live animals outright, and carries jurisdiction-wide screening reason codes
 for stolen-goods markers and recalled goods (enforced at screening time as
-`SCREENING_REJECTED` on any goods category). Grey zones — alcohol, event
+`SCREENING_REJECTED` on any goods category). `mode` says which of those two an
+entry is: `deny` (the default) refuses a matching category at publish time
+with `CATEGORY_PROHIBITED`; `screening` never refuses the category, and its
+reason code is checked against the posting's content instead. The stolen-goods
+and recalled-goods entries carry `mode: "screening"`, since they cover every
+goods category and describe some postings in it rather than the category
+itself. A server MUST read `mode` rather than keep its own list of
+screening-only reason codes. Grey zones — alcohol, event
 tickets, wildlife products — are marked `vertical-policy-pending`: not open,
 pending a per-vertical policy, rather than permanently prohibited.
 

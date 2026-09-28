@@ -43,6 +43,28 @@ verticals exist.
   lost-and-found-pets rules above, and the plain names and neighbourly
   suggestions for the closed families, move into these fields. Additive and
   optional: a node without them behaves exactly as before.
+- Deny list: an optional `mode` on each entry, `"deny"` (the default) or
+  `"screening"` (`schemas/deny-list.json`, SPEC §10). A `deny` entry refuses a
+  matching category at publish time with `CATEGORY_PROHIBITED`; a `screening`
+  entry never refuses the category, and its reason code is checked against the
+  posting's content at screening time instead. The seed's two goods-wide
+  entries, `stolen-goods-markers` and `recalled-goods`, now say
+  `"mode": "screening"`, which is how servers already treated them from a list
+  of their own. A server reads `mode` now rather than keeping that list.
+
+### Changed
+- Money figures have a ceiling: `maximum: 100000000000` on the price band's
+  `min` and `max` and the ask's `amount` (`common.json`), an offer's `amount`
+  (`offer.json`), and a settlement's `amount`, `refund_to_buyer` and
+  `release_to_seller` (`settlement.json`). They had a floor and no ceiling, so
+  a figure of any size validated. The cap is far above any real price and
+  keeps the same figure in minor units (x100) inside a double's exact integer
+  range.
+
+### Compatibility
+`mode` is optional and defaults to what every entry already meant. The money
+ceiling makes a document with a figure over 100,000,000,000 invalid, which no
+real want, have, offer or settlement carries.
 
 ## [0.16.0] — 2026-09-17
 

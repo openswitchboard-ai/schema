@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schema.openswitchboard.ai/v0/deny-list.json",
   "title": "Category deny list",
-  "description": "Prohibited categories per jurisdiction. A want or a have whose category matches a denied glob for the poster's jurisdiction is rejected with CATEGORY_PROHIBITED. Entries with status 'vertical-policy-pending' mark grey zones the operator has not yet opened rather than hard prohibitions.",
+  "description": "Prohibited categories per jurisdiction. A want or a have whose category matches a denied glob for the poster's jurisdiction is rejected with CATEGORY_PROHIBITED, unless the entry's mode is 'screening', in which case its reason code is enforced on the posting's content at screening time instead. Entries with status 'vertical-policy-pending' mark grey zones the operator has not yet opened rather than hard prohibitions.",
   "type": "object",
   "properties": {
     "schema_version": {
@@ -39,6 +39,15 @@
               "vertical-policy-pending"
             ],
             "default": "denied"
+          },
+          "mode": {
+            "description": "How the entry is enforced. 'deny' (the default): a want or a have whose category matches is refused at publish time with CATEGORY_PROHIBITED. 'screening': the category is NOT refused; the reason code is checked against the posting's content at screening time, and a posting that carries it is refused as SCREENING_REJECTED. Use 'screening' for a reason that describes some postings in a category rather than the category itself, such as stolen-goods markers across all goods.",
+            "type": "string",
+            "enum": [
+              "deny",
+              "screening"
+            ],
+            "default": "deny"
           }
         },
         "required": [

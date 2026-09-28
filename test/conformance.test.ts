@@ -278,4 +278,17 @@ describe("shipped data files validate against their schemas", () => {
     const result = validate("deny-list", seed);
     expect(result.reasons.join("; ")).toBe("");
   });
+
+  it("the goods-wide stolen and recalled codes are screening entries, not category denials", async () => {
+    const { readFileSync } = await import("node:fs");
+    const seed = JSON.parse(
+      readFileSync(new URL("../data/deny-list.seed.json", import.meta.url), "utf8"),
+    );
+    const modes = Object.fromEntries(
+      seed.entries.map((e: { reason_code: string; mode?: string }) => [e.reason_code, e.mode ?? "deny"]),
+    );
+    expect(modes["stolen-goods-markers"]).toBe("screening");
+    expect(modes["recalled-goods"]).toBe("screening");
+    expect(modes["weapons"]).toBe("deny");
+  });
 });

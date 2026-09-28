@@ -17,7 +17,8 @@
       "jurisdiction": "*",
       "denied": ["goods.**"],
       "reason_code": "stolen-goods-markers",
-      "status": "denied"
+      "status": "denied",
+      "mode": "screening"
     },
     {
       "jurisdiction": "*",
@@ -29,7 +30,8 @@
       "jurisdiction": "*",
       "denied": ["goods.**"],
       "reason_code": "recalled-goods",
-      "status": "denied"
+      "status": "denied",
+      "mode": "screening"
     },
     {
       "jurisdiction": "*",
