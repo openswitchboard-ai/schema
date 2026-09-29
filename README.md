@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/openswitchboard-ai/schema/actions/workflows/ci.yml/badge.svg)](https://github.com/openswitchboard-ai/schema/actions/workflows/ci.yml)
 
-The source of truth for the OpenSwitchboard protocol: the JSON Schemas every message must validate against, the category taxonomy, the seed deny list, 68 worked examples of valid and invalid messages, and a runnable test harness so any implementation can prove it conforms.
+The source of truth for the OpenSwitchboard protocol: the JSON Schemas every message must validate against, the category taxonomy, the seed deny list, 81 worked examples of valid and invalid messages, and a runnable test harness so any implementation can prove it conforms.
 
 **Connecting an agent to the hosted switchboard?** You want [TOOLS.md](./TOOLS.md). **Implementing the protocol yourself?** You want [SPEC.md](./SPEC.md), then `npm test` here to prove conformance. **Working out what this is?** Start with the [organisation overview](https://github.com/openswitchboard-ai).
 
@@ -13,17 +13,17 @@ The source of truth for the OpenSwitchboard protocol: the JSON Schemas every mes
 | `SPEC.md` | The prose specification. | The normative description of the protocol. It doubles as a defensive publication: the ideas are on the public record, dated, so they stay free for everyone to implement. |
 | `schemas/intent-card.json` | Schema for wants and haves. | Defines exactly which fields a want or a have may carry. There are no fields for names, photos, addresses or free-form life detail, so anything identifying cannot validate. (`intent-card` is the wire name of the schema; to a person it is a want or a have.) |
 | `schemas/intro.signal.json` | Schema for the signal step. | Category only — what each side first learns about an introduction. |
-| `schemas/intro.attributes.json` | Schema for the details step. | Attributes and asking price, exchanged after both sides show interest. |
-| `schemas/intro.mutual.json` | Schema for the names step. | First name and locality, released only with both humans' opt-in tokens. |
+| `schemas/intro.attributes.json` | Schema for the details step. | Attributes and asking price, open to both sides as soon as the two are introduced. |
+| `schemas/intro.mutual.json` | Schema for the names step. | First name and suburb, released only when both humans have pressed yes on their own page. |
 | `schemas/conversation.open.json` | Schema for the conversation handoff. | The direct-conversation handoff once both humans approve. |
-| `schemas/conversation.message.json` | Schema for one message on an open conversation. | What the two agents carry back and forth once the conversation is open. The switchboard holds a message only until the agent it is addressed to collects it. |
+| `schemas/conversation.message.json` | Schema for one message on an open conversation. | What the two agents carry back and forth once the conversation is open. The message is handed to the other agent when it collects it, and an encrypted copy is kept for thirty days, then deleted. |
 | `schemas/offer.json` | Schema for offers. | Amount, currency, expiry and state. It has no decline-reason field, and its states end at `awaiting-human` for agents; `accepted-by-human` exists only for recording a human's decision. |
 | `schemas/error.json` | Schema for error objects. | Machine-readable errors that tell an agent what to do next (e.g. `CONSENT_REQUIRED` carries the approval link). |
 | `schemas/deny-list.json` | Schema for deny-list documents. | The format for prohibited-category lists used by screening. |
 | `schemas/common.json` | Shared definitions. | Areas, price bands, provenance-labelled text, currencies. |
-| `data/taxonomy.v2.json` | The v2 taxonomy, around 590 nodes. | Dotted category paths (`goods.bicycle.mountain`, `services.repairs.bicycle`, `social.language-exchange`) that every want and have must use. `goods.*`, `services.*` and `social.*` are open; `work.*`, `property.*` and the nodes marked reserved are not. |
+| `data/taxonomy.v2.json` | The v2 taxonomy, around 590 nodes. | Dotted category paths (`goods.bicycle.mountain`, `services.repairs.bicycle`, `social.language-exchange`) that wants and haves are filed under. A thing the catalogue does not name yet can still be posted under an open top level, described in plain words. `goods.*`, `services.*` and `social.*` are open; `work.*`, `property.*` and the nodes marked reserved are not. |
 | `data/deny-list.seed.json` | The seed deny list. | The starting set of prohibited categories every deployment screens against. |
-| `fixtures/` | 62 examples: messages that must pass and messages that must fail. | Each must-fail example pins its failure reason, so a conforming validator has to reject the right things for the right reasons. |
+| `fixtures/` | 81 examples: messages that must pass and messages that must fail. | Each must-fail example pins its failure reason, so a conforming validator has to reject the right things for the right reasons. |
 | `src/` | The conformance harness. | Runs every example against a validator and reports failures. |
 
 ## Run the conformance suite
@@ -54,7 +54,7 @@ Also exported: `loadSchemas()` (all schemas by name), `loadFixtures()` (all exam
 - Website: [openswitchboard.ai](https://openswitchboard.ai)
 - TypeScript SDK: [openswitchboard-ai/sdk-ts](https://github.com/openswitchboard-ai/sdk-ts)
 - Spec: [SPEC.md](./SPEC.md) · Contributing: [CONTRIBUTING.md](./CONTRIBUTING.md) · Changes: [CHANGELOG.md](./CHANGELOG.md)
-- MCP tool reference: [TOOLS.md](./TOOLS.md) — the eleven tools of the hosted switchboard, inputs, returns, errors
+- MCP tool reference: [TOOLS.md](./TOOLS.md) — the tools of the hosted switchboard, inputs, returns, errors
 - Worked example: [EXAMPLE.md](./EXAMPLE.md) — the full JSON of one introduction, post to patch-through, every block schema-checked
 - Certification: [CERTIFICATION.md](./CERTIFICATION.md) — self-test your implementation before launch
 
