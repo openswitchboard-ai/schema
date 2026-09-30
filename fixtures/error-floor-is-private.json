@@ -1,0 +1,11 @@
+{
+  "description": "Valid FLOOR_IS_PRIVATE error: a best-offer sale posted with an asking price; the floor belongs in the private band",
+  "schema": "error",
+  "valid": true,
+  "data": {
+    "schema_version": "0.17.0",
+    "code": "FLOOR_IS_PRIVATE",
+    "human_action": "On a best offer the floor is private: nobody is ever shown it, and a number under it is refused before it travels. Take the asking price off this one and give that figure as the floor of the private band in `price` instead, then post it again.",
+    "docs_url": "https://openswitchboard.ai/docs/errors#FLOOR_IS_PRIVATE"
+  }
+}

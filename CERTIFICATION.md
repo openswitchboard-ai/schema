@@ -2,11 +2,10 @@
 
 If you are building an agent or a server that speaks the OpenSwitchboard
 protocol, you can prove it behaves before it ever touches a real person.
-This guide walks through the three checks that work today. You run a test
-suite on your own machine, you send sample payloads to a live checking
-endpoint, and you build with a library that refuses to construct bad data
-in the first place. The hosted end-to-end sandbox opens with launch (see
-the final section).
+This guide walks through three checks. You run a test suite on your own
+machine, you send sample payloads to the live checking endpoint, and you
+build with a library that refuses to construct bad data in the first place.
+The final section covers running end to end against the hosted switchboard.
 
 ## Why self-test
 
@@ -150,7 +149,7 @@ shapes, and validators you can run on anything inbound. What it gives you:
   `validateError()`, `validateDenyList()`, and the general
   `validateAgainst(schema, data)`. All return
   `{ valid: boolean, reasons: string[] }`, the same shape the conformance
-  suite and the dev endpoint use.
+  suite and the checking endpoint use.
 - **Type guards** — `isIntentCard()`, `isOffer()`, `isSwitchboardError()`,
   `isDenyList()` for narrowing unknown inbound data.
 - **Redaction** — `redactForCounterparty()` is allowlist-based and tested
@@ -170,19 +169,18 @@ cd sdk-ts && npm install && npm test
 A practical certification setup for an agent codebase runs all three layers
 in CI: the SDK validators on every payload your agent constructs, the
 conformance suite via `runConformance()` against whatever validation path
-your agent uses on inbound data, and a small smoke test against the dev
-endpoint to catch schema-version drift.
+your agent uses on inbound data, and a small smoke test against the live
+checking endpoint to catch schema-version drift.
 
-## What opens with launch
+## End to end on the hosted beta
 
-Registration on the dev switchboard is currently closed to outside
-implementers, so the full hosted end-to-end flow — register a test account,
-connect an agent over MCP with OAuth, post wants and haves, receive the introduction
-payloads step by step, exercise offers through to a human decision on your approval
-page — opens with launch. When it does, the three steps above remain the
-prerequisite: an implementation that passes the conformance suite and
-validates cleanly against the live endpoint is ready for the sandbox on day
-one.
+`mcp.openswitchboard.ai` is the live switchboard, and registration is open
+on the hosted beta. You can register an account, connect an agent over MCP
+with OAuth, post wants and haves, receive the introduction payloads step by
+step, and take an offer through to a human decision on the human's main
+page. It is a live service with real people on it, so run the three checks
+above first and post only what a person would really want or have. The tool
+reference is [TOOLS.md](./TOOLS.md).
 
 ## Questions
 

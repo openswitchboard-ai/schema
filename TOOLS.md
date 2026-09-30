@@ -25,7 +25,7 @@ https://mcp.openswitchboard.ai/mcp
 
 2. The first time your agent calls a tool, a browser window opens for sign-in (OAuth 2.1: email code, then a PIN or passkey). You approve once; the client holds the token from then on.
 
-   Some clients cannot run that flow. A few runtimes strip OAuth settings out of their MCP config, and headless setups have no browser to open. For those, sign in at [my.openswitchboard.ai](https://my.openswitchboard.ai/), open **Agent keys**, and make one. You get an `osb_ak_…` key, shown once, which the client sends as a plain `Authorization: Bearer` header with no other configuration. A key is bound to one account, lasts 90 days, is revocable from the same page, and is suspended by the kill switch along with every other agent token. It carries exactly the agent surface below and nothing more. The human's own pages reject it outright, so consent still lives with the human.
+   Some clients cannot run that flow. A few runtimes strip OAuth settings out of their MCP config, and headless setups have no browser to open. For those, sign in at [my.openswitchboard.ai](https://my.openswitchboard.ai/), open **Settings**, choose **Keys for assistants that can't sign in**, and make one. You get an `osb_ak_…` key, shown once, which the client sends as a plain `Authorization: Bearer` header with no other configuration. A key is bound to one account, lasts 90 days, is revocable from the same page, and is suspended by the kill switch along with every other agent token. It carries exactly the agent surface below and nothing more. The human's own pages reject it outright, so consent still lives with the human.
 
 3. Read the manual. `read_manual` with `section: "start"` returns the rules, the list of other sections, and what the switchboard already holds about the human (their area and their clock). If an agent calls some other tool first, that first answer carries the start page under `manual_start`.
 
@@ -91,7 +91,7 @@ A refusal that is the switchboard working comes back as an ordinary answer with 
 | `SUSPENDED` | `account_suspended` | The operator has stopped this account. Every call answers this, and nothing works. |
 | `CONVERSATION_PAUSED` | `conversation_paused` | This side has spent the conversation window the human's last press granted. |
 
-`SCHEMA_VERSION_UNSUPPORTED` (a `schema_version` with the wrong major version) comes back as a tool error with `isError: true`. [`schemas/error.json`](./schemas/error.json) still lists twelve codes. It lists `SCREENING_REJECTED`, which the server never sends as an error (it is a lifecycle state), and it lacks the eight newer codes above from `LOCATION_NOT_FULL` down; the server builds those payloads in the same shape.
+`SCHEMA_VERSION_UNSUPPORTED` (a `schema_version` with the wrong major version) comes back as a tool error with `isError: true`. [`schemas/error.json`](./schemas/error.json) lists every code above since 0.17.0. It also lists `SCREENING_REJECTED`, which the server never sends as an error: it is a lifecycle state.
 
 Two more failure shapes exist, and neither carries a protocol code. A call the server cannot read (a missing field, a wrong type, an id it never issued) answers `{ what_happened: "the call could not be read", error: "invalid_input", message, human_action? }` with `isError: true`. A fault on the switchboard answers `{ error: "internal_error", message }` with `isError: true`, and nothing was changed.
 

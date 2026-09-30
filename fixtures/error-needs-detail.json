@@ -1,0 +1,16 @@
+{
+  "description": "Valid NEEDS_DETAIL error: a thin posting comes back unposted with the questions for the human and the attempt's reference",
+  "schema": "error",
+  "valid": true,
+  "data": {
+    "schema_version": "0.17.0",
+    "code": "NEEDS_DETAIL",
+    "human_action": "Ask your human these, then post again with the answers in `attributes`. Write in what you already know without asking. If they do not know, send it again with detail_unknown.",
+    "questions": [
+      "What make and model is it?",
+      "What condition is it in?"
+    ],
+    "reference": "7f0c2a4e-1b9d-4c55-9a8e-3d2f6b1c0e91",
+    "docs_url": "https://openswitchboard.ai/docs/errors#NEEDS_DETAIL"
+  }
+}

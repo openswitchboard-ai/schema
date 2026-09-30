@@ -22,8 +22,17 @@
         "RATE_LIMITED_OFFERS",
         "SETTLEMENT_UNAVAILABLE",
         "LOCATION_UNRESOLVED",
-        "LOCATION_AMBIGUOUS"
-      ]
+        "LOCATION_AMBIGUOUS",
+        "LOCATION_NOT_FULL",
+        "SUSPENDED",
+        "CONVERSATION_PAUSED",
+        "NEEDS_DETAIL",
+        "CONFIRM_FIGURE",
+        "SHELF_UNCLEAR",
+        "SHELF_PICK",
+        "FLOOR_IS_PRIVATE"
+      ],
+      "description": "A closed vocabulary (SPEC §9). SCREENING_REJECTED is listed for completeness: on the hosted switchboard it is the state of a posting that screening turned away, shown by list_intents, and is not sent as an error."
     },
     "human_action": {
       "description": "What the human (not the agent) must do to unblock this, if anything.",
@@ -44,28 +53,107 @@
       }
     },
     "candidates": {
-      "description": "Present on LOCATION_AMBIGUOUS: the places the name could have meant, largest first, at most five. 'display' is the fully qualified name to put to a human ('Perth, Scotland, GB'); 'place' is the exact string to send back in geo.place to choose that one. A server that cannot list them still refuses what was posted the same way, so an agent must handle the field being absent.",
+      "description": "Present on LOCATION_AMBIGUOUS: the places a name written in full could still mean, at most five. 'display' is the place written in full to put to a human; 'place' is the exact string to send back in geo.place to choose that one. Present on SHELF_UNCLEAR: the shelves a posting could go on, best first, each { category, words }, the last of them being 'none_of_these'. A server that cannot list them still refuses what was posted the same way, so an agent must handle the field being absent.",
       "type": "array",
       "minItems": 2,
       "maxItems": 5,
       "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "display": {
+                "type": "string",
+                "maxLength": 120
+              },
+              "place": {
+                "type": "string",
+                "maxLength": 120
+              }
+            },
+            "required": [
+              "display",
+              "place"
+            ],
+            "additionalProperties": false,
+            "title": "Place candidate"
+          },
+          {
+            "title": "Shelf candidate",
+            "type": "object",
+            "properties": {
+              "category": {
+                "description": "The dotted path to post again under, or the word 'none_of_these'.",
+                "type": "string",
+                "maxLength": 200
+              },
+              "words": {
+                "description": "The shelf in plain words, to put to the human.",
+                "type": "string",
+                "maxLength": 200
+              }
+            },
+            "required": [
+              "category",
+              "words"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "questions": {
+      "description": "Present on NEEDS_DETAIL and CONFIRM_FIGURE: the questions to put to the human, at most four.",
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 4,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 300
+      }
+    },
+    "figures": {
+      "description": "Present on CONFIRM_FIGURE: each money figure the posting carries, for the agent to say back to its human. 'what' is which figure it is in plain words ('asking price', 'the least they will take', 'the most they will pay'). It goes only to the agent of the human who wrote the posting.",
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 4,
+      "items": {
         "type": "object",
         "properties": {
-          "display": {
+          "what": {
             "type": "string",
-            "maxLength": 120
+            "minLength": 1,
+            "maxLength": 80
           },
-          "place": {
-            "type": "string",
-            "maxLength": 120
+          "amount": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100000000000
+          },
+          "currency": {
+            "$ref": "common.json#/$defs/ccy"
           }
         },
         "required": [
-          "display",
-          "place"
+          "what",
+          "amount",
+          "currency"
         ],
         "additionalProperties": false
       }
+    },
+    "press_id": {
+      "description": "Present when the refusal hands over a link for the human to press (CONSENT_REQUIRED, SHELF_PICK and others): the id to pass to wait_for_press.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "reference": {
+      "description": "Present on a refusal of a posting attempt (NEEDS_DETAIL, CONFIRM_FIGURE and the other posting-door answers): the attempt's own number, sent back with the next try at the same posting. If the posting goes up, it becomes the posting's id. Never said to a human.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
     },
     "docs_url": {
       "type": "string",

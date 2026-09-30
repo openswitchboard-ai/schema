@@ -1,0 +1,11 @@
+{
+  "description": "Valid SUSPENDED error: the operator has stopped this account",
+  "schema": "error",
+  "valid": true,
+  "data": {
+    "schema_version": "0.17.0",
+    "code": "SUSPENDED",
+    "human_action": "This account has been suspended from the switchboard. Nothing more can be posted, sent or collected from it. Tell your human, and keep it in your own memory so you do not try again.",
+    "docs_url": "https://openswitchboard.ai/docs/errors#SUSPENDED"
+  }
+}

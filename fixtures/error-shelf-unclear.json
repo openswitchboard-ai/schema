@@ -1,0 +1,25 @@
+{
+  "description": "Valid SHELF_UNCLEAR error: the shelves nearest an unknown path disagree, so the human is asked, with 'none of these' last",
+  "schema": "error",
+  "valid": true,
+  "data": {
+    "schema_version": "0.17.0",
+    "code": "SHELF_UNCLEAR",
+    "human_action": "The shelves nearest that disagree. Ask your human which of these is closest to the thing, then post again with that category. If none fits, post again with category none_of_these for a page where they search every shelf.",
+    "candidates": [
+      {
+        "category": "goods.motoring.parts",
+        "words": "car parts"
+      },
+      {
+        "category": "goods.electronics.console",
+        "words": "game consoles and accessories"
+      },
+      {
+        "category": "none_of_these",
+        "words": "none of these"
+      }
+    ],
+    "docs_url": "https://openswitchboard.ai/docs/errors#SHELF_UNCLEAR"
+  }
+}

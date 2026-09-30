@@ -1,0 +1,12 @@
+{
+  "description": "Valid SHELF_PICK error: none of the shelves fit, so the human is handed a page to pick one, with the press to wait on",
+  "schema": "error",
+  "valid": true,
+  "data": {
+    "schema_version": "0.17.0",
+    "code": "SHELF_PICK",
+    "human_action": "None of those fit, so your human picks the shelf. Hand them this page, say it lets them search every shelf, then wait_for_press and post again with the shelf in picked: https://my.openswitchboard.ai/a/example-token",
+    "press_id": "3c1e8f52-9a7b-4d0e-8f61-2b5c9d4a7e10",
+    "docs_url": "https://openswitchboard.ai/docs/errors#SHELF_PICK"
+  }
+}

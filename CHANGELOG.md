@@ -10,6 +10,55 @@ verticals exist.
 
 ## [Unreleased]
 
+## [0.17.0] — 2026-09-30
+
+The error document catches up with the codes the hosted server sends, and the
+spec catches up with how the server behaves.
+
+### Added
+- Error codes: `LOCATION_NOT_FULL`, `SUSPENDED`, `CONVERSATION_PAUSED`,
+  `NEEDS_DETAIL`, `CONFIRM_FIGURE`, `SHELF_UNCLEAR`, `SHELF_PICK` and
+  `FLOOR_IS_PRIVATE`. The hosted server has sent all eight for some time,
+  building their payloads outside the published document. SPEC §9 says when
+  each one comes back.
+- Error fields, all optional: `questions` (on `NEEDS_DETAIL` and
+  `CONFIRM_FIGURE`, at most four), `figures` (on `CONFIRM_FIGURE`, each
+  `{ what, amount, currency }`), `press_id` (on a refusal that hands over a
+  link, to pass to `wait_for_press`) and `reference` (the posting attempt's
+  own number, sent back with the next try).
+- `candidates` also carries shelves on `SHELF_UNCLEAR`, each
+  `{ category, words }`, beside the places it carries on
+  `LOCATION_AMBIGUOUS`.
+- Fixtures: a valid error for each new code, and two that must fail (a figure
+  with an extra field, and five questions).
+
+### Changed
+- `sale` and `ask` descriptions: a best-offer have carries no asking price.
+  Its floor is the private price band, never shown, and a server refuses a
+  best-offer have with an `ask` as `FLOOR_IS_PRIVATE`. The best-offer fixture
+  no longer carries an `ask`.
+- `code` description: `SCREENING_REJECTED` stays in the vocabulary, and is a
+  posting state rather than an error the hosted server sends.
+- SPEC: places are written in full (town, state and country) or refused with
+  `LOCATION_NOT_FULL`; a street address or an unknown place is
+  `LOCATION_UNRESOLVED`; `LOCATION_AMBIGUOUS` is only a full writing that
+  names two towns. The size-settling rule and the division codes are gone.
+- SPEC: messages go through intake (the money-figure refusal, then a safety
+  classifier that flags and still delivers), and an encrypted copy is kept for
+  thirty days sealed to a two-of-three safety key. Withdrawing a want or a have
+  leaves an open conversation open. The conversation budget (forty messages or
+  seven days per names-step press, then `CONVERSATION_PAUSED`) is described.
+- SPEC: the interest step is gone; the details open to both sides on
+  introduction. An unknown leaf is filed under the nearest known node, or
+  `SHELF_UNCLEAR` / `SHELF_PICK` asks. `closed` is an introduction the
+  switchboard ended after a report or a suspension; a lapsed slot is archived.
+  The line puts sure matches before possible ones, and a slot and a best-offer
+  window last 24 hours, or 2 hours on `urgency: "today"`. Offers are capped per
+  account per hour and per introduction per day. On the hosted beta `settle`
+  answers `SETTLEMENT_UNAVAILABLE`.
+- CERTIFICATION: `mcp.openswitchboard.ai` is the live endpoint and
+  registration is open on the hosted beta.
+
 ## [0.16.2] — 2026-09-28
 
 Wildlife products are never allowed, and a held-back family says why it is

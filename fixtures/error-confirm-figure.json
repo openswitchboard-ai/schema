@@ -1,0 +1,22 @@
+{
+  "description": "Valid CONFIRM_FIGURE error: the posting's figures read back once to the agent of the human who wrote it",
+  "schema": "error",
+  "valid": true,
+  "data": {
+    "schema_version": "0.17.0",
+    "code": "CONFIRM_FIGURE",
+    "human_action": "Nothing has gone up yet. Say each figure here to your human exactly as it stands, and post again only if those were their own words. If they gave you no figure, post again with none on it.",
+    "questions": [
+      "Is $420 AUD the figure you gave as your asking price, or is it one I put there myself?"
+    ],
+    "figures": [
+      {
+        "what": "asking price",
+        "amount": 420,
+        "currency": "AUD"
+      }
+    ],
+    "reference": "7f0c2a4e-1b9d-4c55-9a8e-3d2f6b1c0e91",
+    "docs_url": "https://openswitchboard.ai/docs/errors#CONFIRM_FIGURE"
+  }
+}

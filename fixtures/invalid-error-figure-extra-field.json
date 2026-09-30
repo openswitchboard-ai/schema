@@ -1,0 +1,19 @@
+{
+  "description": "MUST FAIL: a figure on CONFIRM_FIGURE carries only what, amount and currency",
+  "schema": "error",
+  "valid": false,
+  "error_contains": "additionalProperty",
+  "data": {
+    "schema_version": "0.17.0",
+    "code": "CONFIRM_FIGURE",
+    "figures": [
+      {
+        "what": "asking price",
+        "amount": 420,
+        "currency": "AUD",
+        "band_max": 500
+      }
+    ],
+    "docs_url": "https://openswitchboard.ai/docs/errors#CONFIRM_FIGURE"
+  }
+}

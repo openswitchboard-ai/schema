@@ -1,5 +1,5 @@
 {
-  "description": "Valid have: a bike sold on best offer, with the ask as the floor under every sealed number",
+  "description": "Valid have: a bike sold on best offer, with no asking price; the private band's floor is the floor under every sealed number",
   "schema": "intent-card",
   "valid": true,
   "data": {
@@ -14,10 +14,6 @@
       "band": {
         "min": 380
       },
-      "ccy": "AUD"
-    },
-    "ask": {
-      "amount": 420,
       "ccy": "AUD"
     },
     "attributes": {

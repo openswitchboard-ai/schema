@@ -1,0 +1,11 @@
+{
+  "description": "Valid LOCATION_NOT_FULL error: a place not written as town, state and country, with the one fixed sentence and no candidates",
+  "schema": "error",
+  "valid": true,
+  "data": {
+    "schema_version": "0.17.0",
+    "code": "LOCATION_NOT_FULL",
+    "human_action": "Write the place in full: town, state and country, for example \"Hobart, Tasmania, Australia\". Your human's own area on file is written that way already.",
+    "docs_url": "https://openswitchboard.ai/docs/errors#LOCATION_NOT_FULL"
+  }
+}

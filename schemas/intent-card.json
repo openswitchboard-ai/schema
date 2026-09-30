@@ -31,7 +31,7 @@
     },
     "ask": {
       "$ref": "common.json#/$defs/ask",
-      "description": "Haves only: a deliberate, disclosable asking price. Structurally forbidden on a want."
+      "description": "Haves only: a deliberate, disclosable asking price, on a straight sale. A best-offer sale carries none (see `sale`). Structurally forbidden on a want."
     },
     "attributes": {
       "$ref": "common.json#/$defs/attributes"
@@ -78,7 +78,7 @@
       "default": 1
     },
     "sale": {
-      "description": "Haves only: how the asking price works. 'straight' is the ask as it stands, with introductions made one at a time. 'best-offer' opens a short gathering window in which everyone who fits is introduced at once and each of them may put exactly ONE number on the table, sealed: the ask is the floor, nobody ever sees anyone else's number, and the holder sees them all only after the window has closed. Structurally forbidden on a want.",
+      "description": "Haves only: how the thing is sold. 'straight' is the asking price in `ask`, with introductions made one at a time. 'best-offer' carries no asking price: a gathering window opens (24 hours, or 2 hours when urgency is 'today') in which everyone who fits is introduced at once and each of them may put exactly ONE number on the table, sealed. The floor is the private price band in `price`, which is never shown to anyone, and a number under it is refused. Nobody sees anyone else's number, and the holder sees them all only after the window has closed. A server refuses a best-offer have that carries an `ask` with FLOOR_IS_PRIVATE. Structurally forbidden on a want.",
       "type": "string",
       "enum": [
         "straight",

@@ -1,0 +1,11 @@
+{
+  "description": "Valid CONVERSATION_PAUSED error: this side has spent the window its human's last press granted",
+  "schema": "error",
+  "valid": true,
+  "data": {
+    "schema_version": "0.17.0",
+    "code": "CONVERSATION_PAUSED",
+    "human_action": "The conversation is paused on your side until your human says to keep going. Ask them with respond(request_keep_talking): hand over the page it gives you, say what it asks, and wait on the press. Nothing is lost, and you can still collect whatever the other side sends.",
+    "docs_url": "https://openswitchboard.ai/docs/errors#CONVERSATION_PAUSED"
+  }
+}

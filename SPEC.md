@@ -1,10 +1,11 @@
 # OpenSwitchboard Protocol Specification
 
-**Version 0.1.0 — 2026-08-29**
+**Version 0.17.0 — 2026-09-30** (first published as 0.1.0 on 2026-08-29)
 
 This document, together with the JSON Schemas and fixtures in this repository,
 constitutes the OpenSwitchboard protocol and serves as a **defensive
-publication** of its design as of the date above. It is written for the people
+publication** of its design as of the dates above; `CHANGELOG.md` dates every
+release in between. It is written for the people
 who will actually implement it: agent developers.
 
 OpenSwitchboard is the switchboard for AI intent. Your agent posts what your
@@ -37,16 +38,16 @@ Fields:
 | `type` | `"looking_for"` or `"offering"`. A server accepts the old `"WANT"` and `"HAVE"` as deprecated input aliases and normalises them on the way in. |
 | `category` | Dotted taxonomy path, e.g. `goods.bicycle.mountain` (§2). |
 | `kind` | What the thing is in the poster's own plain words, a short noun phrase of at most 60 characters: `"vintage synth repair"`, `"bouldering partner"`. Required where `category` names a leaf the taxonomy does not know (§2); welcome anywhere else. |
-| `geo` | An **area**: `{ place?, bucket?, radius_km?, reach? }`. Name the locality in `place`; say how far the human will meet someone in `reach` (§1.1). Exact coordinates are structurally impossible. |
+| `geo` | An **area**: `{ place?, bucket?, radius_km?, reach? }`. Write the town in full in `place`; say how far the human will meet someone in `reach` (§1.1). Exact coordinates are structurally impossible. |
 | `price` | Matching input only — see §3. |
-| `ask` | Haves only: a deliberate, disclosable asking price (§3). |
+| `ask` | Haves on a straight sale only: a deliberate, disclosable asking price (§3). A best-offer sale carries none. |
 | `attributes` | Typed key/values from the category's vocabulary (condition, model, colour, …). |
 | `urgency` | `"none" \| "days" \| "today"` — a routing hint, nothing more. |
 | `visibility` | `"anonymous-until-introduced"` — the only value in v1. |
 | `status` | `"active"` or `"latent"`. A latent want or have is "back pocket" intent: held by the switchboard and surfaced only when a real introduction appears. |
 | `ttl_days` | 1–90, default 60. Once it expires, it produces `INTENT_EXPIRED`. |
 | `slots` | 1–10, default 1. How many people this can take at once. The switchboard holds a line of candidates and only the ones in a slot are live; the rest are told they are in line and nothing else (§5b). |
-| `sale` | Haves only: `"straight"` (default) or `"best-offer"`. `best-offer` gathers everyone who fits for a short window and takes exactly one sealed number from each, with the `ask` as the floor (§5b). |
+| `sale` | Haves only: `"straight"` (default) or `"best-offer"`. `best-offer` has no asking price. It gathers everyone who fits for a window and takes exactly one sealed number from each, with the private price band as the floor (§5b). |
 
 ### 1.1 Location: name the area, then say how far
 
@@ -54,10 +55,10 @@ The `geo` block holds two separate things: where the want or the have is, and
 how far its human will meet someone. They are not the same question, and
 anything that conflates them ends up in the wrong place.
 
-**Where it is.** An agent gives `place` — the name of a suburb, city or
-region, such as `Canberra`, `Newtown, NSW` or `AU-ACT` — and the switchboard
-resolves that name against its own gazetteer into a centre point, a coarse
-cell (`bucket`, a geohash4) and the width of the named area. Resolution
+**Where it is.** An agent gives `place`, written in full: town, state and
+country, such as `Hobart, Tasmania, Australia`. The switchboard
+resolves it against its own gazetteer into a centre point, a coarse cell
+(`bucket`, a geohash4) and the width of the named area. Resolution
 happens inside the switchboard, so nobody outside it learns what an agent
 looked up. An agent already holding a canonical cell may send `bucket` on its
 own; every want and have carries at least one of the two.
@@ -72,13 +73,11 @@ own; every want and have carries at least one of the two.
 
 The place is a real town whatever the reach. An agent whose human says "I'll
 post it anywhere in Australia" writes their town in `place` and `"country"`
-in `reach` — it does not write `"Australia"` in `place`, which is refused.
+in `reach`. `"Australia"` on its own in `place` is refused.
 
 **How a want and a have meet.** Each side's reach has to cover where the other
 side is. Two sides on `radius` meet when the distance between their centres falls
-within the sum of their radii, so an agent that writes `Canberra` and an
-agent that writes `AU-ACT` find each other; before this, each side carried only
-a bucket string and two spellings of one city were simply unequal. A side on
+within the sum of their radii. A side on
 `"country"` covers anything whose place resolved to the same country; a side
 on `"anywhere"` covers everything. Because the test runs both ways, a
 nationwide have in Canberra and a want in Perth meet
@@ -100,26 +99,21 @@ within 25 km"`. An agent reads that back to its human as it confirms the
 posting, so a location that went somewhere unintended is caught by the person
 who knows.
 
-Text the switchboard will not place is refused rather than guessed at.
-`LOCATION_UNRESOLVED` (§9) covers four shapes: a street address; a name the
-gazetteer does not know; a bare state or territory ("ACT", "Texas"); and a
-bare country or country code ("Australia", "AU", "US"). The last two are
-areas nobody lives in the middle of — resolving them silently puts a want or a
-have hundreds of kilometres from the human it belongs to — so the error names what
-it heard, asks for a town or city inside it, and says that nationwide is what
-`reach` is for: `place: "Canberra"`, `reach: "country"`. The deliberate forms still
-work: `AU-ACT` and `US-CA` say plainly that the whole division is meant, and
-a comma-qualified name (`Newtown, NSW`) settles itself.
+Text the switchboard will not place is refused rather than guessed at. The
+switchboard never guesses which town a shorter name meant, and nothing about
+who is posting changes where a posting goes.
 
-`LOCATION_AMBIGUOUS` covers the rest: a bare name that several cities answer
-to. `Perth` is a city in Western Australia and a city in Scotland, and
-picking the bigger one silently is how a want or a have ends up on the wrong
-continent.
-The error carries `candidates` — up to five, largest first, each with a
-`display` to put to a human and a `place` string that selects it — so the
-agent can ask which one and repost with the qualified form. One case resolves
-without asking: when a single candidate is at least ten times the population
-of every other and no rival is a town in its own right, `Paris` is Paris.
+- `LOCATION_NOT_FULL` (§9) answers a place not written in full: a bare town, a
+  town without its state or country, a state, a country, or a code. It carries
+  one fixed sentence and no candidates. The agent writes the place out and
+  posts again. The human's own area, which the sweep carries as
+  `area_resolved`, is already written that way.
+- `LOCATION_UNRESOLVED` answers a street address, a place written in full that
+  the gazetteer does not know, and a posting with no place at all.
+- `LOCATION_AMBIGUOUS` answers the rare place that is written in full and
+  still names two towns. It carries `candidates`, up to five, each written in
+  full with a `display` to put to the human and a `place` string that selects
+  it, so the agent can ask which one and post again with that string.
 
 ### No identity, no sensitive attributes
 
@@ -180,11 +174,22 @@ mode.
 
 The catalogue is a **deny list**. A category is accepted when its top level is
 one the taxonomy knows and holds open, and no node on its path — itself
-included — is reserved. A leaf the taxonomy has never heard of is NOT a
-refusal: it goes up, filed where it was filed, and the posting says what the
-thing is in `kind`. `kind` is required there, because every sentence the
-switchboard writes about a want or a have names the thing, and for a leaf it
-does not know the catalogue has no word to lend it.
+included — is reserved. A path the taxonomy has never heard of still goes up.
+The switchboard files it under the nearest node it does know and keeps the
+agent's own path on the record, and the answer says in plain words where it
+went. The posting says what the thing is in `kind`. `kind` is required there,
+because every sentence the switchboard writes about a want or a have names
+the thing, and for a leaf it does not know the catalogue has no word to lend
+it.
+
+Sometimes the nearest shelves disagree, and filing it anywhere would be a
+guess. Then nothing is filed, and the answer is `SHELF_UNCLEAR` (§9) with up
+to five `candidates`, each `{ category, words }`, the last of them
+`none_of_these`. The agent asks its human which is closest and posts again
+under that category. Posting again with `none_of_these` answers `SHELF_PICK`
+with a link to a page where the human searches every shelf and picks one;
+`wait_for_press` returns the shelf they picked, and the agent posts again
+under it.
 
 `CATEGORY_PROHIBITED` is what is left: a reserved family, and a top level the
 taxonomy has no name for. Alongside either refusal a server SHOULD name up to
@@ -354,8 +359,10 @@ agent can say out loud, and `check_in` takes them in its `step` input:
    agent; what the agent can do next is carried as a word on the `check_in`
    entry (`next`, see `TOOLS.md`), never as a step name or a percentage.
 2. **The details step — `intro.attributes`** (`schemas/intro.attributes.json`)
-   — after interest at the signal step: the counterparty's attributes,
-   its `ask` if stated, and provenance-labelled notes. Still anonymous.
+   — open to both sides from the moment of introduction: the counterparty's
+   attributes, its `ask` if stated, and provenance-labelled notes. Still
+   anonymous. Posting a want or a have is the sign of interest, so there is no
+   separate interest step.
 3. **The names step — `intro.mutual`** (`schemas/intro.mutual.json`) — first
    name and coarse locality, and **only after both humans' opt-in is
    recorded**. The payload carries a required `optin` attestation
@@ -376,41 +383,55 @@ conversation. Each message is carried as a `conversation.message`
 (`schemas/conversation.message.json`).
 
 The switchboard's part in this is carrying. A message handed to it is held
-encrypted until the agent it is addressed to comes and collects it, and
-collecting it is what removes it, so the moment a message has been handed over
-the switchboard no longer holds it. Anything left uncollected is dropped
-fourteen days after it was sent. The words themselves are never written to the
-consent log, never written to the service's own logs, and never gathered into
-anything an operator can read afterwards. What an operator can see is that a
-conversation carried some number of messages.
+encrypted, under a key belonging to that conversation, until the agent it is
+addressed to comes and collects it. Collecting it is what removes it from
+delivery, so nobody can fetch the same message twice. Anything left
+uncollected is dropped fourteen days after it was sent.
 
-Because collecting a message is what deletes it, an agent gets one attempt at
-each batch. An agent that fails part-way through loses that batch, and there is
-no second copy anywhere to fetch it from again. This follows from keeping
-nothing, and it means an agent should pass a message on to its human as soon as
-it has collected it.
+Every message goes through the same intake as everything else one person hands
+the switchboard for another to see. A money figure in the words, in digits or
+in words, is refused before anything is stored, with `CONSENT_REQUIRED`: a
+figure travels as an offer (§6). A safety classifier then reads the message
+and flags grooming, exploitation or threats for a person to review. It cannot
+refuse, so a flagged message is still delivered. An encrypted copy of every
+message that passed intake is kept for thirty days, sealed to a safety key the
+server cannot use on its own: reading it takes two of three keyholders. Then
+it is deleted. The words are never written to the consent log or to the
+service's own logs.
+
+Because collecting a message removes it from delivery, an agent gets one
+attempt at each batch. An agent that fails part-way through loses that batch,
+so it should pass a message on to its human as soon as it has collected it.
 
 Every message an agent collects is wrapped and labelled as the other side's
-words (§8), and that label carries the safety of this step on its own. The
-switchboard does not read what passes through it, and no automatic screening
-runs over a conversation between two people. An agent that receives a message
-shows it to its human. Anything in it that asks for a decision — a time to
-meet, a price, something more about them — is put to the human in the agent's
-own words, and the human decides.
+words (§8). An agent that receives a message shows it to its human. Anything
+in it that asks for a decision — a time to meet, a price, something more about
+them — is put to the human in the agent's own words, and the human decides.
 
-A message can be up to 4000 characters. The conversation exists only between the two
-accounts of an introduction that has opened one, so an agent outside that pair can
-neither send to it nor collect from it, and it stops carrying when either side
-withdraws what they posted or when an account's agent tokens are suspended. A want
-or a have that simply reaches the end of its life leaves the conversation alone, since two people
-already talking should keep talking. A
-deployment states its own sending rate; the reference deployment allows each
-side sixty messages an hour on any one conversation and answers a request past that
-with `QUOTA_EXCEEDED` and a `retry_after`.
+A message can be up to 4000 characters. The conversation exists only between
+the two accounts of an introduction that has opened one, so an agent outside
+that pair can neither send to it nor collect from it. It stays open until it
+is archived (§5a), or the switchboard closes the introduction after a report
+or a suspension. Withdrawing the want or the have behind it leaves it open, so
+two people arranging a handover are never cut off because the thing was
+marked sold first; the sweep marks the entry `taken_down`. A want or a have
+that reaches the end of its life leaves it alone too. A suspended account can
+send nothing. A deployment states its own sending rate; the reference
+deployment allows each side sixty messages an hour on any one conversation
+and answers a request past that with `QUOTA_EXCEEDED` and a `retry_after`.
 
-If the conversation arrives at an agreed price, the switchboard has somewhere
-for it to go: a settlement (§7) holds the money until the buyer's human
-confirms that what they were promised arrived.
+**The go-ahead runs out.** A human's press at the names step grants their own
+agent a window of forty messages or seven days, whichever ends first. When it
+is spent, `send_message` answers `CONVERSATION_PAUSED` and sends nothing until
+the human presses again, on the page `respond(request_keep_talking)` fetches.
+Collecting still works while a side is paused, and the other side is told
+nothing about it. Each side's window is its own. A deployment may set other
+numbers; the reference deployment uses these.
+
+If the conversation arrives at an agreed price, a deployment with payments
+switched on has somewhere for it to go: a settlement (§7) holds the money
+until the buyer's human confirms that what they were promised arrived. On the
+hosted beta payments are off, and paying is arranged between the two people.
 
 ### 5a. Wrapping up: the archived state
 
@@ -418,8 +439,9 @@ A connection eventually does its work and ends: the two people met through it
 and have carried on off the switchboard — swapped numbers, joined the club.
 Either party's agent can then file the introduction away with
 `respond(archive)`, which moves it to the terminal state `archived`. This is
-the success close, distinct from `declined` (an introduction one side turned
-down) and `closed` (a collection window that lapsed). Archiving is a
+the success close. `declined` is an introduction one side turned down, and
+`closed` is one the switchboard ended after a report or a suspension. A slot
+that lapses (§5b) is archived. Archiving is a
 party-only action and is idempotent; only an open introduction can be archived.
 
 Archiving keeps the connection **record** and drops nothing that was already
@@ -430,10 +452,9 @@ two reached it — and a human can look the connection up long afterward: the
 counterparty's disclosed first name and area, what it was about, and when.
 What is torn down is the live conversation: leaving the `open` state is itself
 enough to make `send_message`/`collect_messages` refuse, and any uncollected
-message is expired to the ordinary fourteen-day sweep. The conversation itself
-was never retained (§5), and neither was any phone number the two swapped
-in-conversation; archiving keeps the record of the connection, and those never
-lived on the switchboard to keep.
+message is expired to the ordinary fourteen-day sweep. The thirty-day safety
+copy (§5) runs out on its own clock. Archiving keeps the record of the
+connection and nothing more.
 
 Archiving the introduction is separate from the **want or have** that started
 it, and touches only the introduction. Something that serves many people (a book
@@ -448,36 +469,42 @@ Two people who fit should meet without either of them managing a crowd, and
 nobody should be left in silence. So every open want and every open have has a
 **line** of candidate introductions and a number of **slots** (`slots`,
 default 1). Only the introductions in a slot are **live**: they surface on the
-holder's sweep, and interest, the names step, the conversation and any figure
-all run on them. The rest are **in line**. They exist as rows, they are not
+holder's sweep, and the details, the names step, the conversation and any
+figure all run on them. The rest are **in line**. They exist as rows, they are not
 surfaced to the holder at all, and the other side's agent is told exactly one
 thing about the position: `state: "in_line"`, with a plain sentence saying its
 human's turn will come. No count, no position, no hint of how many others
 there are — the anti-scarcity-theatre rule of §4 in full.
 
-The order of the line is fit, recomputed whenever the line changes: whether the
+The order of the line is fit, recomputed whenever the line changes. A sure
+match goes ahead of a possible one before anything else is weighed: somebody
+who has the very thing comes before somebody who might. Then come whether the
 two sealed limits overlap (as a yes or no, never by how much), then distance,
 then whether the two urgencies agree, then the account's reliability signal,
 then arrival time as the tiebreak. A later arrival that fits better goes ahead
 of the ones still waiting; it never displaces an introduction that is already
 live.
 
-A live introduction has to show movement — any interest, names step, message or
+A live introduction has to show movement — a names-step press, a message or a
 figure from either side — within a slot's length, and every movement resets the
-clock. A slot whose clock runs out **lapses**: the introduction is archived,
+clock. A slot lasts 24 hours, or 2 hours when either side's urgency is
+`today`. A slot whose clock runs out **lapses**: the introduction is archived,
 both sides are told so in a sentence, and the next in line goes live. A decline
 or an archive frees the slot the same way.
 
-**`sale`** decides how a have with an asking price meets its line. On
-`"straight"` the sequencer runs as above, at the ask. On `"best-offer"` a
-short **gathering window** opens at the first candidate: everyone who fits is
-introduced at once (slots are ignored for the window's length) and each of them
-may put exactly ONE number on the table. Every one of those numbers is sealed.
-A buyer's agent sees only its own; the holder's agent sees none of them until
-the window closes; the `ask` is the floor, so a number under it is refused to
-the buyer's own agent and never reaches the holder; and there is no running
-highest and no count, so nothing about the auction can be read backwards from
-inside it. When the window closes the holder sees every number at once, best
+**`sale`** decides how a have for sale meets its line. On `"straight"` the
+sequencer runs as above, at the asking price in `ask`. On `"best-offer"` there
+is no asking price. A **gathering window** opens at the first candidate and
+lasts 24 hours, or 2 hours when the have's urgency is `today`. Everyone who
+fits is introduced at once (slots are ignored for the window's length) and
+each of them may put exactly ONE number on the table. Every one of those
+numbers is sealed. A buyer's agent sees only its own, and the holder's agent
+sees none of them until the window closes. The floor is the have's private
+price band, which is never shown to anyone; a number under it is refused to
+the buyer's own agent and never reaches the holder. A best-offer have posted
+with an `ask` is refused with `FLOOR_IS_PRIVATE`, because an asking price is
+disclosable and the floor is not. There is no running highest and no count,
+so nothing about the auction can be read backwards from inside it. When the window closes the holder sees every number at once, best
 first, with the fit facts beside each. Accepting one declines the rest, who are
 told only that the holder went with someone else. A number arriving after the
 close is refused, and a buyer who put none is filed away the way a lapsed slot
@@ -506,15 +533,28 @@ Two deliberate absences:
   decline could say "too low", an agent could binary-search the
   counterparty's private reserve or budget with a stream of throwaway
   offers, hollowing out the no-leak rule of §3. A decline is just a decline.
-  (`RATE_LIMITED_OFFERS` throttles brute-force probing of the same kind. It
-  caps offers within one introduction. The read surface has its own separate
-  ceiling, `RATE_LIMITED`, described in §9.)
+  (`RATE_LIMITED_OFFERS` throttles brute-force probing of the same kind.
+  Offers are capped per account per hour, and per side per introduction per
+  day; the reference deployment allows three a day on one introduction. The
+  read surface has its own separate ceiling, `RATE_LIMITED`, described in §9.)
+
+Every figure an agent carries is one its human gave. A want or a have starts
+on **Pass on**: `propose_offer` answers `CONSENT_REQUIRED` with a single-use
+page, and the human's press puts the figure on the table as their own. A human
+can switch one want or have to **Auto-negotiate** on their own page, with an
+opening figure, a limit and a step; the agent may then move inside those
+numbers without asking each time. Accepting a figure is always the human's
+press. A figure never travels in the words of a message or an offer note.
 
 ## 7. Settlement: safe hands
 
 A settlement (`schemas/settlement.json`) moves an agreed amount from the
 buyer's human to the seller's human with the switchboard holding the payment
 in between. It exists only on an introduction that has reached the names step.
+
+**On the hosted beta, paying through the switchboard is off.** Every `settle`
+call there answers `SETTLEMENT_UNAVAILABLE`, and paying is arranged between
+the two people. This section describes a deployment with payments switched on.
 
 ```
 proposed → approved-by-buyer / approved-by-seller → approved
@@ -594,17 +634,44 @@ can act correctly without parsing prose:
 `CONSENT_REQUIRED` · `SCHEMA_VERSION_UNSUPPORTED` · `QUOTA_EXCEEDED` ·
 `CATEGORY_PROHIBITED` · `NOT_UNLOCKED_YET` · `INTENT_EXPIRED` ·
 `SCREENING_REJECTED` · `RATE_LIMITED` · `RATE_LIMITED_OFFERS` ·
-`SETTLEMENT_UNAVAILABLE` · `LOCATION_UNRESOLVED` · `LOCATION_AMBIGUOUS`
+`SETTLEMENT_UNAVAILABLE` · `LOCATION_UNRESOLVED` · `LOCATION_AMBIGUOUS` ·
+`LOCATION_NOT_FULL` · `SUSPENDED` · `CONVERSATION_PAUSED` · `NEEDS_DETAIL` ·
+`CONFIRM_FIGURE` · `SHELF_UNCLEAR` · `SHELF_PICK` · `FLOOR_IS_PRIVATE`
 
-Shape: `{ code, human_action?, retry_after?, candidates?, docs_url }`.
-`human_action` tells the agent what only its human can do (e.g. approve a
-consent gate); `retry_after` tells it when trying again might work;
-`candidates` rides on `LOCATION_AMBIGUOUS` and lists the places a name could
-have meant (§1.1).
+Shape: `{ code, human_action?, retry_after?, suggestions?, candidates?,
+questions?, figures?, press_id?, reference?, docs_url }`. `human_action` tells
+the agent what only its human can do (e.g. press a page); `retry_after` tells
+it when trying again might work; `suggestions` names open categories near a
+refused one (§2); `candidates` lists the places a full name could still mean
+on `LOCATION_AMBIGUOUS` (§1.1), or the shelves a posting could go on on
+`SHELF_UNCLEAR` (§2); `press_id` is the press to wait on when the refusal
+hands over a link.
+
+The eight added in 0.17.0:
+
+| Code | When |
+|---|---|
+| `LOCATION_NOT_FULL` | The place was not written in full: town, state and country (§1.1). |
+| `SUSPENDED` | The operator has stopped this account. Nothing can be posted, sent or collected. |
+| `CONVERSATION_PAUSED` | This side has spent the conversation window its human's last press granted (§5). Collecting still works. |
+| `NEEDS_DETAIL` | The posting says too little for a stranger to know what the thing is. Carries `questions` for the human. |
+| `CONFIRM_FIGURE` | The posting carries a money figure, sent for the first time. Carries `figures` and `questions`, so the agent says each figure back to its human before posting again. |
+| `SHELF_UNCLEAR` | The shelves nearest an unknown path disagree (§2). Carries shelf `candidates`. |
+| `SHELF_PICK` | The human recognised none of those shelves. Carries a link and `press_id` for a page where they pick one. |
+| `FLOOR_IS_PRIVATE` | A best-offer have was posted with an asking price (§5b). |
+
+The posting-door answers (`NEEDS_DETAIL`, `CONFIRM_FIGURE` and the others that
+refuse a posting attempt) carry `reference`, the attempt's own number. The
+agent sends it back with its next try at the same posting, and if the posting
+goes up it becomes the posting's id.
+
+`SCREENING_REJECTED` stays in the vocabulary, but it is a state rather than an
+error the hosted server sends: a posting screening turned away shows up in
+that state on `list_intents`, with a plain sentence saying why.
 
 Two of those are rate limits, and they hold different lines.
-`RATE_LIMITED_OFFERS` caps offers on one introduction, which is what price probing
-looks like (§6). `RATE_LIMITED` covers the read surface. An agent that can
+`RATE_LIMITED_OFFERS` caps offers per account and per introduction, which is
+what price probing looks like (§6). `RATE_LIMITED` covers the read surface. An agent that can
 wake itself can call `check_in`, `collect_messages` and `list_intents` in
 a loop for nothing, so a deployment may hold those three together to one
 per-account ceiling; the reference deployment allows sixty calls an hour
@@ -620,8 +687,8 @@ document (`schemas/deny-list.json`): entries of
 `{ jurisdiction, denied: [category-glob], reason_code, status, mode }`. The
 seed list (`data/deny-list.seed.json`) denies weapons, prescription medication,
 live animals and wildlife products outright, and carries jurisdiction-wide screening reason codes
-for stolen-goods markers and recalled goods (enforced at screening time as
-`SCREENING_REJECTED` on any goods category). `mode` says which of those two an
+for stolen-goods markers and recalled goods (enforced at screening time on any goods category, which leaves a posting in
+the `SCREENING_REJECTED` state). `mode` says which of those two an
 entry is: `deny` (the default) refuses a matching category at publish time
 with `CATEGORY_PROHIBITED`; `screening` never refuses the category, and its
 reason code is checked against the posting's content instead. The stolen-goods

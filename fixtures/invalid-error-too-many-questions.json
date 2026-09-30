@@ -1,0 +1,18 @@
+{
+  "description": "MUST FAIL: at most four questions ride on a refusal",
+  "schema": "error",
+  "valid": false,
+  "error_contains": "maxItems",
+  "data": {
+    "schema_version": "0.17.0",
+    "code": "NEEDS_DETAIL",
+    "questions": [
+      "One?",
+      "Two?",
+      "Three?",
+      "Four?",
+      "Five?"
+    ],
+    "docs_url": "https://openswitchboard.ai/docs/errors#NEEDS_DETAIL"
+  }
+}
