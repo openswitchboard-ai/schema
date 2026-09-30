@@ -2,17 +2,12 @@
 
 Thanks for helping build the open protocol for AI intent.
 
-## Developer Certificate of Origin (DCO)
+## Contributor Licence Agreement
 
-All contributions must be signed off under the
-[Developer Certificate of Origin](https://developercertificate.org/). Add a
-`Signed-off-by` line to every commit (`git commit -s`):
-
-```
-Signed-off-by: Your Name <you@example.com>
-```
-
-PRs with unsigned commits will not be merged.
+Anything accepted into this repository needs a signed CLA — see [CLA.md](CLA.md).
+It keeps copyright in one place, which is what makes future relicensing or
+dual-licensing possible. A bot asks for it on your first pull request, and
+signing is one comment.
 
 ## Ground rules
 
