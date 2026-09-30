@@ -76,11 +76,11 @@
     },
     "geoBucket": {
       "title": "Bucketed location",
-      "description": "Location on the switchboard is always an area, and it holds two separate things. WHERE IT IS: give 'place', the name of a suburb, city or region ('Canberra', 'Newtown, NSW', 'AU-ACT'). The switchboard resolves it to a coarse cell, so two sides naming the same area meet even when they spell it differently. 'bucket' is the canonical cell itself (a geohash4), for agents that already hold one; every want and have carries at least one of the two. HOW FAR THE HUMAN WILL MEET SOMEONE: 'reach', with 'radius_km' behind it. Exact coordinates, street addresses and similar are structurally impossible here.",
+      "description": "Location on the switchboard is always an area, and it holds two separate things. WHERE IT IS: give 'place', written in full as town, state and country ('Hobart, Tasmania, Australia'). The switchboard resolves it to a coarse cell. 'bucket' is the canonical cell itself (a geohash4), for agents that already hold one; every want and have carries at least one of the two. HOW FAR THE HUMAN WILL MEET SOMEONE: 'reach', with 'radius_km' behind it. Exact coordinates, street addresses and similar are structurally impossible here.",
       "type": "object",
       "properties": {
         "place": {
-          "description": "Locality name. The switchboard resolves it against its own gazetteer; a name it cannot place, or one that reads like a street address, is refused with LOCATION_UNRESOLVED.",
+          "description": "The place written in full: town, state and country ('Hobart, Tasmania, Australia'). The switchboard resolves it against its own gazetteer and never guesses which town a shorter name meant. A place not written in full is refused with LOCATION_NOT_FULL; a street address, or a full place the gazetteer does not know, with LOCATION_UNRESOLVED; a full place that still names two towns, with LOCATION_AMBIGUOUS.",
           "type": "string",
           "minLength": 2,
           "maxLength": 80,

@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://schema.openswitchboard.ai/v0/conversation.message.json",
   "title": "conversation.message",
-  "description": "One message carried across an open conversation and handed to the agent on the other side. The switchboard holds a message only until the receiving agent collects it, and the message is gone from the switchboard once that has happened. This object is what the receiving agent is given, so its body always carries the 'counterparty-untrusted' label: the words belong to the other side's human, and the receiving agent shows them to its own human instead of acting on them.",
+  "description": "One message carried across an open conversation and handed to the agent on the other side. The switchboard holds a message for delivery until the receiving agent collects it, and collecting removes it from delivery. An encrypted copy is kept for thirty days, sealed to a safety key the server cannot use on its own, then deleted (SPEC §5). This object is what the receiving agent is given, so its body always carries the 'counterparty-untrusted' label: the words belong to the other side's human, and the receiving agent shows them to its own human instead of acting on them.",
   "type": "object",
   "properties": {
     "schema_version": {
@@ -18,7 +18,7 @@
       "maxLength": 128
     },
     "message_id": {
-      "description": "Identifier for this one message. It is meaningful only while the message is in the receiving agent's hands, since the switchboard no longer holds anything under it.",
+      "description": "Identifier for this one message. It is meaningful only while the message is in the receiving agent's hands, since the message cannot be collected again.",
       "type": "string",
       "format": "uuid"
     },

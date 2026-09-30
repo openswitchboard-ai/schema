@@ -1,6 +1,6 @@
 # OpenSwitchboard Protocol Specification
 
-**Version 0.17.0 — 2026-09-30** (first published as 0.1.0 on 2026-08-29)
+**Version 0.17.1 — 2026-09-30** (first published as 0.1.0 on 2026-08-29)
 
 This document, together with the JSON Schemas and fixtures in this repository,
 constitutes the OpenSwitchboard protocol and serves as a **defensive

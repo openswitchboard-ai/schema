@@ -10,6 +10,19 @@ verticals exist.
 
 ## [Unreleased]
 
+## [0.17.1] — 2026-09-30
+
+Descriptions only; no rule changes.
+
+### Changed
+- `geo` and `geo.place`: a place is written in full (town, state and country)
+  and the refusals are named: `LOCATION_NOT_FULL`, `LOCATION_UNRESOLVED`,
+  `LOCATION_AMBIGUOUS`. The old examples (`Newtown, NSW`, `AU-ACT`) are gone.
+- `conversation.message`: collecting removes a message from delivery, and an
+  encrypted copy is kept for thirty days sealed to a safety key.
+- `intro.attributes`: the details are open to both sides from the moment of
+  introduction.
+
 ## [0.17.0] — 2026-09-30
 
 The error document catches up with the codes the hosted server sends, and the
