@@ -11,8 +11,8 @@ verticals exist.
 ## [Unreleased]
 
 ### Added
-- `respond(request_send_contact)` (documented in TOOLS.md): addresses and
-  phone numbers go browser to browser, encrypted to the recipient's browser
+- `respond(request_send_contact)` (documented in TOOLS.md): addresses, phone
+  numbers and emails go browser to browser, encrypted to the recipient's browser
   keys, on a page the human fills in themselves. Where a deployment has it on,
   a message or an offer note carrying one is refused with `CONSENT_REQUIRED`,
   and `check_in` and `collect_messages` carry `contact_details` with the
