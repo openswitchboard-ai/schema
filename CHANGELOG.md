@@ -17,6 +17,14 @@ verticals exist.
   a message or an offer note carrying one is refused with `CONSENT_REQUIRED`,
   and `check_in` and `collect_messages` carry `contact_details` with the
   recipient's page. No schema or error code changes.
+- `respond(ask_confirmation)`, `respond(withdraw_confirmation)` and
+  `respond(request_confirm)` (documented in TOOLS.md): the buying side asks
+  for something it is relying on to be confirmed in writing, and only the
+  seller's human can confirm it, by a press on their own page. `list_offers`
+  and `check_in` carry `confirmations` and `confirmations_note` where any were
+  asked. An offer is accepted only once every asked line is confirmed, and a
+  record of each accepted offer, listing the confirmed lines, is emailed to
+  both people. No schema or error code changes.
 
 ## [0.17.1] — 2026-09-30
 
