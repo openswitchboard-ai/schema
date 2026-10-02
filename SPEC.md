@@ -433,10 +433,21 @@ switched on has somewhere for it to go: a settlement (§7) holds the money
 until the buyer's human confirms that what they were promised arrived. On the
 hosted beta payments are off, and paying is arranged between the two people.
 
+### Contact details go page to page
+
+An address, a phone number or an email never travels in a message, an offer
+note or a photo caption. Where a deployment has the contact page on, a
+message carrying one is refused with `CONSENT_REQUIRED`, and the agent
+fetches a page with `respond(request_send_contact)`. The human types their
+details there themselves; their browser encrypts them to keys the other
+person's browser made, and the other person reads them once on a page of their
+own. Neither agent sees them and the server cannot read them. The sweep
+carries `contact_details` to say a page is waiting, never the details.
+
 ### 5a. Wrapping up: the archived state
 
 A connection eventually does its work and ends: the two people met through it
-and have carried on off the switchboard — swapped numbers, joined the club.
+and have carried on off the switchboard — exchanged contact details, joined the club.
 Either party's agent can then file the introduction away with
 `respond(archive)`, which moves it to the terminal state `archived`. This is
 the success close. `declined` is an introduction one side turned down, and
@@ -545,6 +556,25 @@ can switch one want or have to **Auto-negotiate** on their own page, with an
 opening figure, a limit and a step; the agent may then move inside those
 numbers without asking each time. Accepting a figure is always the human's
 press. A figure never travels in the words of a message or an offer note.
+
+### Written lines, and the record of a deal
+
+What is said in a conversation is not kept as a record of anything. So the
+buying side's agent can ask the seller to confirm a short line in writing
+(`respond(ask_confirmation)`): something its human has said has to be true of
+the thing, in the human's own words. Only the seller's human can confirm a
+line, by a press on their own page; the page lists what was asked and its main
+button confirms all of it, on its own or together with sending or accepting a
+figure. No agent can confirm one. An offer is accepted only once every line
+that was asked is confirmed, and the buying side's agent may take a line off
+on its human's word.
+
+When a human accepts an offer, both people are emailed the same plain-text
+record of what was agreed: the thing as the seller posted it, the amount, the
+note beside the figure, each confirmed line, and first names and suburbs where
+both had already shared them. The service keeps a SHA-256 of that record with
+the consent event for the press, and does not keep the record itself, so
+either person can show their copy later and it can be checked.
 
 ## 7. Settlement: safe hands
 

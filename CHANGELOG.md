@@ -25,6 +25,10 @@ verticals exist.
   asked. An offer is accepted only once every asked line is confirmed, and a
   record of each accepted offer, listing the confirmed lines, is emailed to
   both people. No schema or error code changes.
+- TOOLS.md now documents `record_note` (on `send_message`, `open_conversation`
+  and the offer path, for the buying side), `contact_details` (on `check_in`
+  and `collect_messages`) and `supply_ask_note` (on posting answers). SPEC.md
+  and EXAMPLE.md cover the contact page, written lines and the record.
 
 ## [0.17.1] — 2026-09-30
 
