@@ -11,6 +11,16 @@ verticals exist.
 ## [Unreleased]
 
 ### Added
+- `identifiers` on `publish_intent`, `amend_intent` and `refine_intent`
+  (documented in TOOLS.md and SPEC §2): up to three `{ kind, value }` entries
+  naming the product or edition, such as a model number or an ISBN, chosen by
+  the person's own assistant. There is no list of kinds. Two postings that
+  share one are always considered for each other, and are a sure match only
+  when their shelves and names agree too. A number that belongs to one object
+  is refused and belongs on the deal as a written line. `list_intents` hands
+  a posting's identifiers back to its owner, and a posting answer may carry
+  `identifier_kinds_note`. The field rides beside the posting document, as
+  `also_called` does. No schema or error code changes.
 - `respond(request_send_contact)` (documented in TOOLS.md): addresses, phone
   numbers and emails go browser to browser, encrypted to the recipient's browser
   keys, on a page the human fills in themselves. Where a deployment has it on,

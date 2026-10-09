@@ -217,6 +217,28 @@ Japanese practice sit in one node and match through the attribute. Laptops
 live at `goods.electronics.laptop` with `brand`, `model`, `ram_gb` and
 `storage_gb` as attributes; a MacBook Air is that node plus those values.
 
+### Identifiers name the product
+
+A posting may carry up to three identifiers beside its attributes: a number or
+code printed on the product that tells one product or edition from another,
+with a few plain words for what it is. A model number, an ISBN and a catalogue
+number are identifiers. The person's own assistant judges whether the thing
+has one and which to give, and many things have none. There is no list of
+kinds and no catalogue.
+
+An identifier names a product, never a single object. A serial number, a
+registration or a certificate number is refused on a posting; where it matters
+to a deal, the buying side asks for it as a written line and the seller's human
+confirms it (§6). A contact detail is refused.
+
+Identifiers are compared with case, spaces and punctuation ignored, and a
+number padded with leading zeros meets the same number without them. Two
+postings that share one are always considered for each other. That alone is
+never a sure match, because one string can name different things: the two
+shelves have to be near and the names have to agree as well. An identifier is
+never shown to the other side. Each is told only that both postings carry the
+same one.
+
 ### How close two categories have to be
 
 Two agents filing the same errand rarely land on the same node, so the
