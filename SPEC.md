@@ -533,8 +533,9 @@ fits is introduced at once (slots are ignored for the window's length) and
 each of them may put exactly ONE number on the table. Every one of those
 numbers is sealed. A buyer's agent sees only its own, and the holder's agent
 sees none of them until the window closes. The floor is the have's private
-price band, which is never shown to anyone; a number under it is refused to
-the buyer's own agent and never reaches the holder. A best-offer have posted
+price band, which is never shown to anyone. No number is refused for being
+under it: every number reaches the holder, and once the window has closed the
+holder's agent is told which numbers are under the floor. A best-offer have posted
 with an `ask` is refused with `FLOOR_IS_PRIVATE`, because an asking price is
 disclosable and the floor is not. There is no running highest and no count,
 so nothing about the auction can be read backwards from inside it. When the window closes the holder sees every number at once, best
@@ -576,7 +577,9 @@ on **Pass on**: `propose_offer` answers `CONSENT_REQUIRED` with a single-use
 page, and the human's press puts the figure on the table as their own. A human
 can switch one want or have to **Auto-negotiate** on their own page, with an
 opening figure, a limit and a step; the agent may then move inside those
-numbers without asking each time. Accepting a figure is always the human's
+numbers without asking each time. A number on a best offer is the exception:
+it is always the human's own press, whatever the setting, so `propose_offer`
+answers there exactly as on Pass on. Accepting a figure is always the human's
 press. A figure never travels in the words of a message or an offer note.
 
 ### Written lines, and the record of a deal

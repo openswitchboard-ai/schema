@@ -40,6 +40,17 @@ verticals exist.
   and `collect_messages`) and `supply_ask_note` (on posting answers). SPEC.md
   and EXAMPLE.md cover the contact page, written lines and the record.
 
+### Changed
+- Best offer: a number under the floor is no longer refused. Every number
+  reaches the holder, the floor is still never shown to anyone, and once the
+  window has closed the holder's agent is told which numbers are under it
+  (`under_floor` on each line of `best_offers`). Descriptions in SPEC.md,
+  TOOLS.md and `intent-card.json` say so. No schema or error code changes.
+- Best offer: a number always takes the human's own press, whatever the
+  negotiation mode. On Auto-negotiate, `propose_offer` into a best offer
+  answers as Pass on does (`CONSENT_REQUIRED` with the human's page). SPEC.md
+  and TOOLS.md say so. No schema or error code changes.
+
 ## [0.17.1] — 2026-09-30
 
 Descriptions only; no rule changes.

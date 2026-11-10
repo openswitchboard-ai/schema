@@ -5,7 +5,7 @@
   "data": {
     "schema_version": "0.17.0",
     "code": "FLOOR_IS_PRIVATE",
-    "human_action": "On a best offer the floor is private: nobody is ever shown it, and a number under it is refused before it travels. Take the asking price off this one and give that figure as the floor of the private band in `price` instead, then post it again.",
+    "human_action": "On a best offer the floor is private: nobody is ever shown it, and every number goes to your human, who weighs each one against it when the window closes. Take the asking price off this one and give that figure as the floor of the private band in `price` instead, then post it again.",
     "docs_url": "https://openswitchboard.ai/docs/errors#FLOOR_IS_PRIVATE"
   }
 }
